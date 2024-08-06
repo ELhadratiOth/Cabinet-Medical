@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from App.database import get_db
-from typing  import List
+from typing import List
 from App import models, BaseModels
+from datetime import datetime
 
 router = APIRouter()
 
@@ -45,9 +46,13 @@ async def add_medical_visit_2_patient(
         if not patient:
             raise HTTPException(status_code=404, detail="Patient not found")
         
+        current_date = datetime.now()
+        formatted_date = current_date.strftime("%Y-%m-%d")
+
         medicalVisit = models.MedicalVisit(
-            **medicalVisitForm.dict(),
-            patient_id=patient.id
+            **medicalVisitForm.model_dump(),
+            patient_id=patient.id,
+            date_visit=formatted_date
         )
         db.add(medicalVisit)
         db.commit()
@@ -69,7 +74,7 @@ async def update_medical_visit(
     if not visit:
         raise HTTPException(status_code=404, detail="Medical visit not found")
 
-    update_data = medicalVisitUpdate.dict()
+    update_data = medicalVisitUpdate.model_dump()
     for key, value in update_data.items():
         setattr(visit, key, value)
 

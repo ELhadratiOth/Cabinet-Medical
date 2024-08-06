@@ -6,26 +6,30 @@ class PatientBase(BaseModel):
     lastname: str
     cin: Optional[str] = None
     description: Optional[str] = None
-    birthday: str
-    gender: bool
+    disease: Optional[str] = None
+    birthday: Optional[str] = None
+    age : Optional[int] = None
+    gender: Optional[bool] = None
     phonenumber: Optional[str] = None
-    insurance: bool
+    insurance: Optional[str] = None
     insurance_description: Optional[str] = None
 
 class PatientModel(PatientBase):
     id: int
+    first_visit : Optional[str] = None
+
 
     class Config:
         from_attributes = True
 
 class MedicalVisitBase(BaseModel):
     label: str
-    date_visit: str
     description: Optional[str] = None
 
 class MedicalVisitModel(MedicalVisitBase):
     id: int
     patient_id: int
+    date_visit: str 
 
     class Config:
         from_attributes = True
