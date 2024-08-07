@@ -14,6 +14,19 @@ class PatientBase(BaseModel):
     insurance: Optional[str] = None
     insurance_description: Optional[str] = None
 
+class PatientUpdate(BaseModel):
+    firstname: Optional[str]
+    lastname: Optional[str]
+    cin: Optional[str]
+    age: Optional[int]
+    birthday: Optional[str]
+    gender: Optional[bool]
+    phonenumber: Optional[str]
+    disease: Optional[str]
+    description: Optional[str]
+    insurance: Optional[str]
+    insurance_description: Optional[str]
+
 class PatientModel(PatientBase):
     id: int
     first_visit : Optional[str] = None

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import API from '../API';
 import Alert from './Alert';
-import EditPatient from './EditPatient';
+import EditPatient from './EditandDeletePatient';
 
 const PatientDetail = () => {
   const [patient, setPatient] = useState({});
@@ -31,15 +31,16 @@ const PatientDetail = () => {
   };
 
   useEffect(() => {
-    console.log(patient);
     fetchPatientData();
-  }, [firstname, lastname]);
+  }, [firstname, lastname]); 
+
+
 
   return (
-    <div className="ml-60 px-10 space-y-10">
+    <div className="ml-60 px-10 space-y-10 mt-36">
       <div className="text-4xl font-semibold flex justify-between items-center">
         <div>Patient Infos:</div>
-        <EditPatient id_patient={patient.id} />
+        <EditPatient patient_data={patient}  update_patient_data ={(data)=>setPatient(data)} />
       </div>
       <div className="flow-root rounded-lg ring-2 overflow-hidden ring-blue-100 py-3 shadow-sm w-full capitalize">
         {error ? (
@@ -63,11 +64,12 @@ const PatientDetail = () => {
               <dd className="text-gray-700 sm:col-span-2">{patient.cin}</dd>
             </div>
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900">Date de Naissance</dt>
+              <dt className="font-medium text-gray-900">Premier Visite</dt>
               <dd className="text-gray-700 sm:col-span-2">
-                {patient.birthday}
+                {patient.first_visit}
               </dd>
             </div>
+
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50 sm:grid-cols-3 sm:gap-4">
               <dt className="font-medium text-gray-900">Age</dt>
               <dd className="text-gray-700 sm:col-span-2">{patient.age}</dd>
@@ -95,6 +97,12 @@ const PatientDetail = () => {
               <dt className="font-medium text-gray-900">Numero de Telephone</dt>
               <dd className="text-gray-700 sm:col-span-2">
                 {patient.phonenumber}
+              </dd>
+            </div>
+            <div className="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+              <dt className="font-medium text-gray-900">Date de Naissance</dt>
+              <dd className="text-gray-700 sm:col-span-2">
+                {patient.birthday}
               </dd>
             </div>
 

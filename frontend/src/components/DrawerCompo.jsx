@@ -5,6 +5,7 @@ import { FaUserDoctor } from 'react-icons/fa6';
 import { LuStethoscope } from 'react-icons/lu';
 import { IoIosLogOut } from 'react-icons/io';
 import { FaHospitalUser } from 'react-icons/fa6';
+import { FaPeopleGroup } from 'react-icons/fa6';
 
 
 
@@ -34,8 +35,17 @@ export default function DrawerCompo() {
 
               <ul className="space-y-1 capitalize border-t border-gray-100 pt-4">
                 <li>
-                  <div className="group relative flex justify-center items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700">
-                    <LuStethoscope className="font-bold" />
+                  <Link
+                    to="/all_patients"
+                    className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                  >
+                    <FaPeopleGroup className="font-bold ml-5" />
+                    <div> Nos Patients</div>
+                  </Link>
+                </li>
+                <li>
+                  <div className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                    <LuStethoscope className="font-bold ml-5" />
                     <Search />
                   </div>
                 </li>
@@ -43,9 +53,9 @@ export default function DrawerCompo() {
                 <li>
                   <Link
                     to="/new_patient"
-                    className="group relative flex justify-center items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                   >
-                    <FaHospitalUser className="font-bold" />
+                    <FaHospitalUser className="font-bold ml-5" />
                     <div> Nouveau patient</div>
                   </Link>
                 </li>
@@ -53,7 +63,7 @@ export default function DrawerCompo() {
                 <li>
                   <Link
                     to="#"
-                    className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className="group relative flex justify-start  rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                   >
                     sdfyguio
                   </Link>

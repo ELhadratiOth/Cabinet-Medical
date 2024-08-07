@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../API';
@@ -19,11 +20,11 @@ const PatientsTable = () => {
   }, []);
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y-2  divide-gray-200 bg-white text-sm ">
-        <thead className="text-left font-semibold uppercase ">
+    <div className=" pb-10 flex justify-center self-center  w-full  ">
+      <table className=" divide-y-2 w-[80%]  divide-gray-200    text-sm rounded-md overflow-hidden ">
+        <thead className="text-left  font-semibold uppercase bg-gray-100/80 backdrop-blur-sm">
           <tr>
-            <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+            <th className="whitespace-nowrap px-4 py-3 font-medium text-gray-900">
               Prenom
             </th>
             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
@@ -46,7 +47,11 @@ const PatientsTable = () => {
           {patients.map((patient, index) => (
             <tr
               key={patient.id}
-              className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
+              className={
+                index % 2 === 0
+                  ? 'bg-white/70 backdrop-blur-sm'
+                  : 'bg-gray-100/70 backdrop-blur-sm  '
+              }
             >
               <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                 {patient.firstname}

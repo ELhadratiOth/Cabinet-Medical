@@ -59,6 +59,18 @@ async def  delete(  id_patient  : int  ,  db: Session = Depends(get_db)):
     db.delete(patient)
     db.commit()
 
+@router.put('/edit/{id_patient}')
+async def edit( id_patient  : int , updated_patient : BaseModels.PatientUpdate ,  db: Session = Depends(get_db)):
+    patient = db.query(models.Patient).filter(models.Patient.id == id_patient).first()
+    if not patient:
+        raise HTTPException(status_code=404, detail="Patient Not Found")
+    for key, value in updated_patient.model_dump(exclude_unset=True).items():
+        setattr(patient, key, value)
+
+    db.commit()
+    db.refresh(patient)
+    return patient
+
 
 
 

@@ -11,7 +11,7 @@ const NavBar = () => {
   const [selected, setSelected] = useState('light');
 
   return (
-    <div className=" h-[5.79rem]  ml-64 mr-4  mt-3 rounded-2xl px-12 mb-7 flex justify-between bg-blue-100 items-center">
+    <div className=" z-50 h-[5.79rem] fixed top-0 left-0 w-[82%] ml-64 mr-4  mt-3 rounded-2xl px-12 mb-7 flex justify-between bg-blue-100 items-center">
       <div className="flex justify-start items-center">
         {' '}
         <img src={Logo}  className='w-[70px] md:w-[100px]  ' alt="error" />{' '}

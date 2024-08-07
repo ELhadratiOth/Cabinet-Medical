@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import tailwindcssAnimate from 'tailwindcss-animate';
+// Import flowbite-react/tailwind instead of using require
+import flowbite from 'flowbite-react/tailwind';
 
 export default {
   darkMode: ['class'],
@@ -9,6 +11,7 @@ export default {
     './app/**/*.{js,jsx,ts,tsx}',
     './src/**/*.{js,jsx,ts,tsx}',
     './index.html',
+    flowbite.content(),
   ],
   prefix: '',
   theme: {
@@ -36,5 +39,5 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [tailwindcssAnimate, flowbite.plugin()],
 };

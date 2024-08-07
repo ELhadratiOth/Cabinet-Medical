@@ -60,7 +60,7 @@ export default function SearchBox() {
             placeholder="Saisi le prenom du patient"
             value={firstname}
             onChange={handleChange(setFirstname, 'firstname')}
-            className={` px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full focus:outline-none placeholder:text-black/25 ${
+            className={` px-[10px] py-[11px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] w-full focus:outline-none placeholder:text-black/25 ${
               error.firstnameError ? 'border-red-500 border-2' : ''
             }`}
           />
@@ -73,12 +73,12 @@ export default function SearchBox() {
             placeholder="Saisi le Nom du Patient"
             value={lastname}
             onChange={handleChange(setLastname, 'lastname')}
-            className={`input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full  focus:outline-none placeholder:text-black/25 ${
+            className={`input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0   focus:outline-none placeholder:text-black/25 ${
               error.lastnameError ? 'border-red-500 border-2 ' : ''
             }`}
           />
         </div>
-        <Button className="bg-blue-200 text-black" type="submit">
+        <Button className="bg-blue-200 text-black hover:text-white ring-2" type="submit">
           Chercher
         </Button>
       </form>
