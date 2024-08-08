@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// AlertDialogComponent.js
 import {
   AlertDialog,
   AlertDialogContent,
@@ -8,10 +7,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogAction,
-  //   AlertDialogTrigger,
+  
 } from '@/components/ui/alert-dialog';
 import {Link} from 'react-router-dom'
-// import { Button } from '@/components/ui/button';
 
 export default function Alert({ title, msg, open, onClose }) {
 

@@ -38,19 +38,22 @@ class PatientModel(PatientBase):
 class MedicalVisitBase(BaseModel):
     label: str
     description: Optional[str] = None
+    type_visit:Optional[str] = None
+
 
 class MedicalVisitModel(MedicalVisitBase):
     id: int
     patient_id: int
     date_visit: str 
+    hour_visit: str
 
     class Config:
         from_attributes = True
 
-class MedicalVisitUpdate(BaseModel):
-    label: Optional[str] = None
-    date_visit: Optional[str] = None
-    description: Optional[str] = None
+# class MedicalVisitUpdate(BaseModel):
+#     label: Optional[str] = None
+#     date_visit: Optional[str] = None
+#     description: Optional[str] = None
 
 class ExaminationBase(BaseModel):
     height: Optional[float] = None

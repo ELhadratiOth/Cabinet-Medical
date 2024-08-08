@@ -38,10 +38,11 @@ class MedicalVisit(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     date_visit = Column(String(15))  # Date of visit (format: yyyy-mm-dd)
+    hour_visit = Column(String(15)) # 02:59 PM
     label = Column(String(100))  # Label or type of medical visit
     description = Column(String(256))  # Description of the medical visit
     patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
-
+    type_visit = Column(String(10))  # type de visite {nv visite / controle}
     patient = relationship("Patient", back_populates="medical_visits")
 
 class Examination(Base):
@@ -49,6 +50,8 @@ class Examination(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     date_exam = Column(String(15))  # Date of examination (format: yyyy-mm-dd)
+    hour_visit = Column(String(15)) # 02:59 PM
+
     height = Column(Float)  # Height in cm
     weight = Column(Float)  # Weight in kg
     temperature = Column(Integer) # Temperature en C

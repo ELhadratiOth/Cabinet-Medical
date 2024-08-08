@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import api from '../API';
+import API from '../API';
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 const PatientsTable = () => {
   const [patients, setPatients] = useState([]);
 
   const fetchPatients = async () => {
     try {
-      const response = await api.get('/patients/all');
+      const response = await API.get('/patients/all');
       setPatients(response.data);
     } catch (error) {
       console.error('Error fetching patients:', error);
