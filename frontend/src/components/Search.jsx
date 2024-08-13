@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { HR } from 'flowbite-react';
 
 export default function SearchBox() {
   const [open, setOpen] = useState(false);
@@ -92,7 +93,10 @@ export default function SearchBox() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Chercher Patient</DialogTitle>
+          <DialogTitle>
+            Chercher Patient
+            <HR.Trimmed className="bg-blue-200 md:mx-0 md:w-36 md:mt-4 md:mb-3" />
+          </DialogTitle>
           <DialogDescription>
             Saisi le Nom et le Prenom du Patient
           </DialogDescription>

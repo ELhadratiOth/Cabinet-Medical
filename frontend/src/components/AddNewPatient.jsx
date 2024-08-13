@@ -14,8 +14,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'; // Import DatePicker CSS
-import { format } from 'date-fns'; // Import date-fns
+import 'react-datepicker/dist/react-datepicker.css'; 
+import { format } from 'date-fns'; 
+import { HR } from 'flowbite-react';
 
 export default function AddNewPatient() {
   function SearchForm() {
@@ -69,7 +70,6 @@ export default function AddNewPatient() {
 
       const updatedPatient = { ...patient };
 
-      // Format the birthday date as "yyyy-MM-dd" before sending to the API
       if (birthday) {
         updatedPatient.birthday = format(birthday, 'yyyy-MM-dd');
       }
@@ -88,7 +88,7 @@ export default function AddNewPatient() {
         console.error('Error:', error);
       }
 
-      navigate(`/`);
+      navigate(`/patient?firstname=${patient.firstname}&lastname=${patient.lastname}`);
     };
 
     return (
@@ -215,29 +215,7 @@ export default function AddNewPatient() {
               dateFormat="yyyy-MM-dd" // Set the date format
             />
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="insurance">Assurance</Label>
-            <Input
-              id="insurance"
-              type="text"
-              placeholder="Saisi l'assurance du patient"
-              value={patient.insurance}
-              onChange={handleChange('insurance')}
-              className="px-[10px] py-[11px] text-base bg-[#e8e8e8] ring-1 focus:ring-0 border-0 rounded-[5px] w-full focus:outline-none placeholder:text-black/25"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="insurance_description">
-              Description d&apos;Assurance
-            </Label>
-            <Textarea
-              id="insurance_description"
-              placeholder="Saisi la discreption d'Assurance"
-              value={patient.insurance_description}
-              onChange={handleChange('insurance_description')}
-              className="bg-[#e8e8e8] border-0 ring-1 focus:ring-0"
-            />
-          </div>
+          
           <Button className="bg-blue-200 text-black hover:text-white" type="submit">
             Enregistrer
           </Button>
@@ -255,7 +233,7 @@ export default function AddNewPatient() {
       />
       <div className="text-3xl font-semibold capitalize">
         Ajouter un nouveau patient
-        <hr className="mt-2 border-blue-300" />
+        <HR.Trimmed className="bg-blue-200  md:mt-3 md:w-[25rem] md:mx-0 md:mb-0" />
       </div>
       <SearchForm />
     </div>

@@ -7,6 +7,7 @@ import { MdOutlineBloodtype } from 'react-icons/md';
 import { RiPsychotherapyLine } from 'react-icons/ri';
 import { LiaFileMedicalAltSolid } from 'react-icons/lia';
 import { TiUser } from 'react-icons/ti';
+import { GiMedicalDrip } from 'react-icons/gi';
 
 import { Link } from 'react-router-dom';
 
@@ -20,7 +21,7 @@ const PatientMenu = ({ firstname, lastname }) => {
             <div>Service Medical</div>
           </div>
         </button>
-        <div className="absolute top-[50%] -right-5 pt-10 bg-transparent">
+        <div className="absolute top-[50%] -right-5 pt-10 bg-transparent z-10">
           <ul className=" flex-col gap-2 p-2 rounded-lg bg-white shadow-xl  w-48 overflow-hidden  hidden group-hover:flex ">
             <Option
               icon={TiUser}
@@ -32,10 +33,27 @@ const PatientMenu = ({ firstname, lastname }) => {
               text="Les Visites Medicals"
               path={`/medicalVisit?firstname=${firstname}&lastname=${lastname}`}
             />
-            <Option icon={LiaFileMedicalAltSolid} text="Les Examinations" />
-            <Option icon={TbVaccine} text="Les Vaccins" />
-            <Option icon={LiaAllergiesSolid} text="Les Allergies" />
+            <Option
+              icon={LiaFileMedicalAltSolid}
+              text="Les Examinations"
+              path={`/examinations?firstname=${firstname}&lastname=${lastname}`}
+            />
+            <Option
+              icon={TbVaccine}
+              text="Les Vaccins"
+              path={`/vaccins?firstname=${firstname}&lastname=${lastname}`}
+            />
+            <Option
+              icon={LiaAllergiesSolid}
+              text="Les Allergies"
+              path={`/allergies?firstname=${firstname}&lastname=${lastname}`}
+            />
             <Option icon={MdOutlineBloodtype} text="Analyses Du Sang" />
+            <Option
+              icon={GiMedicalDrip}
+              text="Radiologie"
+              path={`/radiologies?firstname=${firstname}&lastname=${lastname}`}
+            />
             <Option icon={RiPsychotherapyLine} text="Autres" />
           </ul>
         </div>

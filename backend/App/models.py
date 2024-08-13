@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -13,25 +13,43 @@ class Patient(Base):
     cin = Column(String(15))  # National ID or CIN
     age = Column(Integer) #
     birthday = Column(String(15))  # Date of birth (format: yyyy-mm-dd)
-    gender = Column(Boolean)  # Gender (0: male, 1: female)
+    gender = Column(String(20))  # Gender (0: male, 1: female)
     phonenumber = Column(String(20))  # Phone number
     disease = Column(String(20))
-    description = Column(String(256))  # Additional information about the patient
+    description = Column(Text)  # Additional information about the patient
     first_visit = Column(String(20)) # la premier visite du patient
-    insurance = Column(String(20))  
-    insurance_description = Column(String(256))  # Description of insurance
 
     medical_visits = relationship(
         "MedicalVisit",
         back_populates="patient",
-        cascade="all, delete-orphan"
+        cascade="save-update, merge, refresh-expire",
+        passive_deletes=True,
     )
-    
+
     examinations = relationship(
         "Examination",
         back_populates="patient",
         cascade="all, delete-orphan"
     )
+
+    vaccins = relationship(
+        "Vaccin",
+        back_populates="patient",
+        cascade="all, delete-orphan"
+    )
+
+    allergies = relationship(
+        "Allergie",
+        back_populates="patient",
+        cascade="all, delete-orphan"
+    )
+
+    radiologies = relationship(
+        "Radiology",
+        back_populates="patient",
+        cascade="all, delete-orphan"
+    )
+
 
 class MedicalVisit(Base):
     __tablename__ = "medical_visits"
@@ -40,10 +58,15 @@ class MedicalVisit(Base):
     date_visit = Column(String(15))  # Date of visit (format: yyyy-mm-dd)
     hour_visit = Column(String(15)) # 02:59 PM
     label = Column(String(100))  # Label or type of medical visit
-    description = Column(String(256))  # Description of the medical visit
-    patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
-    type_visit = Column(String(10))  # type de visite {nv visite / controle}
+    description = Column(Text)  # Description of the medical visit
+    patient_id = Column(Integer, ForeignKey('patients.id', ondelete="SET NULL"))  # Foreign key to the patient
+    type_visit = Column(String(20))  # type de visite {nv visite / controle}
+    insurance = Column(String(20))  # non  , cnss , assurance
+    insurance_description = Column(Text)  # Description of insurance
+    money=Column(String(10)) 
+
     patient = relationship("Patient", back_populates="medical_visits")
+
 
 class Examination(Base):
     __tablename__ = "examinations"
@@ -51,11 +74,47 @@ class Examination(Base):
     id = Column(Integer, primary_key=True, index=True)
     date_exam = Column(String(15))  # Date of examination (format: yyyy-mm-dd)
     hour_visit = Column(String(15)) # 02:59 PM
+    heart_rate =Column(String(15))  # bpm
 
     height = Column(Float)  # Height in cm
     weight = Column(Float)  # Weight in kg
     temperature = Column(Integer) # Temperature en C
-    description = Column(String(256))  # Description of the examination
+    description = Column(Text)  # Description of the examination
     patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
 
     patient = relationship("Patient", back_populates="examinations")
+
+
+class Vaccin(Base):
+    __tablename__ = "vaccins"
+    id = Column(Integer, primary_key=True, index=True)
+    date_exam = Column(String(15))  # Date of examination (format: yyyy-mm-dd)
+    hour_visit = Column(String(15)) # 02:59 PM
+    label  = Column(String(100))
+    description = Column(Text)  # Description of the vaccin
+    patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
+    patient = relationship("Patient", back_populates="vaccins")
+
+
+class Allergie(Base):
+    __tablename__ = "allergies"
+    id = Column(Integer, primary_key=True, index=True)
+    date_exam = Column(String(15))  # Date of examination (format: yyyy-mm-dd)
+    hour_visit = Column(String(15)) # 02:59 PM
+    label  = Column(String(100))
+    description = Column(Text)  # Description of the vaccin
+    patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
+    
+    patient = relationship("Patient", back_populates="allergies")
+
+
+class Radiology(Base):
+    __tablename__ = "radiologies"
+    id = Column(Integer, primary_key=True, index=True)
+    date_exam = Column(String(15))  # Date of examination (format: yyyy-mm-dd)
+    hour_visit = Column(String(15)) # 02:59 PM
+    label  = Column(String(100))
+    description = Column(Text)  # Description of the vaccin
+    patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
+
+    patient = relationship("Patient", back_populates="radiologies")

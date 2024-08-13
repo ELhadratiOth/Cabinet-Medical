@@ -1,7 +1,8 @@
 import PatientsTable from './PatientsTable';
 import Img from '../assets/img2.png';
+import { HR } from 'flowbite-react';
 
-const AllPatiens = () => {
+const AllPatients = () => {
   return (
     <div className="ml-60 px-10 mt-36 flex flex-col space-y-10 ">
       <img
@@ -12,7 +13,7 @@ const AllPatiens = () => {
 
       <div className="text-3xl font-semibold capitalize  ">
         Les patients récemment visités
-        <hr className="mt-2 border-blue-300" />
+        <HR.Trimmed className="bg-blue-200  md:mt-3 md:w-[28rem] md:mx-0 md:mb-0" />
       </div>
 
       <PatientsTable />
@@ -20,4 +21,4 @@ const AllPatiens = () => {
   );
 };
 
-export default AllPatiens;
+export default AllPatients;

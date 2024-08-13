@@ -9,10 +9,9 @@ class PatientBase(BaseModel):
     disease: Optional[str] = None
     birthday: Optional[str] = None
     age : Optional[int] = None
-    gender: Optional[bool] = None
+    gender: Optional[str] = None
     phonenumber: Optional[str] = None
-    insurance: Optional[str] = None
-    insurance_description: Optional[str] = None
+
 
 class PatientUpdate(BaseModel):
     firstname: Optional[str]
@@ -20,12 +19,11 @@ class PatientUpdate(BaseModel):
     cin: Optional[str]
     age: Optional[int]
     birthday: Optional[str]
-    gender: Optional[bool]
+    gender: Optional[str]
     phonenumber: Optional[str]
     disease: Optional[str]
     description: Optional[str]
-    insurance: Optional[str]
-    insurance_description: Optional[str]
+
 
 class PatientModel(PatientBase):
     id: int
@@ -39,6 +37,9 @@ class MedicalVisitBase(BaseModel):
     label: str
     description: Optional[str] = None
     type_visit:Optional[str] = None
+    insurance: Optional[str] = None
+    insurance_description: Optional[str] = None
+    money:Optional[str] = None
 
 
 class MedicalVisitModel(MedicalVisitBase):
@@ -58,13 +59,60 @@ class MedicalVisitModel(MedicalVisitBase):
 class ExaminationBase(BaseModel):
     height: Optional[float] = None
     weight: Optional[float] = None
+    heart_rate: Optional[float] = None
+
     temperature: Optional[int] = None
     description: Optional[str] = None
-    date_exam: Optional[str] = None
 
 class ExaminationModel(ExaminationBase):
     id: int
     patient_id: int
+    date_exam: Optional[str] = None
+    hour_visit: Optional[str] = None
+
 
     class Config:
         from_attributes = True
+        
+        
+class VaccinBase(BaseModel):
+    label : Optional[str] = None
+    description: Optional[str] = None
+
+class VaccinModel(VaccinBase):
+    id: int
+    patient_id: int
+    date_exam: Optional[str] = None
+    hour_visit: Optional[str] = None
+
+
+    class Config:
+        from_attributes = True     
+
+class AllergieBase(BaseModel):
+    label : Optional[str] = None
+    description: Optional[str] = None
+
+class AllergieModel(AllergieBase):
+    id: int
+    patient_id: int
+    date_exam: Optional[str] = None
+    hour_visit: Optional[str] = None
+
+
+    class Config:
+        from_attributes = True  
+        
+class RadiologyBase(BaseModel):
+    label : Optional[str] = None
+    description: Optional[str] = None
+
+class RadiologyModel(RadiologyBase):
+    id: int
+    patient_id: int
+    date_exam: Optional[str] = None
+    hour_visit: Optional[str] = None
+
+
+    class Config:
+        from_attributes = True   

@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import {Link} from 'react-router-dom'
 
-export default function Alert({ title, msg, open, onClose }) {
+export default function Alert({ title, msg, open, onClose , path = "/" }) {
 
 const divide = msg.split(",")
   return (
@@ -28,10 +28,10 @@ const divide = msg.split(",")
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogAction
-            className="bg-blue-200 text-black"
+            className="bg-blue-200 text-black hover:text-white duration-300 transition-all"
             onClick={onClose}
           >
-            <Link to="/">j&apos;ai compris!</Link>
+            <Link to={path}>j&apos;ai compris!</Link>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

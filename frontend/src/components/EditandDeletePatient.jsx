@@ -6,7 +6,13 @@ import { FaEdit } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Dialog,
   DialogContent,
@@ -21,6 +27,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Alert from './Alert';
 import API from '../API';
+import { HR } from 'flowbite-react';
 
 const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
   const [deleted, setDeleted] = useState(false);
@@ -69,6 +76,7 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
     const updatedData = trimPatientData(patient);
     try {
       setPatient({ ...updatedData });
+      console.log(updatedData)
       await API.put(`/patients/edit/${patient_data.id}`, updatedData);
       update_patient_data(updatedData);
       navigate(
@@ -113,6 +121,7 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
               <DialogHeader>
                 <DialogTitle className="font-bold text-2xl">
                   Editer Patient
+                  <HR.Trimmed className="bg-blue-200 md:mx-0 md:w-44  md:mt-3 md:mb-0" />
                 </DialogTitle>
                 <DialogDescription></DialogDescription>
               </DialogHeader>
@@ -188,16 +197,22 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                   </div>
                   <div className="grid gap-2 w-full">
                     <Label htmlFor="gender">Gender</Label>
-                    <select
-                      id="gender"
-                      value={patient.gender || ''}
-                      onChange={handleChange('gender')}
-                      className="w-full px-[10px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] focus:outline-none"
+                    <Select
+                      onValueChange={value =>
+                        setPatient(prevPatient => ({
+                          ...prevPatient,
+                          gender: value,
+                        }))
+                      }
                     >
-                      <option value="">Select Gender</option>
-                      <option value="0">Male</option>
-                      <option value="1">Female</option>
-                    </select>
+                      <SelectTrigger className="bg-[#e8e8e8] ring-1">
+                        <SelectValue placeholder="Gender Options" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Male">Male</SelectItem>
+                        <SelectItem value="Female">Female</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="grid gap-2 w-full">
                     <Label htmlFor="phonenumber">Numero Du Telephone</Label>
@@ -231,30 +246,6 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                     placeholder="Description du Maladie"
                     value={patient.description || ''}
                     onChange={handleChange('description')}
-                    className="resize-none bg-[#e8e8e8] px-3 py-2 border-0 ring-1 focus:ring-0 rounded-[5px] placeholder:text-black/25"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="insurance">Assurance</Label>
-                  <Input
-                    className="w-full px-[10px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] focus:outline-none"
-                    id="insurance"
-                    type="text"
-                    placeholder="Type d'assurance"
-                    value={patient.insurance || ''}
-                    onChange={handleChange('insurance')}
-                  />
-                </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="insurance_description">
-                    Description D&apos;Assurance
-                  </Label>
-                  <Textarea
-                    id="insurance_description"
-                    placeholder="Description sur l'Assurence"
-                    value={patient.insurance_description || ''}
-                    onChange={handleChange('insurance_description')}
                     className="resize-none bg-[#e8e8e8] px-3 py-2 border-0 ring-1 focus:ring-0 rounded-[5px] placeholder:text-black/25"
                   />
                 </div>

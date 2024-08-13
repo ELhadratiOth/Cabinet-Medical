@@ -3,6 +3,9 @@ from sqlalchemy.orm import Session
 from App.database import get_db
 from App import models, BaseModels
 from typing import List
+from datetime import datetime
+from sqlalchemy import desc
+
 
 router = APIRouter()
 
@@ -22,7 +25,7 @@ async def get_examinations_for_patient(
 
     examinations = db.query(models.Examination).filter(
         models.Examination.patient_id == patient.id
-    ).all()
+    ).order_by(desc(models.Examination.id)).all()
 
     if not examinations:
         raise HTTPException(status_code=404, detail="No examinations found for this patient")
@@ -36,18 +39,27 @@ async def add_examination_to_patient(
     lastname_patient: str,
     db: Session = Depends(get_db)
 ):
+    current_datetime = datetime.now()
+    formatted_date = current_datetime.strftime("%Y-%m-%d")
+    formatted_time = current_datetime.strftime("%I:%M %p")  
+
     try:
         patient = db.query(models.Patient).filter(
             models.Patient.firstname == firstname_patient,
             models.Patient.lastname == lastname_patient
+            
         ).first()
         
         if not patient:
             raise HTTPException(status_code=404, detail="Patient not found")
         
         examination = models.Examination(
-            **examinationForm.dict(),
-            patient_id=patient.id
+            **examinationForm.model_dump(),
+            patient_id=patient.id,
+            date_exam=formatted_date,
+            hour_visit=formatted_time 
+
+
         )
         db.add(examination)
         db.commit()
@@ -69,7 +81,7 @@ async def update_examination(
     if not examination:
         raise HTTPException(status_code=404, detail="Examination not found")
 
-    update_data = examinationUpdate.dict(exclude_unset=True)
+    update_data = examinationUpdate.model_dump(exclude_unset=True)
     for key, value in update_data.items():
         setattr(examination, key, value)
 

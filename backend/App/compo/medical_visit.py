@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 from App.database import get_db
 from typing import List
 from App import models, BaseModels
@@ -20,11 +21,11 @@ async def get_patient_medical_visit(
     ).first()
 
     if not patient:
-        raise HTTPException(status_code=404, detail="Patient not found")
+        raise HTTPException(status_code=404, detail="Medical Visit not found")
 
     visits = db.query(models.MedicalVisit).filter(
         models.MedicalVisit.patient_id == patient.id
-    ).all()
+    ).order_by(desc(models.MedicalVisit.id)).all()
 
     if not visits:
         raise HTTPException(status_code=404, detail="No medical visits found for this patient")
@@ -57,6 +58,7 @@ async def add_medical_visit_2_patient(
             date_visit=formatted_date,
             hour_visit=formatted_time 
         )
+
         db.add(medicalVisit)
         db.commit()
         db.refresh(medicalVisit)
