@@ -11,6 +11,8 @@ import Examination from './components/Examination';
 import Vaccins from './components/Vaccins';
 import Allergies from './components/Allergies';
 import Radiologies from './components/Radiologies';
+import TestSang from './components/TestSang';
+import Autre from './components/Autre';
 function App() {
   return (
     <Router>
@@ -26,6 +28,8 @@ function App() {
         <Route path="/vaccins" element={<Vaccins />}></Route>
         <Route path="/allergies" element={<Allergies />}></Route>
         <Route path="/radiologies" element={<Radiologies />}></Route>
+        <Route path="/testSang" element={<TestSang />}></Route>
+        <Route path="/autre" element={<Autre />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
     </Router>

@@ -11,7 +11,7 @@ class Patient(Base):
     firstname = Column(String(100), nullable=False)  # First name
     lastname = Column(String(100), nullable=False)  # Last name
     cin = Column(String(15))  # National ID or CIN
-    age = Column(Integer) #
+    age = Column(String(15)) #
     birthday = Column(String(15))  # Date of birth (format: yyyy-mm-dd)
     gender = Column(String(20))  # Gender (0: male, 1: female)
     phonenumber = Column(String(20))  # Phone number
@@ -50,6 +50,11 @@ class Patient(Base):
         cascade="all, delete-orphan"
     )
 
+    testsang = relationship(
+        "TestSang",
+        back_populates="patient",
+        cascade="all, delete-orphan"
+    )
 
 class MedicalVisit(Base):
     __tablename__ = "medical_visits"
@@ -118,3 +123,19 @@ class Radiology(Base):
     patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
 
     patient = relationship("Patient", back_populates="radiologies")
+
+
+
+class TestSang(Base):
+    __tablename__ = "testsang"
+    id = Column(Integer, primary_key=True, index=True)
+    date_exam = Column(String(15))  # Date of examination (format: yyyy-mm-dd)
+    hour_visit = Column(String(15)) # 02:59 PM
+    description = Column(Text)  # Description of the vaccin
+    systolic = Column(String(10))
+    diastolic = Column(String(10))
+    pulse = Column(String(10))
+
+    patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
+
+    patient = relationship("Patient", back_populates="testsang")

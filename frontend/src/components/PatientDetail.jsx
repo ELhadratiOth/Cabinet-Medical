@@ -37,7 +37,7 @@ const PatientDetail = () => {
   }, [firstname, lastname]);
 
   return (
-    <div className="ml-60 px-10 flex flex-col justify-center space-y-10 mt-36  pb-10 ">
+    <div className="ml-60 px-10 flex flex-col justify-center space-y-10 mt-28  pb-10 ">
       <img
         src={Img}
         alt="background"

@@ -4,7 +4,7 @@ import { HR } from 'flowbite-react';
 
 const AllPatients = () => {
   return (
-    <div className="ml-60 px-10 mt-36 flex flex-col space-y-10 ">
+    <div className="ml-60 px-10 mt-28 flex flex-col space-y-10 ">
       <img
         src={Img}
         alt="error"

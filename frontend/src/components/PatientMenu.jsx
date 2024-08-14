@@ -48,13 +48,21 @@ const PatientMenu = ({ firstname, lastname }) => {
               text="Les Allergies"
               path={`/allergies?firstname=${firstname}&lastname=${lastname}`}
             />
-            <Option icon={MdOutlineBloodtype} text="Analyses Du Sang" />
+            <Option
+              icon={MdOutlineBloodtype}
+              text="Analyses Du Sang"
+              path={`/testSang?firstname=${firstname}&lastname=${lastname}`}
+            />
             <Option
               icon={GiMedicalDrip}
               text="Radiologie"
               path={`/radiologies?firstname=${firstname}&lastname=${lastname}`}
             />
-            <Option icon={RiPsychotherapyLine} text="Autres" />
+            <Option
+              icon={RiPsychotherapyLine}
+              text="Autres"
+              path={`/autre?firstname=${firstname}&lastname=${lastname}`}
+            />
           </ul>
         </div>
       </div>

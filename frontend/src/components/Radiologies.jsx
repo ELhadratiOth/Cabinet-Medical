@@ -50,7 +50,7 @@ const Radiologies= () => {
   };
 
   return (
-    <div className="ml-60 px-10 space-y-8 mt-36 flex flex-col mb-20">
+    <div className="ml-60 px-10 space-y-8 mt-28 flex flex-col mb-20">
       <img
         src={Img}
         alt="background"

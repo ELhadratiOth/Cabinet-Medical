@@ -4,20 +4,20 @@ from typing import Optional
 class PatientBase(BaseModel):
     firstname: str
     lastname: str
-    cin: Optional[str] = None
-    description: Optional[str] = None
-    disease: Optional[str] = None
-    birthday: Optional[str] = None
-    age : Optional[int] = None
-    gender: Optional[str] = None
-    phonenumber: Optional[str] = None
+    cin: Optional[str] = "Non Saisi"
+    description: Optional[str] = "Non Saisi"
+    disease: Optional[str] = "Non Saisi"
+    birthday: Optional[str] = "Non Saisi"
+    age : Optional[str] = "Non Saisi"
+    gender: Optional[str] = "Non Saisi"
+    phonenumber: Optional[str] = "Non Saisi"
 
 
 class PatientUpdate(BaseModel):
     firstname: Optional[str]
     lastname: Optional[str]
     cin: Optional[str]
-    age: Optional[int]
+    age: Optional[str]
     birthday: Optional[str]
     gender: Optional[str]
     phonenumber: Optional[str]
@@ -34,19 +34,19 @@ class PatientModel(PatientBase):
         from_attributes = True
 
 class MedicalVisitBase(BaseModel):
-    label: str
-    description: Optional[str] = None
-    type_visit:Optional[str] = None
-    insurance: Optional[str] = None
-    insurance_description: Optional[str] = None
-    money:Optional[str] = None
+    label: Optional[str] = "Non Saisi"
+    description: Optional[str] = "Non Saisi"
+    type_visit:Optional[str] = "Non Saisi"
+    insurance: Optional[str] = "Non Saisi"
+    insurance_description: Optional[str] = "Non Saisi"
+    money:Optional[str] = "0"
 
 
 class MedicalVisitModel(MedicalVisitBase):
     id: int
     patient_id: int
-    date_visit: str 
-    hour_visit: str
+    date_visit: Optional[str] = None 
+    hour_visit: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -57,12 +57,12 @@ class MedicalVisitModel(MedicalVisitBase):
 #     description: Optional[str] = None
 
 class ExaminationBase(BaseModel):
-    height: Optional[float] = None
-    weight: Optional[float] = None
-    heart_rate: Optional[float] = None
+    height: Optional[float] = "0"
+    weight: Optional[float] = "0"
+    heart_rate: Optional[float] = "0"
 
-    temperature: Optional[int] = None
-    description: Optional[str] = None
+    temperature: Optional[int] = "0"
+    description: Optional[str] = "Non Saisi"
 
 class ExaminationModel(ExaminationBase):
     id: int
@@ -76,8 +76,8 @@ class ExaminationModel(ExaminationBase):
         
         
 class VaccinBase(BaseModel):
-    label : Optional[str] = None
-    description: Optional[str] = None
+    label : Optional[str] = "Non Saisi"
+    description: Optional[str] = "Non Saisi"
 
 class VaccinModel(VaccinBase):
     id: int
@@ -90,8 +90,8 @@ class VaccinModel(VaccinBase):
         from_attributes = True     
 
 class AllergieBase(BaseModel):
-    label : Optional[str] = None
-    description: Optional[str] = None
+    label : Optional[str] = "Non Saisi"
+    description: Optional[str] = "Non Saisi"
 
 class AllergieModel(AllergieBase):
     id: int
@@ -104,8 +104,8 @@ class AllergieModel(AllergieBase):
         from_attributes = True  
         
 class RadiologyBase(BaseModel):
-    label : Optional[str] = None
-    description: Optional[str] = None
+    label : Optional[str] = "Non Saisi"
+    description: Optional[str] = "Non Saisi"
 
 class RadiologyModel(RadiologyBase):
     id: int
@@ -116,3 +116,23 @@ class RadiologyModel(RadiologyBase):
 
     class Config:
         from_attributes = True   
+        
+   
+class TestSangBase(BaseModel):
+    description: Optional[str] = "Non Saisi"
+    systolic: Optional[str] = '0'
+    diastolic: Optional[str] = '0'
+    pulse: Optional[str] = '0'
+
+
+class TestSangModel(TestSangBase):
+    id: int
+    patient_id: int
+    date_exam: Optional[str] = None
+    hour_visit: Optional[str] = None
+
+
+    class Config:
+        from_attributes = True
+   
+   

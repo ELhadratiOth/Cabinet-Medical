@@ -139,7 +139,7 @@ const MedicalVisit = () => {
   );
 
   return (
-    <div className="ml-60 px-10 space-y-10 mt-36 flex flex-col ">
+    <div className="ml-60 px-10 space-y-10 mt-28 flex flex-col ">
       <img
         src={Img}
         alt="background"

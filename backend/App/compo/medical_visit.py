@@ -7,6 +7,9 @@ from App import models, BaseModels
 from datetime import datetime
 
 
+from dateutil.relativedelta import relativedelta
+
+
 router = APIRouter()
 
 @router.get("/{firstname_patient}/{lastname_patient}", response_model=List[BaseModels.MedicalVisitModel])
@@ -48,7 +51,7 @@ async def add_medical_visit_2_patient(
         if not patient:
             raise HTTPException(status_code=404, detail="Patient not found")
         
-        current_datetime = datetime.now()
+        current_datetime = datetime.now() - relativedelta(months=8)
         formatted_date = current_datetime.strftime("%Y-%m-%d")
         formatted_time = current_datetime.strftime("%I:%M %p")  
 
