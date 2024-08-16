@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
+import AdvancedSearch from './AdvancedSearch';
 import Search from './Search';
+
 import { MdDataUsage } from 'react-icons/md';
 import { FaUserDoctor } from 'react-icons/fa6';
 import { LuStethoscope } from 'react-icons/lu';
 import { IoIosLogOut } from 'react-icons/io';
 import { FaHospitalUser } from 'react-icons/fa6';
 import { FaPeopleGroup } from 'react-icons/fa6';
+import { RiUserSearchFill } from 'react-icons/ri';
 
 
 
@@ -36,7 +39,7 @@ export default function DrawerCompo() {
               <ul className="space-y-1 capitalize border-t border-gray-100 pt-4">
                 <li>
                   <Link
-                    to="/all_patients"
+                    to="/allpatients"
                     className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                   >
                     <FaPeopleGroup className="font-bold ml-5" />
@@ -44,28 +47,28 @@ export default function DrawerCompo() {
                   </Link>
                 </li>
                 <li>
+                  <Link
+                    to="#"
+                    className="group relative flex justify-start space-x-3  items-center srounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                  >
+                    <RiUserSearchFill className="font-bold ml-5 " />
+                    <Search />
+                  </Link>
+                </li>
+                <li>
                   <div className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700">
                     <LuStethoscope className="font-bold ml-5" />
-                    <Search />
+                    <AdvancedSearch />
                   </div>
                 </li>
 
                 <li>
                   <Link
-                    to="/new_patient"
+                    to="/newpatient"
                     className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                   >
                     <FaHospitalUser className="font-bold ml-5" />
                     <div> Nouveau patient</div>
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="#"
-                    className="group relative flex justify-start  rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                  >
-                    sdfyguio
                   </Link>
                 </li>
 

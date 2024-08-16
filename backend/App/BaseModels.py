@@ -32,6 +32,15 @@ class PatientModel(PatientBase):
 
     class Config:
         from_attributes = True
+        
+class PatientSummary(BaseModel):
+    id: int
+    firstname: str
+    lastname: str
+    first_visit: Optional[str] = None
+
+    class Config:
+        from_attributes = True
 
 class MedicalVisitBase(BaseModel):
     label: Optional[str] = "Non Saisi"
@@ -135,4 +144,20 @@ class TestSangModel(TestSangBase):
     class Config:
         from_attributes = True
    
+   
+class AutreBase(BaseModel):
+    label : Optional[str] = "Non Saisi"
+    description: Optional[str] = "Non Saisi"
+   
+
+
+class AutreModel(AutreBase):
+    id: int
+    patient_id: int
+    date_exam: Optional[str] = None
+    hour_visit: Optional[str] = None
+
+
+    class Config:
+        from_attributes = True
    

@@ -9,10 +9,9 @@ import {
   AlertDialogAction,
   
 } from '@/components/ui/alert-dialog';
-import {Link} from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom';
 export default function Alert({ title, msg, open, onClose , path = "/" }) {
-
+const navigate =useNavigate()
 const divide = msg.split(",")
   return (
     <AlertDialog open={open} onOpenChange={onClose}>
@@ -31,7 +30,11 @@ const divide = msg.split(",")
             className="bg-blue-200 text-black hover:text-white duration-300 transition-all"
             onClick={onClose}
           >
-            <Link to={path}>j&apos;ai compris!</Link>
+            <div className='h-full w-full' onClick={
+              () => {
+                navigate(path)
+              }
+            }>j&apos;ai compris!</div>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

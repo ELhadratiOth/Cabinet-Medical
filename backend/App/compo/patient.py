@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException 
 from sqlalchemy.orm import Session 
-from sqlalchemy import desc 
+from sqlalchemy import desc  , or_
 from typing import List
 from App.database import get_db
 from App import models, BaseModels
@@ -32,15 +32,15 @@ async def create_new_patient(patientForm: BaseModels.PatientBase, db: Session = 
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error creating new patient: {str(e)}")
 
-@router.get("/search", response_model=BaseModels.PatientModel)
+@router.get("/search/{firstname}/{lastname}", response_model=BaseModels.PatientModel)
 async def get_patient(
     firstname: str, 
     lastname: str, 
     db: Session = Depends(get_db)
 ):
     query = db.query(models.Patient).filter(
-        models.Patient.firstname == firstname,
-        models.Patient.lastname == lastname
+        models.Patient.firstname.like('%'+firstname+"%"),
+        models.Patient.lastname.like('%'+lastname+"%")  
     )
     
     patient = query.first()
@@ -49,6 +49,26 @@ async def get_patient(
         raise HTTPException(status_code=404, detail="Patient not found")
     
     return patient
+
+@router.get("/search_by_like/{name}", response_model=List[BaseModels.PatientSummary])
+async def get_patients_with_like(
+    name: str,  
+    db: Session = Depends(get_db)
+):
+    query = db.query(models.Patient).filter(
+        or_(
+            models.Patient.firstname.like('%' + name + '%'),
+            models.Patient.lastname.like('%' + name + '%')
+        )
+    )
+    
+    patients = query.all()
+    
+    if not patients:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    
+    return patients
+
 
 
 @router.delete("/delete/{id_patient}")

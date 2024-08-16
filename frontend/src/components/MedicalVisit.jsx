@@ -151,7 +151,7 @@ const MedicalVisit = () => {
           <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[16rem] md:mx-0 md:mb-0" />
         </div>
         <div className="bg-blue-100 rounded-md border-2 border-blue-200 py-0.5 px-1 flex space-x-2 justify-start items-center">
-          <div className="bg-white p-1.5 px-2 rounded-md text-blue-500 font-semibold">
+          <div className="bg-white p- px-2 rounded-md text-blue-500 font-semibold">
             Patient concerné :{' '}
             <span className="capitalize font-bold">
               {firstname + ' ' + lastname}

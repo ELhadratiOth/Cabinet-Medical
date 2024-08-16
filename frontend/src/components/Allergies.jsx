@@ -60,7 +60,7 @@ const Allergies = () => {
           Les Allergies :
           <HR.Trimmed className="bg-blue-200 md:w-[12rem] md:mx-0 md:mt-3 md:mb-0" />
         </div>
-        <div className="bg-blue-100 rounded-md border-2 border-blue-200 py-0.5 px-1 flex space-x-2 justify-start items-center">
+        <div className="bg-blue-100  rounded-md border-2 border-blue-200 py-0.5 px-1 flex space-x-2 justify-start items-center">
           <div className="bg-white p-1.5 px-2 rounded-md text-blue-500 font-semibold">
             Patient concerné :{' '}
             <span className="capitalize font-bold">
@@ -93,7 +93,7 @@ const Allergies = () => {
                 <MdDelete className="text-4xl mr-1 text-gray-200 rotate-45 group-hover:text-black group-hover:transition group-hover:duration-300   group-hover:scale-110    " />
               </div>
 
-              <div className=" flex justify-start space-x-8 items-center  mt-10 mb-6">
+              <div className=" flex flex-col justify-start space-x-8 items-start  mt-10 mb-6">
                 <LiaAllergiesSolid className="text-blue-700 text-7xl ml-4  mb-4" />
                 <div>
                   {' '}

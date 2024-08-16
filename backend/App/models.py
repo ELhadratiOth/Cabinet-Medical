@@ -55,6 +55,12 @@ class Patient(Base):
         back_populates="patient",
         cascade="all, delete-orphan"
     )
+    
+    autre = relationship(
+        "Autre",
+        back_populates="patient",
+        cascade="all, delete-orphan"
+    )
 
 class MedicalVisit(Base):
     __tablename__ = "medical_visits"
@@ -139,3 +145,19 @@ class TestSang(Base):
     patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
 
     patient = relationship("Patient", back_populates="testsang")
+
+
+
+
+class Autre(Base):
+    __tablename__ = "autre"
+    id = Column(Integer, primary_key=True, index=True)
+    date_exam = Column(String(15))  # Date of examination (format: yyyy-mm-dd)
+    hour_visit = Column(String(15)) # 02:59 PM
+    label = Column(String(100))
+    description = Column(Text)  # Description of the vaccin
+
+
+    patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
+
+    patient = relationship("Patient", back_populates="autre")

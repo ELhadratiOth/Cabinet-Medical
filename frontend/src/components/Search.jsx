@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useMediaQuery } from '@/hooks/use-media-query';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -17,74 +16,29 @@ import { HR } from 'flowbite-react';
 
 export default function SearchBox() {
   const [open, setOpen] = useState(false);
+  const [patientName, setPatientName] = useState('');
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
-  function SearchForm() {
-    const [firstname, setFirstname] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [error, setError] = useState({
-      firstnameError: false,
-      lastnameError: false,
-    });
-    const navigate = useNavigate();
+  const handleChange = event => {
+    const value = event.target.value;
+    setPatientName(value);
+    setError(!value);
+  };
 
-    const handleChange = (setter, field) => event => {
-      const value = event.target.value;
-      setter(value);
-      if (!value) {
-        setError(prevState => ({ ...prevState, [`${field}Error`]: true }));
-      } else {
-        setError(prevState => ({ ...prevState, [`${field}Error`]: false }));
-      }
-    };
+  const handleSubmit = event => {
+      console.log('222 : ' + patientName);
 
-    const handleSubmit = event => {
-      event.preventDefault();
-      if (firstname && lastname) {
-        setOpen(false);
-        navigate(
-          `/patient?firstname=${firstname.trim()}&lastname=${lastname.trim()}`,
-        );
-      } else {
-        if (firstname == '') setError(prevState => ({ ...prevState, [`firstnameError`]: true }));
-        if (lastname == '') setError(prevState => ({...prevState, [`lastnameError`]: true }));
-        console.error('Please enter both first and last names.');
-      }
-    };
-
-    return (
-      <form className={`grid items-start gap-4`} onSubmit={handleSubmit}>
-        <div className="grid gap-2">
-          <Label htmlFor="firstname">Prenom</Label>
-          <Input
-            id="firstname"
-            type="text"
-            placeholder="Saisi le prenom du patient"
-            value={firstname}
-            onChange={handleChange(setFirstname, 'firstname')}
-            className={` px-[10px] py-[11px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] w-full focus:outline-none placeholder:text-black/25 ${
-              error.firstnameError ? 'border-red-500 border-2' : ''
-            }`}
-          />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="lastname">Nom</Label>
-          <Input
-            id="lastname"
-            type="text"
-            placeholder="Saisi le Nom du Patient"
-            value={lastname}
-            onChange={handleChange(setLastname, 'lastname')}
-            className={`input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0   focus:outline-none placeholder:text-black/25 ${
-              error.lastnameError ? 'border-red-500 border-2 ' : ''
-            }`}
-          />
-        </div>
-        <Button className="bg-blue-200 text-black hover:text-white ring-2" type="submit">
-          Chercher
-        </Button>
-      </form>
-    );
-  }
+    event.preventDefault();
+    if (patientName.trim()) {
+      setOpen(false);
+      navigate(`/patientssuggeree?name=${patientName.trim()}`);
+      setPatientName("");
+    } else {
+      setError(true);
+      console.error("Please enter the patient's name.");
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -94,14 +48,33 @@ export default function SearchBox() {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Chercher Patient
-            <HR.Trimmed className="bg-blue-200 md:mx-0 md:w-36 md:mt-4 md:mb-3" />
+            Recherche avancée d&apos;un Patient
+            <HR className="bg-blue-200 md:mx-0 md:w-[16rem] md:mt-4 md:mb-3" />
           </DialogTitle>
-          <DialogDescription>
-            Saisi le Nom et le Prenom du Patient
-          </DialogDescription>
+          <DialogDescription>Saisi le Nom du Patient</DialogDescription>
         </DialogHeader>
-        <SearchForm />
+        <form className="grid items-start gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="patientName">Nom</Label>
+            <Input
+              id="patientName"
+              type="text"
+              placeholder="Saisi le Nom du Patient"
+              value={patientName}
+              onChange={handleChange}
+              className={`px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 placeholder:text-black/25 ${
+                error ? 'border-red-500 border-2' : ''
+              }`}
+            />
+          </div>
+          <Button
+            className="bg-blue-200 text-black hover:text-white ring-2"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Chercher
+          </Button>
+        </form>
       </DialogContent>
     </Dialog>
   );

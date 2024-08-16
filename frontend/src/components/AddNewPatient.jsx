@@ -14,8 +14,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'; 
-import { format } from 'date-fns'; 
+import 'react-datepicker/dist/react-datepicker.css';
+import { format } from 'date-fns';
 import { HR } from 'flowbite-react';
 
 export default function AddNewPatient() {
@@ -23,15 +23,13 @@ export default function AddNewPatient() {
     const [patient, setPatient] = useState({
       firstname: '',
       lastname: '',
-      gender: '1',
-      age: 10,
+      gender: '',
+      age: '',
       disease: '',
       description: '',
       phonenumber: '',
       cin: '',
       birthday: new Date(),
-      insurance: '',
-      insurance_description: '',
     });
 
     const [errors, setErrors] = useState({
@@ -75,12 +73,16 @@ export default function AddNewPatient() {
       }
 
       for (const key in updatedPatient) {
-        if (updatedPatient[key] === '') {
+        if (updatedPatient.gender === '') {
+          updatedPatient.gender = 'Male';
+        } else if (updatedPatient.age === '') {
+          updatedPatient.age = '0';
+        } else if (updatedPatient[key] === '') {
           updatedPatient[key] = 'Non Saisi';
         }
       }
 
-      console.log('Updated Patient:', updatedPatient);
+      console.log('Patient 2 sent :', updatedPatient);
 
       try {
         await API.post('/patients/add', updatedPatient);
@@ -88,7 +90,9 @@ export default function AddNewPatient() {
         console.error('Error:', error);
       }
 
-      navigate(`/patient?firstname=${patient.firstname}&lastname=${patient.lastname}`);
+      navigate(
+        `/patient?firstname=${patient.firstname}&lastname=${patient.lastname}`,
+      );
     };
 
     return (
@@ -215,8 +219,11 @@ export default function AddNewPatient() {
               dateFormat="yyyy-MM-dd" // Set the date format
             />
           </div>
-          
-          <Button className="bg-blue-200 text-black hover:text-white" type="submit">
+
+          <Button
+            className="bg-blue-200 text-black hover:text-white"
+            type="submit"
+          >
             Enregistrer
           </Button>
         </form>

@@ -96,10 +96,10 @@ const Radiologies= () => {
 
               <div className="px-8 py-4 pb-5">
                 <GiMedicalDrip className="text-blue-700 text-7xl mb-4 -ml-2 " />{' '}
-                <div className="uppercase font-bold text-xl text-gray-300">
+                <div className="capitalize font-bold text-xl text-gray-300">
                   {Item.label}
                 </div>
-                <div className="text-gray-300 uppercase tracking-widest">
+                <div className="text-gray-300  tracking-widest">
                   {Item.description}
                 </div>
                 <div className="text-gray-400 mt-4">

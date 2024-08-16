@@ -15,41 +15,40 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { HR } from 'flowbite-react';
-
 import API from '../API';
 import { AiOutlineFileAdd } from 'react-icons/ai';
 
-const AddbtnAllergie = ({ firstname, lastname, addNewAllergie }) => {
-  const [allergie, setAllergie] = useState({
+const AddbtnAutre = ({ firstname, lastname, addNewTestsang }) => {
+  const [autre, setAutre] = useState({
     label: '',
     description: '',
   });
 
   const handleChange = field => event => {
-    setAllergie({ ...allergie, [field]: event.target.value });
+    setAutre({ ...autre, [field]: event.target.value });
   };
 
-  const addAllergie = async () => {
+  const addTestsang = async () => {
     const dataToSend = {
-      ...allergie,
-      label: allergie.label || 'Non Saisi',
-      description: allergie.description || 'Non Saisi',
+      ...autre,
+      label: autre.label || 'Non Saisi',
+      description: autre.description || 'Non Saisi',
     };
 
-    console.log('Allergie added:', dataToSend);
+    console.log('Test Sanguin added:', dataToSend);
 
     try {
       const response = await API.post(
-        `/allergies/add/${firstname}/${lastname}`,
+        `/autres/add/${firstname}/${lastname}`,
         dataToSend,
       );
-      addNewAllergie(response.data);
+      addNewTestsang(response.data);
     } catch (error) {
-      console.error('Error adding allergie:', error);
+      console.error('Error adding test sanguin:', error);
     }
 
-    setAllergie({
-      name: '',
+    setAutre({
+      label: '',
       description: '',
     });
   };
@@ -67,33 +66,33 @@ const AddbtnAllergie = ({ firstname, lastname, addNewAllergie }) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Ajouter Une Allergie
+            Ajouter Un Test Sanguin
             <HR.Trimmed className="bg-blue-200 md:w-[11rem] md:mx-0 md:mt-3 md:mb-0" />
           </DialogTitle>
           <DialogDescription />
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="flex-col space-y-3 flex justify-start items-start">
-            <Label htmlFor="allergie" className="">
-              Nom d&apos;Allergie
+            <Label htmlFor="test-label" className="">
+              Nom du Test
             </Label>
             <Input
-              id="allergie"
-              value={allergie.label}
+              id="test-label"
+              value={autre.label}
               onChange={handleChange('label')}
-              placeholder="Saisir le nom de l'allergie"
+              placeholder="Saisir le nom du test"
               className="border-2 focus:border-0 border-blue-200  placeholder:text-gray-500/50"
             />
           </div>
           <div className="flex-col flex space-y-3  justify-start items-start">
-            <Label htmlFor="description" className=" ">
-              Description d&apos;Allergie
+            <Label htmlFor="test-description" className=" ">
+              Description du Test
             </Label>
             <Textarea
-              id="description"
-              value={allergie.description}
+              id="test-description"
+              value={autre.description}
               onChange={handleChange('description')}
-              placeholder="Saisir une description de l'allergie"
+              placeholder="Saisir une description du test"
               className="resize-none border-2 focus:border-0 border-blue-200  w-full placeholder:text-gray-500/50"
             />
           </div>
@@ -104,7 +103,7 @@ const AddbtnAllergie = ({ firstname, lastname, addNewAllergie }) => {
               variant="secondary"
               type="submit"
               className="bg-blue-200 ring mr-3"
-              onClick={addAllergie}
+              onClick={addTestsang}
             >
               Ajouter
             </Button>
@@ -118,4 +117,4 @@ const AddbtnAllergie = ({ firstname, lastname, addNewAllergie }) => {
   );
 };
 
-export default AddbtnAllergie;
+export default AddbtnAutre;

@@ -16,7 +16,7 @@ const Vaccins = () => {
   const lastname = query.get('lastname');
   const [vaccins, setVaccins] = useState([]);
 
-  const fetchExaminations = async () => {
+  const fetchVAccins = async () => {
     try {
       const response = await API.get(`/vaccins/${firstname}/${lastname}`);
       setVaccins(response.data);
@@ -27,7 +27,7 @@ const Vaccins = () => {
   };
 
   useEffect(() => {
-    fetchExaminations();
+    fetchVAccins();
     console.log(vaccins);
   }, [firstname, lastname]);
 
@@ -82,7 +82,7 @@ const Vaccins = () => {
           vaccins.map(vaccin => (
             <div
               key={vaccin.id}
-              className="relative  bg-gradient-to-tl from-gray-900/80 to-gray-950/80 hover:from-gray-800/90 hover:to-gray-950/90 backdrop-blur-md transition-colors duration-500  cursor-pointer   border-r-2 border-t-2 border-gray-900 m-4 rounded-lg overflow-hidden "
+              className="relative h-fit  bg-gradient-to-tl from-gray-900/80 to-gray-950/80 hover:from-gray-800/90 hover:to-gray-950/90 backdrop-blur-md transition-colors duration-500  cursor-pointer   border-r-2 border-t-2 border-gray-900 m-4 rounded-lg overflow-hidden "
             >
               <div className="absolute group hover:bg-red-600  -top-[7%] pl-3 py-5 -right-[7%] rounded-full transition -rotate-45 duration-300 z-20 cursor-pointer  drop-shadow-lg  ease-in-out bg-red-500 w-20">
                 <MdDelete
@@ -91,13 +91,13 @@ const Vaccins = () => {
                 />
               </div>
 
-              <div className="px-8 py-4 pb-5">
+              <div className="px-8 py-4 pb-5 ">
                 <TbVaccine className="text-blue-700 text-7xl  mb-4" />
 
-                <div className="uppercase font-bold text-xl text-gray-300">
+                <div className="capitalize font-bold text-xl text-gray-300">
                   {vaccin.label}
                 </div>
-                <div className="text-gray-300 uppercase tracking-widest">
+                <div className="text-gray-300 tracking-widest">
                   {vaccin.description}
                 </div>
                 <div className="text-gray-400 mt-4">

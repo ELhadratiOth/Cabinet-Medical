@@ -78,7 +78,7 @@ const AddbtnVaccin = ({ firstname, lastname, addNewVaccin }) => {
             </Label>
             <Input
               id="vaccin"
-              value={vaccin.name}
+              value={vaccin.label}
               onChange={handleChange('label')}
               placeholder="Saisi le Nom du Vaccin"
               className="border-2 focus:border-0 border-blue-200  placeholder:text-gray-500/50"

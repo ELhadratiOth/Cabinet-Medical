@@ -52,7 +52,7 @@ const Testsang = () => {
       <img
         src={Img}
         alt="background"
-        className="fixed -z-10 right-[15%] top-[10rem] w-[800px] opacity-30"
+        className="fixed -z-10 right-[21%] top-[10rem] w-[650px] opacity-30"
       />
       <div className="w-full flex justify-between items-center rounded-md">
         <div className="text-3xl font-semibold px-2 py-2 rounded-md text-blue-900">

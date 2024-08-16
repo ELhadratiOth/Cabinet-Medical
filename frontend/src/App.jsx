@@ -13,6 +13,7 @@ import Allergies from './components/Allergies';
 import Radiologies from './components/Radiologies';
 import TestSang from './components/TestSang';
 import Autre from './components/Autre';
+import SuggestedPatients from './components/SuggestedPatients';
 function App() {
   return (
     <Router>
@@ -23,12 +24,13 @@ function App() {
         <Route path="/patient" element={<PatientDetail />} />
         <Route path="/medicalVisit" element={<MedicalVisit />}></Route>
         <Route path="/examinations" element={<Examination />}></Route> /
-        <Route path="/new_patient" element={<AddNewPatient />}></Route>
-        <Route path="/all_patients" element={<AllPatients />}></Route>
+        <Route path="/newpatient" element={<AddNewPatient />}></Route>
+        <Route path="/allpatients" element={<AllPatients />}></Route>
         <Route path="/vaccins" element={<Vaccins />}></Route>
         <Route path="/allergies" element={<Allergies />}></Route>
         <Route path="/radiologies" element={<Radiologies />}></Route>
         <Route path="/testSang" element={<TestSang />}></Route>
+        <Route path="/patientssuggeree" element={<SuggestedPatients />}></Route>
         <Route path="/autre" element={<Autre />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>

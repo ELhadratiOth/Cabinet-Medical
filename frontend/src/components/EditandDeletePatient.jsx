@@ -6,6 +6,7 @@ import { FaEdit } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
+
 import {
   Select,
   SelectContent,
@@ -33,6 +34,7 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
   const [deleted, setDeleted] = useState(false);
   const [patient, setPatient] = useState({});
   const [errors, setErrors] = useState({});
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -73,10 +75,18 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
+    if (!patient.firstname || !patient.lastname) {
+      setErrors({
+        firstnameError: !patient.firstname,
+        lastnameError: !patient.lastname,
+      });
+      return;
+    }
+
     const updatedData = trimPatientData(patient);
     try {
       setPatient({ ...updatedData });
-      console.log(updatedData)
       await API.put(`/patients/edit/${patient_data.id}`, updatedData);
       update_patient_data(updatedData);
       navigate(
@@ -87,14 +97,14 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
     }
   };
 
-  const handleDelete = () => {
-    API.delete(`/patients/delete/${patient_data.id}`)
-      .then(() => {
-        setDeleted(true);
-      })
-      .catch(error => {
-        console.error('Error deleting patient:', error);
-      });
+  const handleDelete = async () => {
+    try {
+      await API.delete(`/patients/delete/${patient_data.id}`);
+      setDeleted(true);
+      setDeleteDialogOpen(false);
+    } catch (error) {
+      console.error('Error deleting patient:', error);
+    }
   };
 
   return (
@@ -107,178 +117,205 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
           onClose={() => setDeleted(false)}
         />
       )}
-      <div className="flex justify-center items-center  rounded-lg  border-blue-200 bg-blue-100 ">
-        <div className=" px-4 py-2 text-sm text-gray-500 hover:text-gray-800 focus:relative">
-          <Dialog>
-            <DialogTrigger asChild>
-              <div className="flex cursor-pointer justify-center items-center space-x-2">
-                <FaEdit className="text-lg" />
-
-                <div>Editer</div>
-              </div>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[925px] ">
-              <DialogHeader>
-                <DialogTitle className="font-bold text-2xl">
-                  Editer Patient
-                  <HR.Trimmed className="bg-blue-200 md:mx-0 md:w-44  md:mt-3 md:mb-0" />
-                </DialogTitle>
-                <DialogDescription></DialogDescription>
-              </DialogHeader>
-              <form
-                className={`grid items-start gap-4 mt-5`}
-                onSubmit={handleSubmit}
-              >
-                <div className="flex space-x-4">
-                  <div className="grid gap-2 w-full">
-                    <Label htmlFor="firstname">Prenom</Label>
-                    <Input
-                      id="firstname"
-                      type="text"
-                      placeholder="Saisi le prenom du patient"
-                      value={patient.firstname || ''}
-                      onChange={handleChange('firstname')}
-                      className={`px-[10px] py-[11px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] w-full focus:outline-none placeholder:text-black/25 ${
-                        errors.firstnameError ? 'border-red-500 border-2' : ''
-                      }`}
-                    />
-                  </div>
-                  <div className="grid gap-2 w-full">
-                    <Label htmlFor="lastname">Nom</Label>
-                    <Input
-                      id="lastname"
-                      type="text"
-                      placeholder="Saisi le Nom du Patient"
-                      value={patient.lastname || ''}
-                      onChange={handleChange('lastname')}
-                      className={`input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0   focus:outline-none placeholder:text-black/25 ${
-                        errors.lastnameError ? 'border-red-500 border-2 ' : ''
-                      }`}
-                    />
-                  </div>
-                  <div className="grid gap-2 w-full">
-                    <Label htmlFor="cin">CIN</Label>
-                    <Input
-                      className="input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0   focus:outline-none placeholder:text-black/25"
-                      id="cin"
-                      type="text"
-                      placeholder="CIN"
-                      value={patient.cin || ''}
-                      onChange={handleChange('cin')}
-                    />
-                  </div>
-                  <div className="grid gap-2 w-full">
-                    <Label htmlFor="age">Age</Label>
-                    <Input
-                      className="input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0   focus:outline-none placeholder:text-black/25"
-                      id="age"
-                      type="number"
-                      placeholder="Age"
-                      value={patient.age || ''}
-                      onChange={handleChange('age')}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex space-x-4">
-                  <div className="grid gap-2 w-full">
-                    <Label htmlFor="birthday">Date de Naissance</Label>
-                    <DatePicker
-                      className="ring-1 rounded-md bg-[#e8e8e8] border-0 w-full"
-                      id="birthday"
-                      closeOnScroll={true}
-                      selected={
-                        patient.birthday
-                          ? new Date(patient.birthday)
-                          : new Date()
-                      }
-                      onChange={handleDateChange('birthday')}
-                    />
-                  </div>
-                  <div className="grid gap-2 w-full">
-                    <Label htmlFor="gender">Gender</Label>
-                    <Select
-                      onValueChange={value =>
-                        setPatient(prevPatient => ({
-                          ...prevPatient,
-                          gender: value,
-                        }))
-                      }
-                    >
-                      <SelectTrigger className="bg-[#e8e8e8] ring-1">
-                        <SelectValue placeholder="Gender Options" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Male">Male</SelectItem>
-                        <SelectItem value="Female">Female</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid gap-2 w-full">
-                    <Label htmlFor="phonenumber">Numero Du Telephone</Label>
-                    <Input
-                      className="w-full px-[10px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] focus:outline-none"
-                      id="phonenumber"
-                      type="text"
-                      placeholder="Numero Du Telephone "
-                      value={patient.phonenumber || ''}
-                      onChange={handleChange('phonenumber')}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="disease">Maladie</Label>
+      <div className="flex justify-center items-center rounded-lg  border-blue-200 space-x-3 py-0.2 bg-blue-100">
+        <Dialog>
+          <DialogTrigger asChild>
+            <div className="flex cursor-pointer justify-center text-gray-500 hover:text-gray-800 transition-colors duration-300 items-center space-x-2 ">
+              <FaEdit className="text-lg" />
+              <div className="text-base">Modifier</div>
+            </div>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[925px]">
+            <DialogHeader>
+              <DialogTitle className="font-bold text-2xl">
+                Editer Patient
+                <HR.Trimmed className="bg-blue-200 md:mx-0 md:w-44 md:mt-3 md:mb-0" />
+              </DialogTitle>
+              <DialogDescription></DialogDescription>
+            </DialogHeader>
+            <form
+              className={`grid items-start gap-4 mt-5`}
+              onSubmit={handleSubmit}
+            >
+              <div className="flex space-x-4">
+                <div className="grid gap-2 w-full">
+                  <Label htmlFor="firstname">Prenom</Label>
                   <Input
-                    className="w-full px-[10px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] focus:outline-none"
-                    id="disease"
+                    id="firstname"
                     type="text"
-                    placeholder="Maladie du Patient"
-                    value={patient.disease || ''}
-                    onChange={handleChange('disease')}
+                    placeholder="Saisir le prénom du patient"
+                    value={patient.firstname || ''}
+                    onChange={handleChange('firstname')}
+                    className={`px-[10px] py-[11px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] w-full focus:outline-none placeholder:text-black/25 ${
+                      errors.firstnameError ? 'border-red-500 border-2' : ''
+                    }`}
                   />
                 </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    placeholder="Description du Maladie"
-                    value={patient.description || ''}
-                    onChange={handleChange('description')}
-                    className="resize-none bg-[#e8e8e8] px-3 py-2 border-0 ring-1 focus:ring-0 rounded-[5px] placeholder:text-black/25"
+                <div className="grid gap-2 w-full">
+                  <Label htmlFor="lastname">Nom</Label>
+                  <Input
+                    id="lastname"
+                    type="text"
+                    placeholder="Saisir le Nom du Patient"
+                    value={patient.lastname || ''}
+                    onChange={handleChange('lastname')}
+                    className={`input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 focus:outline-none placeholder:text-black/25 ${
+                      errors.lastnameError ? 'border-red-500 border-2' : ''
+                    }`}
                   />
                 </div>
-
-                <div className="flex justify-end gap-4 mt-4">
-                  <DialogClose asChild>
-                    <Button
-                      variant="secondary"
-                      type="submit"
-                      className="bg-blue-300 text-black ring rounded-md px-4 py-2 hover:bg-blue-100 "
-                    >
-                      Enregister
-                    </Button>
-                  </DialogClose>
-
-                  <DialogClose asChild>
-                    <Button type="button" className="ring" variant="secondary">
-                      Close
-                    </Button>
-                  </DialogClose>
+                <div className="grid gap-2 w-full">
+                  <Label htmlFor="cin">CIN</Label>
+                  <Input
+                    className="input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 focus:outline-none placeholder:text-black/25"
+                    id="cin"
+                    type="text"
+                    placeholder="CIN"
+                    value={patient.cin || ''}
+                    onChange={handleChange('cin')}
+                  />
                 </div>
-              </form>
-            </DialogContent>
-          </Dialog>
-        </div>
+                <div className="grid gap-2 w-full">
+                  <Label htmlFor="age">Age</Label>
+                  <Input
+                    className="input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 focus:outline-none placeholder:text-black/25"
+                    id="age"
+                    type="number"
+                    placeholder="Age"
+                    value={patient.age || ''}
+                    onChange={handleChange('age')}
+                  />
+                </div>
+              </div>
 
-        <button
-          onClick={handleDelete}
-          className="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm hover:text-red-600 text-blue-500 shadow-sm focus:relative"
+              <div className="flex space-x-4">
+                <div className="grid gap-2 w-full">
+                  <Label htmlFor="birthday">Date de Naissance</Label>
+                  <DatePicker
+                    className="ring-1 rounded-md bg-[#e8e8e8] border-0 w-full"
+                    id="birthday"
+                    closeOnScroll={true}
+                    selected={
+                      patient.birthday ? new Date(patient.birthday) : new Date()
+                    }
+                    onChange={handleDateChange('birthday')}
+                  />
+                </div>
+                <div className="grid gap-2 w-full">
+                  <Label htmlFor="gender">Gender</Label>
+                  <Select
+                    onValueChange={value =>
+                      setPatient(prevPatient => ({
+                        ...prevPatient,
+                        gender: value,
+                      }))
+                    }
+                  >
+                    <SelectTrigger className="bg-[#e8e8e8] ring-1">
+                      <SelectValue placeholder="Gender Options" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Male">Male</SelectItem>
+                      <SelectItem value="Female">Female</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2 w-full">
+                  <Label htmlFor="phonenumber">Numero Du Telephone</Label>
+                  <Input
+                    className="w-full px-[10px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] focus:outline-none placeholder:text-black/25"
+                    id="phonenumber"
+                    type="text"
+                    placeholder="Saisir le numero de téléphone"
+                    value={patient.phonenumber || ''}
+                    onChange={handleChange('phonenumber')}
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-2 w-full">
+                <Label htmlFor="maladie">Maladie</Label>
+                <Input
+                  className="input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 focus:outline-none placeholder:text-black/25"
+                  id="maladie"
+                  type="text"
+                  placeholder="Saisir la maladie du patient"
+                  value={patient.disease || ''}
+                  onChange={handleChange('disease')}
+                />
+              </div>
+              <div className="grid gap-2 w-full">
+                <Label htmlFor="observation">Observation</Label>
+                <Textarea
+                  className="px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 focus:outline-none placeholder:text-black/25"
+                  id="observation"
+                  placeholder="Saisir les observations concernant le patient"
+                  value={patient.description || ''}
+                  onChange={handleChange('description')}
+                />
+              </div>
+
+              <div className="flex justify-end space-x-3">
+                <DialogClose asChild>
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    className="px-4 py-2 ring-2 ring-blue-500 hover:bg-blue-300 hover:text-black  bg-blue-400"
+                  >
+                    Enregistrer
+                  </Button>
+                </DialogClose>
+
+                <DialogClose asChild>
+                  <Button
+                    className=" ring-2 ring-gray-900 px-4  hover:bg-gray-700 hover:text-white duration-300 transition-colors"
+                    type="button"
+                    variant="secondary"
+                  >
+                    Annuler
+                  </Button>
+                </DialogClose>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <DialogContent className="sm:max-w-sm">
+            <DialogHeader>
+              <DialogTitle className="font-bold text-lg">
+                Confirmer la Suppression
+              </DialogTitle>
+              <DialogDescription>
+                Êtes-vous sûr de vouloir supprimer les données de ce patient ?
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex justify-end space-x-2 ">
+              <Button
+                type="button"
+                variant="destructive"
+                onClick={handleDelete}
+                className=""
+              >
+                Supprimer
+              </Button>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Annuler
+                </Button>
+              </DialogClose>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Button
+          variant="destructive"
+          onClick={() => setDeleteDialogOpen(true)}
+          className="flex space-x-2 items-center  bg-white text-blue-500 my-0.5 border-[1px] border-blue-400 hover:bg-white hover:text-red-500 transition duration-300"
         >
           <MdDeleteOutline className="text-xl" />
-          Supprimer
-        </button>
+          <span>Supprimer</span>
+        </Button>
       </div>
     </>
   );
