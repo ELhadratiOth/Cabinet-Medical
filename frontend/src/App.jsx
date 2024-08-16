@@ -13,6 +13,7 @@ import Allergies from './components/Allergies';
 import Radiologies from './components/Radiologies';
 import TestSang from './components/TestSang';
 import Autre from './components/Autre';
+import Perscription from './components/Perscription';
 import SuggestedPatients from './components/SuggestedPatients';
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/radiologies" element={<Radiologies />}></Route>
         <Route path="/testSang" element={<TestSang />}></Route>
         <Route path="/patientssuggeree" element={<SuggestedPatients />}></Route>
+        <Route path="/ordonnance" element={<Perscription />}></Route>
         <Route path="/autre" element={<Autre />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>

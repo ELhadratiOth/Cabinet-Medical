@@ -57,7 +57,7 @@ const Radiologies= () => {
         className="fixed -z-10 right-[20%] top-[18rem] w-[600px] opacity-50"
       />
       <div className="w-full flex justify-between items-center rounded-md">
-        <div className="text-3xl font-semibold px-2 py-2 rounded-md">
+        <div className="text-3xl font-semibold px-2 py-2 rounded-md text-blue-900">
           Les Radiologies :
           <HR.Trimmed className="bg-blue-200 md:w-[15rem] md:mx-0 md:mt-3 md:mb-0" />
         </div>

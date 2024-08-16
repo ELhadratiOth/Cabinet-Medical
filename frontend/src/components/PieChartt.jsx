@@ -20,7 +20,6 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 
-// Tableau des noms de mois
 const monthNames = [
   'Janvier',
   'Février',
@@ -42,9 +41,14 @@ const processData = data => {
     const key = `${year}-${month}`;
 
     if (!acc[key]) {
-      acc[key] = { month: monthNames[parseInt(month, 10) - 1], totalMoney: 0 };
+      acc[key] = {
+        month: monthNames[parseInt(month, 10) - 1],
+        count: 0,
+        totalMoney: 0,
+      };
     }
-    acc[key].totalMoney += parseFloat(entry.money);
+    acc[key].count += 1; 
+    acc[key].totalMoney += parseFloat(entry.money); 
     return acc;
   }, {});
   return Object.values(monthlyTotals);
@@ -69,7 +73,7 @@ const getComparisonText = (currentMonth, previousMonth) => {
   if (difference > 0) {
     return `En hausse de ${percentage}%`;
   } else if (difference < 0) {
-    return `En baisse de ${Math.abs(percentage)}% `;
+    return `En baisse de ${Math.abs(percentage)}%`;
   } else {
     return 'Aucun changement';
   }
@@ -80,10 +84,8 @@ export default function PieChartt({ data }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('here we go');
-    console.log(data);
     const processedData = processData(data);
-    setApiData(processedData.slice(0, 4));
+    setApiData(processedData.slice(0, 4)); 
     setLoading(false);
   }, [data]);
 
@@ -91,19 +93,19 @@ export default function PieChartt({ data }) {
     return <div>Chargement...</div>;
   }
 
-  // Get comparison details
   const currentMonth = apiData[0];
   const previousMonth = apiData[1];
   const comparisonText = getComparisonText(currentMonth, previousMonth);
-  console.log(apiData[0]);
 
   return (
-    <Card className="flex flex-col w-fit  relative bg-blue-50">
-      <div className="absolute  opacity-10    w-full h-full stroke-current overflow-hidden ">
-        <TbWaveSawTool className="absolute text-[17rem]  -top-7 -right-[20%]" />
+    <Card className="flex flex-col w-fit relative bg-blue-50">
+      <div className="absolute opacity-10 w-full h-full stroke-current overflow-hidden ">
+        <TbWaveSawTool className="absolute text-[17rem] -top-7 -right-[20%]" />
       </div>
       <CardHeader className="items-center pb-0">
-        <CardTitle>Vue mensuelle des montants (En <span className='font-bold'>DH</span>)</CardTitle>
+        <CardTitle>
+          Vue mensuelle des montants (En <span className="font-bold">DH</span>)
+        </CardTitle>
         <CardDescription>
           Statistiques des visites médicales des quatre derniers mois
         </CardDescription>
@@ -152,14 +154,21 @@ export default function PieChartt({ data }) {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {apiData.length.toLocaleString()}
+                          {currentMonth.count.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
+                          className="fill-muted-foreground text-[0.7rem]"
                         >
-                          Total des Visites
+                          Nombre des Patients
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 37}
+                          className="fill-muted-foreground text-[0.7rem]"
+                        >
+                          ce mois
                         </tspan>
                       </text>
                     );
@@ -180,9 +189,6 @@ export default function PieChartt({ data }) {
             <ArrowRight className="text-gray-500" />
           )}
           {comparisonText}
-          <span className="capitalize leading-none text-sm text-gray-500 text-center ">
-            {/* {`( ${apiData[0].month} / ${apiData[1].month} )`} */}
-          </span>
         </CardDescription>
       </CardFooter>
     </Card>

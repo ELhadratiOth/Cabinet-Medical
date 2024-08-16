@@ -11,7 +11,7 @@ const AllPatients = () => {
         className="fixed -z-10 right-[25%] top-[16rem] w-[560px] opacity-50"
       />
 
-      <div className="text-3xl font-semibold capitalize  ">
+      <div className="text-3xl font-semibold capitalize text-blue-900  ">
         Les patients récemment visités
         <HR.Trimmed className="bg-blue-200  md:mt-3 md:w-[28rem] md:mx-0 md:mb-0" />
       </div>

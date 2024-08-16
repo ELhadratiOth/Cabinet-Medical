@@ -150,7 +150,6 @@ class AutreBase(BaseModel):
     description: Optional[str] = "Non Saisi"
    
 
-
 class AutreModel(AutreBase):
     id: int
     patient_id: int
@@ -161,3 +160,19 @@ class AutreModel(AutreBase):
     class Config:
         from_attributes = True
    
+   
+   
+class ChargeBase(BaseModel):
+    label : Optional[str] = "Non Saisi"
+    value_money: Optional[str] = "Non Saisi"
+   
+
+class AutreModel(AutreBase):
+    id: int
+    creation_date: Optional[str] = None
+
+
+    class Config:
+        from_attributes = True
+   
+

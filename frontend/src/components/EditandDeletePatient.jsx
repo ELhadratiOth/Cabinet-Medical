@@ -295,7 +295,6 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                 type="button"
                 variant="destructive"
                 onClick={handleDelete}
-                className=""
               >
                 Supprimer
               </Button>

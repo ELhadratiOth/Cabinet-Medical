@@ -161,3 +161,13 @@ class Autre(Base):
     patient_id = Column(Integer, ForeignKey('patients.id'))  # Foreign key to the patient
 
     patient = relationship("Patient", back_populates="autre")
+    
+    
+    
+class Charges(Base):
+    __tablename__ = "charges"
+
+    id = Column(Integer, primary_key=True, index=True)
+    creation_date = Column(String(15))  # (format: yyyy-mm-dd)
+    lable = Column(String(100))
+    value_money = Column(String(20))

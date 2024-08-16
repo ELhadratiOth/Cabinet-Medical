@@ -56,7 +56,7 @@ const Allergies = () => {
         className="fixed -z-10 right-[24%] top-[14rem] w-[560px] opacity-50"
       />
       <div className="w-full flex justify-between items-center rounded-md">
-        <div className="text-3xl font-semibold px-2 py-2 rounded-md">
+        <div className="text-3xl font-semibold px-2 py-2 rounded-md text-blue-900">
           Les Allergies :
           <HR.Trimmed className="bg-blue-200 md:w-[12rem] md:mx-0 md:mt-3 md:mb-0" />
         </div>

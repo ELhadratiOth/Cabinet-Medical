@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from App.compo import patient, medical_visit, examination , vaccin , allergie , radiology , piechart , testsang , autres
+from App.compo import patient, medical_visit, examination , vaccin , allergie , radiology , piechart , testsang , autres , charges
 from . import models 
 from .database import engine
 
@@ -24,6 +24,7 @@ app.include_router(allergie.router, prefix="/allergies", tags=["Allergies"])
 app.include_router(radiology.router, prefix="/radiologies", tags=["Radiologies"])
 app.include_router(testsang.router, prefix="/testsang", tags=["Tests Sang"])
 app.include_router(autres.router, prefix="/autres", tags=["Autres"])
+app.include_router(charges.router, prefix="/cherges", tags=["Charges"])
 
 
 #DashBord

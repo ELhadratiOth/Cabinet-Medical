@@ -146,7 +146,7 @@ const MedicalVisit = () => {
         className="fixed -z-10 right-[27%] top-[19.5rem] w-[450px] opacity-50"
       />
       <div className="w-full flex justify-between items-center rounded-md ">
-        <div className="text-2xl font-semibold px-2 py-2 rounded-md">
+        <div className="text-2xl font-semibold px-2 py-2 rounded-md text-blue-900">
           Les Visites Medicales :
           <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[16rem] md:mx-0 md:mb-0" />
         </div>

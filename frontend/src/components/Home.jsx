@@ -4,7 +4,8 @@ import API from '../API';
 import { useState, useEffect } from 'react';
 import { HR } from 'flowbite-react';
 import { MdWavingHand } from 'react-icons/md';
-
+import AreaChartt from './AreaChartt'
+import ChargesChart from './ChargesChart';
 const Home = () => {
   const [apiData, setApiData] = useState([]);
 
@@ -47,6 +48,10 @@ const Home = () => {
       <div className="flex justify-center items-center space-x-5">
         <PieChartt data={apiData} />
         <GridChart data={apiData} />
+      </div>
+      <div className="flex justify-start items-center space-x-5">
+        <AreaChartt data={apiData} />
+        <ChargesChart/>
       </div>
     </div>
   );

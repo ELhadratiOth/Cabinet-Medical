@@ -18,9 +18,9 @@ const transformData = data => {
     if (!countsByMonth[month]) {
       countsByMonth[month] = { month, string: 0, test: 0 };
     }
-    if (type_visit === 'string') {
+    if (type_visit === 'test') {
       countsByMonth[month].string += 1;
-    } else if (type_visit === 'test') {
+    } else if (type_visit === 'Non Saisi') {
       countsByMonth[month].test += 1;
     }
   });
@@ -41,12 +41,12 @@ const chartConfig = {
 
 // eslint-disable-next-line react/prop-types
 export default function Component({ data }) {
-  const chartData = transformData(data).slice(0, 9);
+  const chartData = transformData(data).slice(0, 9).reverse();
 
   return (
     <Card className="h-[420px] w-full">
       <CardHeader>
-        <CardTitle>Les Types des visites des Patiens</CardTitle>
+        <CardTitle>Les Types des visites des Patients</CardTitle>
       </CardHeader>
       <ChartContainer
         className="h-[350px] w-full p-2  "
@@ -59,7 +59,7 @@ export default function Component({ data }) {
             tickLine={false}
             tickMargin={10}
             axisLine={false}
-            tickFormatter={value => value.slice(0, 3)}
+            tickFormatter={value => value.slice(0, 4)}
           />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />

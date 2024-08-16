@@ -46,8 +46,8 @@ const PatientDetail = () => {
         alt="background"
         className="fixed -z-10 opacity-30 right-[30%] top-[17rem] w-[470px] "
       />
-      <div className="text-4xl font-semibold flex justify-between items-center 3 ">
-        <div className="self-start">
+      <div className="text-4xl font-semibold flex justify-between items-center  ">
+        <div className="self-start text-blue-900">
           Patient Infos:
           <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[15rem] md:mx-0 md:mb-0" />
         </div>
@@ -92,7 +92,9 @@ const PatientDetail = () => {
 
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
               <dt className="font-medium  text-gray-900">Age</dt>
-              <dd className="text-gray-700 sm:col-span-2 lowercase">{patient.age} ans</dd>
+              <dd className="text-gray-700 sm:col-span-2 lowercase">
+                {patient.age} ans
+              </dd>
             </div>
 
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
