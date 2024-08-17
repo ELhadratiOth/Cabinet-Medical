@@ -15,7 +15,7 @@ const Autre = () => {
   const lastname = query.get('lastname');
   const [autre, setAutre] = useState([]);
 
-  const fetchTestsang = async () => {
+  const fetchAutre = async () => {
     try {
       const response = await API.get(`/autres/${firstname}/${lastname}`);
       setAutre(response.data);
@@ -26,12 +26,12 @@ const Autre = () => {
   };
 
   useEffect(() => {
-    fetchTestsang();
+    fetchAutre();
     console.log(autre);
   }, [firstname, lastname]);
 
-  const addNewTestsang = newTest => {
-    setAutre(prevAutre => [newTest, ...prevAutre]);
+  const addNewAutre = newAutre => {
+    setAutre(prevAutre => [newAutre, ...prevAutre]);
   };
 
   const deleteAutre = async (e, id) => {
@@ -39,7 +39,7 @@ const Autre = () => {
     console.log('clicked');
     try {
       await API.delete(`/autres/delete/${id}`);
-      setAutre(prevAutre => prevAutre.filter(test => test.id !== id));
+      setAutre(prevAutre => prevAutre.filter(autre => autre.id !== id));
     } catch (error) {
       console.error('Error deleting Autre:', error);
     }
@@ -67,7 +67,7 @@ const Autre = () => {
           <AddbtnAutre
             firstname={firstname}
             lastname={lastname}
-            addNewTestsang={addNewTestsang}
+            addNewAutre={addNewAutre}
           />
           <PatientMenu firstname={firstname} lastname={lastname} />
         </div>
@@ -75,7 +75,7 @@ const Autre = () => {
       <div className="space-y-6 flex flex-col w-full items-center">
         {autre.length === 0 ? (
           <div className="text-base leading-relaxed text-gray-500 text-center col-span-3">
-            Aucun test sanguin pour le moment pour ce patient.
+            Aucun Autre pour le moment pour ce patient.
           </div>
         ) : (
           autre.map(item => (
@@ -93,7 +93,9 @@ const Autre = () => {
                 </p>
               </span>
               <div className="w-full bg-blue-50  rounded-lg px-4 py-2 flex flex-col justify-around shadow-lg border">
-                <p className="text-lg font-bold capitalize text-blue-900">{item.label}</p>
+                <p className="text-lg font-bold capitalize text-blue-900">
+                  {item.label}
+                </p>
                 <div className="py-3">
                   <p className="text-gray-600 text-sm  ">{item.description}</p>
                 </div>

@@ -167,7 +167,7 @@ class ChargeBase(BaseModel):
     value_money: Optional[str] = "Non Saisi"
    
 
-class AutreModel(AutreBase):
+class ChargeModel(ChargeBase):
     id: int
     creation_date: Optional[str] = None
 

@@ -24,7 +24,7 @@ app.include_router(allergie.router, prefix="/allergies", tags=["Allergies"])
 app.include_router(radiology.router, prefix="/radiologies", tags=["Radiologies"])
 app.include_router(testsang.router, prefix="/testsang", tags=["Tests Sang"])
 app.include_router(autres.router, prefix="/autres", tags=["Autres"])
-app.include_router(charges.router, prefix="/cherges", tags=["Charges"])
+app.include_router(charges.router, prefix="/charges", tags=["Charges"])
 
 
 #DashBord

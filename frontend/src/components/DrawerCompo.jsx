@@ -11,6 +11,7 @@ import { FaHospitalUser } from 'react-icons/fa6';
 import { FaPeopleGroup } from 'react-icons/fa6';
 import { RiUserSearchFill } from 'react-icons/ri';
 import { useEffect, useState } from 'react'
+import { SiWebmoney } from 'react-icons/si';
 
 export default function DrawerCompo() {
   const location = useLocation();
@@ -26,7 +27,7 @@ export default function DrawerCompo() {
   }, [firstname, lastname]);
 
 const PDF = () => (
-  <div className="w-[90%] ml-[5%] left-0 absolute top-[50%] flex flex-col p-4 border-2   items-center justify-center bg-[#121a30]   border-blue-900 shadow-lg rounded-2xl">
+  <div className="w-[90%] ml-[5%] left-0 absolute top-[56%] flex flex-col p-4 border-2   items-center justify-center bg-[#121a30]   border-blue-900 shadow-lg rounded-2xl">
     <div className="">
       <div className="text-center p-3 mb-3 flex-auto justify-center">
         <h2 className="text-lg w-max font-semibold   text-gray-200">
@@ -93,6 +94,15 @@ const PDF = () => (
                   >
                     <FaHospitalUser className="font-bold ml-5" />
                     <div> Nouveau patient</div>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/charges"
+                    className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                  >
+                    <SiWebmoney className="font-bold ml-5" />
+                    <div>Aperçu financier</div>
                   </Link>
                 </li>
               </ul>

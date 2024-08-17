@@ -18,7 +18,7 @@ import { HR } from 'flowbite-react';
 import API from '../API';
 import { AiOutlineFileAdd } from 'react-icons/ai';
 
-const AddbtnAutre = ({ firstname, lastname, addNewTestsang }) => {
+const AddbtnAutre = ({ firstname, lastname, addNewAutre }) => {
   const [autre, setAutre] = useState({
     label: '',
     description: '',
@@ -28,7 +28,7 @@ const AddbtnAutre = ({ firstname, lastname, addNewTestsang }) => {
     setAutre({ ...autre, [field]: event.target.value });
   };
 
-  const addTestsang = async () => {
+  const addAutre = async () => {
     const dataToSend = {
       ...autre,
       label: autre.label || 'Non Saisi',
@@ -42,7 +42,7 @@ const AddbtnAutre = ({ firstname, lastname, addNewTestsang }) => {
         `/autres/add/${firstname}/${lastname}`,
         dataToSend,
       );
-      addNewTestsang(response.data);
+      addNewAutre(response.data);
     } catch (error) {
       console.error('Error adding test sanguin:', error);
     }
@@ -67,32 +67,32 @@ const AddbtnAutre = ({ firstname, lastname, addNewTestsang }) => {
         <DialogHeader>
           <DialogTitle>
             Ajouter Un Test Sanguin
-            <HR.Trimmed className="bg-blue-200 md:w-[11rem] md:mx-0 md:mt-3 md:mb-0" />
+            <HR.Trimmed className="bg-blue-200 md:w-[12.5rem] md:mx-0 md:mt-3 md:mb-0" />
           </DialogTitle>
           <DialogDescription />
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="flex-col space-y-3 flex justify-start items-start">
             <Label htmlFor="test-label" className="">
-              Nom du Test
+              Nom d&apos;Autre
             </Label>
             <Input
               id="test-label"
               value={autre.label}
               onChange={handleChange('label')}
-              placeholder="Saisir le nom du test"
+              placeholder="Saisir le nom du Autre"
               className="border-2 focus:border-0 border-blue-200  placeholder:text-gray-500/50"
             />
           </div>
           <div className="flex-col flex space-y-3  justify-start items-start">
             <Label htmlFor="test-description" className=" ">
-              Description du Test
+              Description d&apos;Autre
             </Label>
             <Textarea
               id="test-description"
               value={autre.description}
               onChange={handleChange('description')}
-              placeholder="Saisir une description du test"
+              placeholder="Saisir une description du Autre"
               className="resize-none border-2 focus:border-0 border-blue-200  w-full placeholder:text-gray-500/50"
             />
           </div>
@@ -103,7 +103,7 @@ const AddbtnAutre = ({ firstname, lastname, addNewTestsang }) => {
               variant="secondary"
               type="submit"
               className="bg-blue-200 ring mr-3"
-              onClick={addTestsang}
+              onClick={addAutre}
             >
               Ajouter
             </Button>
