@@ -1,8 +1,18 @@
-"use client"
-
-import { TrendingUp } from "lucide-react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-
+/* eslint-disable react/prop-types */
+import { HiMiniPresentationChartLine } from 'react-icons/hi2';
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+} from 'recharts';
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/chart';
 import {
   Card,
   CardContent,
@@ -10,98 +20,188 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200},
-  { month: "March", desktop: 237, mobile: 120},
-  { month: "April", desktop: 73, mobile: 1000 },
-  { month: "May", desktop: 209, mobile: 130, },
-  { month: "June", desktop: 214, mobile: 140, },
-]
+} from '@/components/ui/card';
+import { TrendingUp, TrendingDown, ArrowRight } from 'lucide-react';
+import RecurringExpenses from './RecurringExpenses.js';
+
+const monthNamesFrench = {
+  January: 'Janvier',
+  February: 'Février',
+  March: 'Mars',
+  April: 'Avril',
+  May: 'Mai',
+  June: 'Juin',
+  July: 'Juillet',
+  August: 'Août',
+  September: 'Septembre',
+  October: 'Octobre',
+  November: 'Novembre',
+  December: 'Décembre',
+};
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "yellow",
+  Revenus: {
+    label: 'Revenus',
+    color: 'blue', // Blue for Revenus
   },
-  mobile: {
-    label: "Mobile",
-    color: "red",
+  charges: {
+    label: 'Dépenses',
+    color: 'red', // Red for Charges
   },
+};
 
-} 
+const ChargesChart = ({ data, chargeData }) => {
+  const totalRecurringExpenses = RecurringExpenses.reduce(
+    (total, expense) => total + expense.value_money,
+    0,
+  );
 
-export default function Component() {
+  const aggregateByMonth = (dataArray, dateField, valueField) => {
+    const aggregatedData = {};
+
+    dataArray.forEach(item => {
+      const month = new Date(item[dateField]).toLocaleString('default', {
+        month: 'long',
+      });
+      const value = parseFloat(item[valueField]);
+
+      if (!aggregatedData[month]) {
+        aggregatedData[month] = 0;
+      }
+      aggregatedData[month] += value;
+    });
+
+    return Object.keys(aggregatedData).map(month => ({
+      month: monthNamesFrench[month] || month,
+      value: aggregatedData[month],
+    }));
+  };
+
+  const revenusData = aggregateByMonth(data, 'date_visit', 'money');
+  const chargesData = aggregateByMonth(
+    chargeData,
+    'creation_date',
+    'value_money',
+  );
+
+  const mergedData = revenusData.map(revenue => ({
+    month: revenue.month,
+    revenusValue: revenue.value,
+    chargesValue:
+      (chargesData.find(charge => charge.month === revenue.month)?.value || 0) +
+      totalRecurringExpenses,
+  }));
+
+  const chartData = mergedData.reverse().map(item => ({
+    month: item.month,
+    revenus: item.revenusValue,
+    charges: item.chargesValue,
+  }));
+
+  const getComparisonText = current => {
+    if (!current.charges) return 'Aucune comparaison disponible';
+
+    const percentage = (
+      ((current.revenus - current.charges) / current.charges) *
+      100
+    ).toFixed(2);
+
+    if (percentage > 0) {
+      return `Augmenté de ${percentage}%`;
+    } else if (percentage < 0) {
+      return `Diminué de ${Math.abs(percentage)}%`;
+    } else {
+      return 'Pas de changement';
+    }
+  };
+
+  const currentMonthData = chartData[chartData.length - 1] || {};
+  const comparisonText = getComparisonText(currentMonthData);
+
   return (
-    <Card>
+    <Card className="w-[45%] bg-white rounded-lg">
       <CardHeader>
-        <CardTitle>Area Chart - Stacked Expanded</CardTitle>
-        <CardDescription>
-          Showing total visitors for the last 6months
+        <CardTitle className="text-[1.2rem] w-max">
+          Suivi des Dépenses et des Revenus au Fil du Temps
+        </CardTitle>
+        <CardDescription className="text-[1rem]">
+          Affichage des Revenus et des dépenses totales pour <br /> les 6
+          derniers mois
         </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-              top: 12,
-            }}
-            stackOffset="expand"
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
+          <ResponsiveContainer className="-ml-6">
+            <AreaChart
+              data={chartData}
+              margin={{ left: 12, right: 12, top: 12 }}
+              stackOffset="expand"
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={value => value.slice(0, 4)}
+              />
+              <YAxis />
 
-            <Area
-              dataKey="mobile"
-              type="natural"
-              fill="var(--color-mobile)"
-              fillOpacity={0.4}
-              stroke="var(--color-mobile)"
-              stackId="a"
-            />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="var(--color-desktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
-          </AreaChart>
+              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+
+              <Area
+                dataKey="revenus"
+                type="monotone"
+                fill={chartConfig.Revenus.color}
+                fillOpacity={0.4}
+                stroke={chartConfig.Revenus.color}
+                stackId="a"
+              />
+              <Area
+                dataKey="charges"
+                type="monotone"
+                fill={chartConfig.charges.color}
+                fillOpacity={0.4}
+                stroke={chartConfig.charges.color}
+                stackId="a"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </ChartContainer>
       </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+
+      <CardFooter className="relative bg-blue-100 rounded-b-lg py-2 px-6">
+        <div className="flex flex-col justify-start items-start w-full h-full font-medium text-center space-y-4">
+          <div className="flex flex-col items-start gap-3 text-lg font-semibold text-gray-800">
+            <div className="text-xl">Durant ce mois :</div>
+            <div className="flex items-center space-x-2">
+              {comparisonText.includes('Augmenté') ? (
+                <TrendingUp className="text-green-500 text-2xl animate-pulse" />
+              ) : comparisonText.includes('Diminué') ? (
+                <TrendingDown className="text-red-500 text-2xl animate-pulse" />
+              ) : (
+                <ArrowRight className="text-gray-500 text-2xl animate-pulse" />
+              )}
+              <div className="text-lg font-bold">{comparisonText}</div>
             </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024
+          </div>
+          <div className="text-sm text-gray-700">
+            <div className="flex justify-between">
+              <span className="font-bold text-blue-500">Revenus : </span>
+              <span> {currentMonthData.revenus || 'N/A'} MAD</span>
+            </div>
+            <div className="flex justify-between mt-1">
+              <span className="font-bold text-red-500">Dépenses : </span>
+              <span> {currentMonthData.charges || 'N/A'} MAD</span>
             </div>
           </div>
         </div>
+        <div className="absolute top-2 right-2 opacity-20">
+          <HiMiniPresentationChartLine className="text-[8rem] text-gray-400" />
+        </div>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
+
+export default ChargesChart;

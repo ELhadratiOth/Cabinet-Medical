@@ -16,12 +16,12 @@ const transformData = data => {
       month: 'long',
     });
     if (!countsByMonth[month]) {
-      countsByMonth[month] = { month, string: 0, test: 0 };
+      countsByMonth[month] = { month, nouvelleVisite: 0, controle: 0 };
     }
-    if (type_visit === 'test') {
-      countsByMonth[month].string += 1;
-    } else if (type_visit === 'Non Saisi') {
-      countsByMonth[month].test += 1;
+    if (type_visit === 'Nouvelle Visite') {
+      countsByMonth[month].nouvelleVisite += 1;
+    } else if (type_visit === 'Contrôle') {
+      countsByMonth[month].controle += 1;
     }
   });
 
@@ -29,12 +29,12 @@ const transformData = data => {
 };
 
 const chartConfig = {
-  string: {
-    label: 'String Type',
+  nouvelleVisite: {
+    label: 'Nouvelle Visite',
     color: '#2563eb',
   },
-  test: {
-    label: 'Test Type',
+  controle: {
+    label: 'Contrôle',
     color: '#60a5fa',
   },
 };
@@ -48,10 +48,7 @@ export default function Component({ data }) {
       <CardHeader>
         <CardTitle>Les Types des visites des Patients</CardTitle>
       </CardHeader>
-      <ChartContainer
-        className="h-[350px] w-full p-2  "
-        config={chartConfig}
-      >
+      <ChartContainer className="h-[350px] w-full p-2" config={chartConfig}>
         <BarChart data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis
@@ -63,8 +60,16 @@ export default function Component({ data }) {
           />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="string" fill="var(--color-string)" radius={4} />
-          <Bar dataKey="test" fill="var(--color-test)" radius={4} />
+          <Bar
+            dataKey="nouvelleVisite"
+            fill={chartConfig.nouvelleVisite.color}
+            radius={4}
+          />
+          <Bar
+            dataKey="controle"
+            fill={chartConfig.controle.color}
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </Card>

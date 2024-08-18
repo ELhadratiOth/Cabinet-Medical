@@ -11,11 +11,11 @@ const NavBar = () => {
   const [selected, setSelected] = useState('light');
 
   return (
-    <div className=" z-50 h-[5.79rem] fixed top-0 left-0 w-[82%] ml-64 mr-4  mt-3 rounded-2xl px-12 mb-7 flex justify-between bg-blue-100 items-center">
-      <div className="flex justify-start items-center">
+    <div className=" container z-50  h-[5.79rem] fixed top-0 left-0 w-[82%] ml-64 mr-4  mt-3 rounded-2xl px-12 mb-7 flex justify-between bg-blue-100 items-center">
+      <div className="flex relative justify-start items-center">
         {' '}
-        <img src={Logo}  className='w-[70px] md:w-[100px]  ' alt="error" />{' '}
-        <div className="font-bold text-lg md:text-xl uppercase">
+        <img src={Logo}  className='w-[70px] md:w-[180px]  ' alt="error" />{' '}
+        <div className=" absolute top-10 left-16  font-bold w-max text-lg md:text-xl uppercase">
           <p>Cabinet Medical</p>
         </div>
       </div>

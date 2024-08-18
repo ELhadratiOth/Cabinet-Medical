@@ -26,9 +26,9 @@ const aggregateData = data => {
       month: 'long',
     });
     if (!result[month]) {
-      result[month] = { month, aaaa: 0, bbbb: 0, cccc: 0 };
+      result[month] = { month, cnss: 0, none: 0, assurance: 0 };
     }
-    const insuranceType = item.insurance.toLowerCase();
+    const insuranceType = item.insurance.toLowerCase() || 'none';
     if (result[month][insuranceType] !== undefined) {
       result[month][insuranceType] += 1;
     }
@@ -40,12 +40,12 @@ const aggregateData = data => {
 const calculateTotals = chartData => {
   return chartData.reduce(
     (totals, current) => {
-      totals.aaaa += current.aaaa || 0;
-      totals.bbbb += current.bbbb || 0;
-      totals.cccc += current.cccc || 0;
+      totals.cnss += current.cnss || 0;
+      totals.none += current.none || 0;
+      totals.assurance += current.assurance || 0;
       return totals;
     },
-    { aaaa: 0, bbbb: 0, cccc: 0 },
+    { cnss: 0, none: 0, assurance: 0 },
   );
 };
 
@@ -58,17 +58,17 @@ const getLast12MonthsData = data => {
 };
 
 const chartConfig = {
-  aaaa: {
-    label: 'Assurance',
-    color: 'red',
-  },
-  bbbb: {
+  cnss: {
     label: 'CNSS',
     color: 'blue',
   },
-  cccc: {
+  none: {
     label: 'None',
-    color: 'yellow',
+    color: 'green',
+  },
+  assurance: {
+    label: 'Assurance',
+    color: 'red',
   },
 };
 
@@ -79,7 +79,7 @@ export default function Component({ data }) {
   const year = new Date().getFullYear();
 
   return (
-    <Card className="w-[55%]">
+    <Card className="w-[53%]">
       <CardHeader>
         <CardTitle>Visites par Type d&apos;Assurance - Mensuel</CardTitle>
         <CardDescription>Données mensuelles pour {year}</CardDescription>
@@ -87,7 +87,6 @@ export default function Component({ data }) {
       <CardContent>
         <ChartContainer config={chartConfig}>
           <LineChart
-            accessibilityLayer
             data={chartData}
             margin={{
               left: 24,
@@ -104,23 +103,23 @@ export default function Component({ data }) {
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
-              dataKey="aaaa"
+              dataKey="cnss"
               type="monotone"
-              stroke={chartConfig.aaaa.color}
+              stroke={chartConfig.cnss.color}
               strokeWidth={2}
               dot={true}
             />
             <Line
-              dataKey="bbbb"
+              dataKey="none"
               type="monotone"
-              stroke={chartConfig.bbbb.color}
+              stroke={chartConfig.none.color}
               strokeWidth={2}
               dot={true}
             />
             <Line
-              dataKey="cccc"
+              dataKey="assurance"
               type="monotone"
-              stroke={chartConfig.cccc.color}
+              stroke={chartConfig.assurance.color}
               strokeWidth={2}
               dot={true}
             />
@@ -130,34 +129,35 @@ export default function Component({ data }) {
       <CardFooter className="px-3 p-2 relative">
         <div className="flex w-full items-start text-sm p-0">
           <div className="w-full">
-            <div className="flex flex-col items-start justify-start  font-medium px-8 pb-2 pt-1 bg-blue-100 rounded-lg shadow-md">
+            <div className="flex flex-col items-start justify-start font-medium px-8 pb-2 pt-1 bg-blue-100 rounded-lg shadow-md">
               <div className="text-base text-gray-800 font-semibold mb-2">
                 Total des personnes assurées cette année:
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded"></div>
-                  <p className="text-red-500 text-xs">
-                    Assurance : <span className="font-bold">{totals.aaaa}</span>
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-blue-500 rounded"></div>
                   <p className="text-blue-500 text-xs">
-                    CNSS : <span className="font-bold">{totals.bbbb}</span>
+                    CNSS : <span className="font-bold">{totals.cnss}</span>
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-yellow-500 rounded"></div>
-                  <p className="text-yellow-500 text-xs">
-                    None : <span className="font-bold">{totals.cccc}</span>
+                  <div className="w-3 h-3 bg-green-500 rounded"></div>
+                  <p className="text-green-500 text-xs">
+                    None : <span className="font-bold">{totals.none}</span>
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-red-500 rounded"></div>
+                  <p className="text-red-500 text-xs">
+                    Assurance :{' '}
+                    <span className="font-bold">{totals.assurance}</span>
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="absolute opacity-10 w-full h-full stroke-current overflow-hidden ">
+        <div className="absolute opacity-10 w-full h-full stroke-current overflow-hidden">
           <TbChartLine className="absolute text-[10rem] -top-5 right-[3%]" />
         </div>
       </CardFooter>

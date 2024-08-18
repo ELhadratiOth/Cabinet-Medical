@@ -98,3 +98,44 @@ async def delete_medical_visit(visit_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Medical visit not found")
     db.delete(visit)
     db.commit()
+    
+    
+from datetime import datetime
+
+@router.get("/quick/certificat/current/month", response_model=List[BaseModels.MedicalVisit4Certificat])
+async def get_certif_current_month(db: Session = Depends(get_db)):
+    current_month = datetime.now().strftime("%m")
+    current_year = datetime.now().strftime("%Y")
+
+    quick_visits = db.query(models.MedicalVisit).filter(
+        models.MedicalVisit.patient_id == 0,
+        models.MedicalVisit.date_visit.startswith(f"{current_year}-{current_month}")
+    ).order_by(desc(models.MedicalVisit.date_visit)).all()
+
+    return quick_visits
+
+@router.post("/quick/certificat/add", response_model=List[BaseModels.MedicalVisit4Certificat])
+async def set_certif_(   
+medicalVisitForm: BaseModels.MedicalVisit4Certificat,
+db: Session = Depends(get_db)):
+    
+    try:
+        current_datetime = datetime.now() - relativedelta(months=0)
+        formatted_date = current_datetime.strftime("%Y-%m-%d")
+        formatted_time = current_datetime.strftime("%I:%M %p")  
+        quickMedicalVisit = models.MedicalVisit(
+            **medicalVisitForm.model_dump(),
+            patient_id=0,
+            date_visit=formatted_date,
+            hour_visit=formatted_time 
+        )
+        db.add(quickMedicalVisit)
+        db.commit()
+        db.refresh(quickMedicalVisit)
+
+        return quickMedicalVisit
+    
+    except HTTPException as e:
+        raise HTTPException(status_code=400, detail=f"Error creating new quick visit: {str(e)}")
+
+

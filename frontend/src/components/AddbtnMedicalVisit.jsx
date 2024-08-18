@@ -174,7 +174,7 @@ export default function AddbtnMedicalVisit({
               </SelectTrigger>
               <SelectContent className="cursor-pointer">
                 <SelectItem value="CNSS">CNSS</SelectItem>
-                <SelectItem value="Non">Non</SelectItem>
+                <SelectItem value="None">None</SelectItem>
                 <SelectItem value="Assurance">Assurance</SelectItem>
               </SelectContent>
             </Select>

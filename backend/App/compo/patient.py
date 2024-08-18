@@ -13,6 +13,7 @@ router = APIRouter()
 async def get_all_patients(db: Session = Depends(get_db)):
     patients = (
         db.query(models.Patient)
+        .filter(models.Patient.id != 0)
         .order_by(desc(models.Patient.id))
         .limit(15)
         .all()

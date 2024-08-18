@@ -36,6 +36,8 @@ const monthNames = [
 ];
 
 const processData = data => {
+  console.log("my data");
+  console.log(data)
   const monthlyTotals = data.reduce((acc, entry) => {
     const [year, month] = entry.date_visit.split('-');
     const key = `${year}-${month}`;
@@ -161,14 +163,14 @@ export default function PieChartt({ data }) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground text-[0.7rem]"
                         >
-                          Nombre des Patients
+                          Nombre de visites
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 37}
                           className="fill-muted-foreground text-[0.7rem]"
                         >
-                          ce mois
+                          ce mois-ci
                         </tspan>
                       </text>
                     );

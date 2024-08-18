@@ -6,21 +6,10 @@ import { MdDelete } from 'react-icons/md';
 import { HR } from 'flowbite-react';
 import { MdAccountBalanceWallet } from 'react-icons/md';
 import AddbtnCharges from './AddbtnCharges';
-const recurringExpenses = [
-  {
-    id: -1,
-    label: 'Eau et Electricite',
-    value_money: 2000,
-  },
+import RecurringExpenses from './RecurringExpenses.js';
 
-  {
-    id: -2,
-    label: 'Assistante',
-    value_money: 2000,
-  },
-  { id: -3, label: 'paiement de loyer', value_money: 1000 },
-  { id: -4, label: 'Credit Bank', value_money: 2000 },
-];
+
+const recurringExpenses = RecurringExpenses;
 
 const Charges = () => {
   const [charges, setCharges] = useState([]);
@@ -69,6 +58,14 @@ const Charges = () => {
           <AddbtnCharges addNewCharge={addNewCharge} />
         </div>
       </div>
+      <div className="col-span-full w-full flex justify-start items-center my-6 text-blue-900">
+        <div className="flex items-center justify-start">
+          <div className="pr-4 pl-1 font-bold text-2xl">
+            Dépenses récurrentes
+          </div>
+          <div className="inset-x-0 mt-[0.56rem] top-1/2 h-[4px] -translate-y-1/2 bg-transparent bg-gradient-to-r w-[15cm] from-blue-900 to-transparent opacity-75"></div>
+        </div>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-8">
         {recurringExpenses.map(charge => (
           <div
@@ -91,8 +88,13 @@ const Charges = () => {
           </div>
         ))}
 
-        <div className="col-span-full w-full flex justify-center items-center ">
-          <HR.Trimmed className="w-[30rem] bg-blue-700 left-1/2" />
+        <div className="col-span-full w-full flex justify-start items-center my-6 text-blue-900">
+          <div className="flex items-center justify-start">
+            <div className="pr-4 pl-1 font-bold text-2xl">
+              Dépenses Supplémentaires
+            </div>
+            <div className="inset-x-0 mt-[0.56rem] top-1/2 h-[4px] -translate-y-1/2 bg-transparent bg-gradient-to-r w-[15cm] from-blue-900 to-transparent opacity-75"></div>
+          </div>
         </div>
 
         {charges.length === 0 ? (

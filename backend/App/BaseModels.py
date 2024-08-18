@@ -60,10 +60,17 @@ class MedicalVisitModel(MedicalVisitBase):
     class Config:
         from_attributes = True
 
-# class MedicalVisitUpdate(BaseModel):
-#     label: Optional[str] = None
-#     date_visit: Optional[str] = None
-#     description: Optional[str] = None
+class MedicalVisit4Certificat(BaseModel):
+    label: Optional[str] = "Non Saisi"
+    money:Optional[str] = "0"
+    
+class MedicalVisitModel(MedicalVisit4Certificat):
+    id: int
+    date_visit: Optional[str] = None 
+    hour_visit: Optional[str] = None
+
+    class Config:
+        from_attributes = True
 
 class ExaminationBase(BaseModel):
     height: Optional[float] = "0"
@@ -167,7 +174,7 @@ class ChargeBase(BaseModel):
     value_money: Optional[str] = "Non Saisi"
    
 
-class ChargeModel(ChargeBase):
+class ChargeModel(ChargeBase): 
     id: int
     creation_date: Optional[str] = None
 
