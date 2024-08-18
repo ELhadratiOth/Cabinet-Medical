@@ -64,7 +64,7 @@ class MedicalVisit4Certificat(BaseModel):
     label: Optional[str] = "Non Saisi"
     money:Optional[str] = "0"
     
-class MedicalVisitModel(MedicalVisit4Certificat):
+class MedicalVisit4CertificatModel(MedicalVisit4Certificat):
     id: int
     date_visit: Optional[str] = None 
     hour_visit: Optional[str] = None

@@ -11,7 +11,7 @@ router = APIRouter()
 async def get_data_4_piechart(db: Session = Depends(get_db)):
 
     now = datetime.now()
-    four_months_ago = now - timedelta(days=12*30)  
+    four_months_ago = now - timedelta(days=9*30)  
 
     data = (
         db.query(models.MedicalVisit)

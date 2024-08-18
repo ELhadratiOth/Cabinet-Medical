@@ -102,19 +102,19 @@ async def delete_medical_visit(visit_id: int, db: Session = Depends(get_db)):
     
 from datetime import datetime
 
-@router.get("/quick/certificat/current/month", response_model=List[BaseModels.MedicalVisit4Certificat])
+@router.get("/quick/certificat/current/month", response_model=List[BaseModels.MedicalVisit4CertificatModel])
 async def get_certif_current_month(db: Session = Depends(get_db)):
     current_month = datetime.now().strftime("%m")
     current_year = datetime.now().strftime("%Y")
 
     quick_visits = db.query(models.MedicalVisit).filter(
-        models.MedicalVisit.patient_id == 0,
+        models.MedicalVisit.patient_id == -1,
         models.MedicalVisit.date_visit.startswith(f"{current_year}-{current_month}")
     ).order_by(desc(models.MedicalVisit.date_visit)).all()
 
     return quick_visits
 
-@router.post("/quick/certificat/add", response_model=List[BaseModels.MedicalVisit4Certificat])
+@router.post("/quick/certificat/add", response_model=BaseModels.MedicalVisit4CertificatModel)
 async def set_certif_(   
 medicalVisitForm: BaseModels.MedicalVisit4Certificat,
 db: Session = Depends(get_db)):
@@ -125,7 +125,7 @@ db: Session = Depends(get_db)):
         formatted_time = current_datetime.strftime("%I:%M %p")  
         quickMedicalVisit = models.MedicalVisit(
             **medicalVisitForm.model_dump(),
-            patient_id=0,
+            patient_id=-1,
             date_visit=formatted_date,
             hour_visit=formatted_time 
         )

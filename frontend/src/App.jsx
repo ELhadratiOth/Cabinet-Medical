@@ -16,6 +16,7 @@ import Autre from './components/Autre';
 import Perscription from './components/Perscription';
 import SuggestedPatients from './components/SuggestedPatients';
 import Charges from './components/Charges';
+import FastCertif from './components/FastCertif';
 function App() {
   return (
     <Router>
@@ -35,6 +36,7 @@ function App() {
         <Route path="/patientssuggeree" element={<SuggestedPatients />}></Route>
         <Route path="/ordonnance" element={<Perscription />}></Route>
         <Route path="/charges" element={<Charges />}></Route>
+        <Route path="/certificatrapide" element={<FastCertif />}></Route>
         <Route path="/autre" element={<Autre />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>

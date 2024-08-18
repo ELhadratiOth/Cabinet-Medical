@@ -28,6 +28,8 @@ const aggregateData = data => {
     if (!result[month]) {
       result[month] = { month, cnss: 0, none: 0, assurance: 0 };
     }
+    console.log("helps")
+    console.log(item.insurance)
     const insuranceType = item.insurance.toLowerCase() || 'none';
     if (result[month][insuranceType] !== undefined) {
       result[month][insuranceType] += 1;
@@ -73,6 +75,9 @@ const chartConfig = {
 };
 
 export default function Component({ data }) {
+    console.log("chart");
+
+  console.log(data);
   const chartData = getLast12MonthsData(data);
   const totals = calculateTotals(chartData);
 

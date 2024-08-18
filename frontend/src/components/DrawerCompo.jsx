@@ -12,7 +12,7 @@ import { FaPeopleGroup } from 'react-icons/fa6';
 import { RiUserSearchFill } from 'react-icons/ri';
 import { useEffect, useState } from 'react'
 import { SiWebmoney } from 'react-icons/si';
-
+import { TbFileCertificate } from 'react-icons/tb';
 export default function DrawerCompo() {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
@@ -94,6 +94,15 @@ const PDF = () => (
                   >
                     <FaHospitalUser className="font-bold ml-5" />
                     <div> Nouveau patient</div>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/certificatrapide"
+                    className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                  >
+                    <TbFileCertificate className="font-bold ml-5" />
+                    <div>Certification Rapide</div>
                   </Link>
                 </li>
                 <li>
