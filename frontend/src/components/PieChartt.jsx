@@ -106,7 +106,8 @@ export default function PieChartt({ data }) {
       </div>
       <CardHeader className="items-center pb-0">
         <CardTitle>
-          Vue mensuelle des montants (En <span className="font-bold">DH</span>)
+          Récapitulatif mensuel des revenus (En{' '}
+          <span className="font-bold">DH</span>)
         </CardTitle>
         <CardDescription>
           Statistiques des visites médicales des quatre derniers mois

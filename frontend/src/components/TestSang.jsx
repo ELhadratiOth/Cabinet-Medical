@@ -56,8 +56,8 @@ const Testsang = () => {
       />
       <div className="w-full flex justify-between items-center rounded-md">
         <div className="text-3xl font-semibold px-2 py-2 rounded-md text-blue-900">
-          Les Analyses Sanguins
-          <HR.Trimmed className="bg-blue-200 w-[20rem] mt-2 md:my-2 md:mx-0" />
+          Tension Artérielle
+          <HR.Trimmed className="bg-blue-200 w-[15rem] mt-2 md:my-2 md:mx-0" />
         </div>
         <div className="bg-blue-100 rounded-md border-2 border-blue-200 py-1 px-2 flex space-x-2 items-center">
           <div className="bg-white p-1.5 px-3 rounded-md text-blue-500 font-semibold">
@@ -77,10 +77,10 @@ const Testsang = () => {
       <div className="space-y-6 flex flex-col w-full items-center">
         {testsang.length === 0 ? (
           <div className="text-base leading-relaxed text-gray-500 text-center col-span-3">
-            Aucun test sanguin pour le moment pour ce patient.
+            Aucune mesure de tension artérielle pour ce patient.
           </div>
         ) : (
-          testsang.map((test , index) => (
+          testsang.map((test, index) => (
             <div
               key={test.id}
               className="relative flex flex-col p-4 w-full max-w-xl bg-white/50 backdrop-blur-sm border-l-4 ring-1 border-blue-300 shadow-lg rounded-md "
@@ -96,7 +96,7 @@ const Testsang = () => {
               </span>
               <div className="w-full bg-blue-50  rounded-lg px-4 py-2 flex flex-col justify-around shadow-lg border">
                 <p className="text-lg font-bold text-blue-900">
-                  Analyse du Sang N : {index+1}
+                  Analyse du Sang N : {index + 1}
                 </p>
                 <div className="py-3">
                   <p className="text-gray-600 text-sm  ">{test.description}</p>

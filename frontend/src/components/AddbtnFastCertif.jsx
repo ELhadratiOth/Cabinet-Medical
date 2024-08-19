@@ -20,11 +20,11 @@ import { MdAdd } from 'react-icons/md';
 const AddbtnFastCertif = ({ addNewFastCertif }) => {
   const [fastCertif, setFastCertif] = useState({
     label: '',
-    value_money: '',
+    money: '',
   });
   const [errors, setErrors] = useState({
     label: false,
-    value_money: false,
+    money: false,
   });
 
   const handleChange = field => event => {
@@ -35,10 +35,10 @@ const AddbtnFastCertif = ({ addNewFastCertif }) => {
   const validate = () => {
     const newErrors = {
       label: !fastCertif.label.trim(),
-      value_money: !fastCertif.value_money.trim(),
+      money: !fastCertif.money.trim(),
     };
     setErrors(newErrors);
-    return !newErrors.label && !newErrors.value_money;
+    return !newErrors.label && !newErrors.money;
   };
 
   const addFastCertif = async () => {
@@ -47,7 +47,7 @@ const AddbtnFastCertif = ({ addNewFastCertif }) => {
     const dataToSend = {
       ...fastCertif,
       label: fastCertif.label || 'Non Saisi',
-      value_money: fastCertif.value_money || 'Non Saisi',
+      money: fastCertif.money || 'Non Saisi',
     };
 
     console.log('FastCertif Added:', dataToSend);
@@ -64,11 +64,11 @@ const AddbtnFastCertif = ({ addNewFastCertif }) => {
 
     setFastCertif({
       label: '',
-      value_money: '',
+      money: '',
     });
     setErrors({
       label: false,
-      value_money: false,
+      money: false,
     });
   };
 
@@ -90,34 +90,34 @@ const AddbtnFastCertif = ({ addNewFastCertif }) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Ajouter Une Dépense
-            <HR.Trimmed className="bg-blue-200 md:w-[12.5rem] md:mx-0 md:mt-3 md:mb-0" />
+            Ajouter Revenu
+            <HR.Trimmed className="bg-blue-200 md:w-[9rem] md:mx-0 md:mt-3 md:mb-0" />
           </DialogTitle>
           <DialogDescription />
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="flex-col space-y-3 flex justify-start items-start">
-            <Label htmlFor="fastCertif-label">Nom de Dépense</Label>
+            <Label htmlFor="label">Autre Revenu</Label>
             <Input
-              id="fastCertif-label"
+              id="label"
               value={fastCertif.label}
               onChange={handleChange('label')}
-              placeholder="Saisir le nom de Certificat"
+              placeholder="Saisir Autre Revenu (ECG, certificat, Permis ...)"
               className={`border-2 ${
                 errors.label ? 'border-red-500' : 'border-blue-200'
               } focus:border-0 placeholder:text-gray-500/50`}
             />
           </div>
           <div className="flex-col flex space-y-3 justify-start items-start">
-            <Label htmlFor="fastCertif-value_money">le Cout de dépense</Label>
+            <Label htmlFor="money">Montant</Label>
             <Input
               type="number"
-              id="fastCertif-value_money"
-              value={fastCertif.value_money}
-              onChange={handleChange('value_money')}
-              placeholder="Saisir le Cout de Certificat"
+              id="money"
+              value={fastCertif.money}
+              onChange={handleChange('money')}
+              placeholder="Saisir le montant"
               className={`border-2 ${
-                errors.value_money ? 'border-red-500' : 'border-blue-200'
+                errors.money ? 'border-red-500' : 'border-blue-200'
               } w-full placeholder:text-gray-500/50`}
             />
           </div>

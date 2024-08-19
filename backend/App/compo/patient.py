@@ -9,16 +9,26 @@ from datetime import datetime
 
 router = APIRouter()
 
+from sqlalchemy.orm import joinedload
+
 @router.get("/all", response_model=List[BaseModels.PatientModel])
 async def get_all_patients(db: Session = Depends(get_db)):
     patients = (
         db.query(models.Patient)
+        .join(models.MedicalVisit)
         .filter(models.Patient.id != -1)
-        .order_by(desc(models.Patient.id))
+        .order_by(
+            desc(models.MedicalVisit.date_visit), 
+            desc(models.MedicalVisit.id)
+        )
+        .options(joinedload(models.Patient.medical_visits))
         .limit(15)
         .all()
     )
     return patients
+
+
+
 
 @router.post("/add", response_model=BaseModels.PatientModel)
 async def create_new_patient(patientForm: BaseModels.PatientBase, db: Session = Depends(get_db)):

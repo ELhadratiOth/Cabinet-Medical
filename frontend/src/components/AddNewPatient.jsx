@@ -135,7 +135,7 @@ export default function AddNewPatient() {
           </div>
           <div className="flex space-x-3 justify-center items-center">
             <div className="grid gap-2 w-full">
-              <Label>Gender</Label>
+              <Label>Sexe</Label>
               <Select
                 onValueChange={value =>
                   setPatient(prevPatient => ({ ...prevPatient, gender: value }))
@@ -186,22 +186,22 @@ export default function AddNewPatient() {
           </div>
           <div className="flex justify-center items-center space-x-3">
             <div className="grid gap-2 w-1/2">
-              <Label htmlFor="numero">Numero du telephone</Label>
+              <Label htmlFor="numero">Numéro du téléphone</Label>
               <Input
                 id="numero"
                 type="text"
-                placeholder="Saisi le numero de telephone du patient"
+                placeholder="Saisir le numéro de téléphone"
                 value={patient.phonenumber}
                 onChange={handleChange('phonenumber')}
                 className="px-[10px] py-[11px] text-base bg-[#e8e8e8] ring-1 focus:ring-0 border-0 rounded-[5px] w-full focus:outline-none placeholder:text-black/25"
               />
             </div>
             <div className="grid gap-2 w-1/2">
-              <Label htmlFor="cin">CIN</Label>
+              <Label htmlFor="cin">CINE</Label>
               <Input
                 id="cin"
                 type="text"
-                placeholder="Saisi le CIN du patient"
+                placeholder="Saisir le CINE "
                 value={patient.cin}
                 onChange={handleChange('cin')}
                 className="px-[10px] py-[11px] text-base bg-[#e8e8e8] ring-1 focus:ring-0 border-0 rounded-[5px] w-full focus:outline-none placeholder:text-black/25"

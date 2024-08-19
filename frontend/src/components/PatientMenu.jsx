@@ -18,7 +18,7 @@ const PatientMenu = ({ firstname, lastname }) => {
         <button className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-500 hover:text-gray-800 transition-colors">
           <div className="font-medium space-x-2 flex text-sm justify-center items-center">
             <MdMedicalServices className="text-xl" />
-            <div>Service Medical</div>
+            <div>Service Médical</div>
           </div>
         </button>
         <div className="absolute top-[50%] -right-5 pt-10 bg-transparent z-10">
@@ -30,22 +30,22 @@ const PatientMenu = ({ firstname, lastname }) => {
             />
             <Option
               icon={TbReportMedical}
-              text="Les Visites Medicals"
+              text="Visites Médicales"
               path={`/medicalVisit?firstname=${firstname}&lastname=${lastname}`}
             />
             <Option
               icon={LiaFileMedicalAltSolid}
-              text="Les Examinations"
+              text="Examen"
               path={`/examinations?firstname=${firstname}&lastname=${lastname}`}
             />
             <Option
               icon={TbVaccine}
-              text="Les Vaccins"
+              text="Vaccins"
               path={`/vaccins?firstname=${firstname}&lastname=${lastname}`}
             />
             <Option
               icon={LiaAllergiesSolid}
-              text="Les Allergies"
+              text="Allérgies"
               path={`/allergies?firstname=${firstname}&lastname=${lastname}`}
             />
             <Option

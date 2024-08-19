@@ -13,16 +13,18 @@ const styles = StyleSheet.create({
   },
   medication: {
     fontSize: 13,
+
   },
   medicationName: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 'bold',
     textDecoration: 'underline',
-    textTransform: 'uppercase',
+    textTransform: 'uppercase', 
+
   },
   medicationDetail: {
     marginTop: 5,
-    fontSize: 13,
+    fontSize: 12,
   },
 });
 
@@ -34,8 +36,7 @@ const PDFTemplate = ({ medications }) => {
           {medications.map((med, index) => (
             <Text key={med.id} style={styles.medication}>
               <Text style={styles.medicationName}>
-                {`Médicament ${index + 1}: `}
-                {med.name}
+                {index + 1}-{' '} {med.name}
               </Text>
               {'\n'}
               {'\n'}

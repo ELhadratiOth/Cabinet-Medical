@@ -52,7 +52,7 @@ const PDF = () => (
           <div className="inline-flex  pb-5 pt-[1.5rem] w-full items-center justify-center   ">
             <div className=" py-3 flex justify-center items-center space-x-3 px-5 text-base font-bold  place-content-center rounded-lg bg-gray-100 text-gray-600">
               <FaUserDoctor className="text-2xl"></FaUserDoctor>
-              <div> Ilham Ouzahra </div>
+              <div> Ilham Ouzzahra </div>
             </div>
           </div>
 
@@ -102,7 +102,7 @@ const PDF = () => (
                     className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                   >
                     <TbFileCertificate className="font-bold ml-5" />
-                    <div>Certification Rapide</div>
+                    <div>Autre Revenu</div>
                   </Link>
                 </li>
                 <li>

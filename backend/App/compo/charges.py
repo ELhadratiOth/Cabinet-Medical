@@ -29,7 +29,7 @@ async def add_charge(
     value_money: str,
     db: Session = Depends(get_db)
 ):
-    creation_date =  ( datetime.today()- relativedelta(months=1)).strftime("%Y-%m-%d")
+    creation_date =  ( datetime.today()- relativedelta(months=0)).strftime("%Y-%m-%d")
     
     new_charge = models.Charges(
         creation_date=creation_date,

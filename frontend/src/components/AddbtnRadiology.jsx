@@ -64,7 +64,7 @@ const AddbtnRadiologyCase = ({ firstname, lastname, addNewRadiology }) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Ajouter Une Radio
+            Ajouter Un Radio
             <HR.Trimmed className="bg-blue-200 md:w-[10rem] md:mx-0 md:mt-3 md:mb-0" />
           </DialogTitle>
           <DialogDescription />
@@ -72,25 +72,25 @@ const AddbtnRadiologyCase = ({ firstname, lastname, addNewRadiology }) => {
         <div className="grid gap-4 py-4">
           <div className="flex-col space-y-3 flex justify-start items-start">
             <Label htmlFor="label" className="">
-              Nom De Radio
+              Type De Radio
             </Label>
             <Input
               id="label"
               value={radiology.label}
               onChange={handleChange('label')}
-              placeholder="Saisi le Nom du Radio"
+              placeholder="Saisir le type de Radio"
               className="border-2 focus:border-0 border-blue-200 placeholder:text-gray-500/50"
             />
           </div>
           <div className="flex-col flex space-y-3 justify-start items-start">
             <Label htmlFor="description" className=" ">
-              Description Du Radio
+              Observation
             </Label>
             <Textarea
               id="description"
               value={radiology.description}
               onChange={handleChange('description')}
-              placeholder="Saisi une Description sur le Radio"
+              placeholder="Observation"
               className="resize-none border-2 focus:border-0 border-blue-200 w-full placeholder:text-gray-500/50"
             />
           </div>

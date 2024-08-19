@@ -54,8 +54,8 @@ const Autre = () => {
       />
       <div className="w-full flex justify-between items-center rounded-md">
         <div className="text-3xl font-semibold px-2 py-2 rounded-md text-blue-900">
-          Les Analyses Sanguins
-          <HR.Trimmed className="bg-blue-200 w-[20rem] mt-2 md:my-2 md:mx-0" />
+          Autre
+          <HR.Trimmed className="bg-blue-200 w-[5.3rem] mt-2 md:my-2 md:mx-0" />
         </div>
         <div className="bg-blue-100 rounded-md border-2 border-blue-200 py-1 px-2 flex space-x-2 items-center">
           <div className="bg-white p-1.5 px-3 rounded-md text-blue-500 font-semibold">
@@ -75,7 +75,7 @@ const Autre = () => {
       <div className="space-y-6 flex flex-col w-full items-center">
         {autre.length === 0 ? (
           <div className="text-base leading-relaxed text-gray-500 text-center col-span-3">
-            Aucun Autre pour le moment pour ce patient.
+            Aucune donnée pour ce patient.
           </div>
         ) : (
           autre.map(item => (

@@ -67,7 +67,7 @@ const AddbtnAllergie = ({ firstname, lastname, addNewAllergie }) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Ajouter Une Allergie
+            Ajouter Une Allérgie
             <HR.Trimmed className="bg-blue-200 md:w-[11rem] md:mx-0 md:mt-3 md:mb-0" />
           </DialogTitle>
           <DialogDescription />
@@ -75,7 +75,7 @@ const AddbtnAllergie = ({ firstname, lastname, addNewAllergie }) => {
         <div className="grid gap-4 py-4">
           <div className="flex-col space-y-3 flex justify-start items-start">
             <Label htmlFor="allergie" className="">
-              Nom d&apos;Allergie
+              Type d&apos;allérgie
             </Label>
             <Input
               id="allergie"
@@ -87,13 +87,13 @@ const AddbtnAllergie = ({ firstname, lastname, addNewAllergie }) => {
           </div>
           <div className="flex-col flex space-y-3  justify-start items-start">
             <Label htmlFor="description" className=" ">
-              Description d&apos;Allergie
+              Observation 
             </Label>
             <Textarea
               id="description"
               value={allergie.description}
               onChange={handleChange('description')}
-              placeholder="Saisir une description de l'allergie"
+              placeholder="Observation"
               className="resize-none border-2 focus:border-0 border-blue-200  w-full placeholder:text-gray-500/50"
             />
           </div>

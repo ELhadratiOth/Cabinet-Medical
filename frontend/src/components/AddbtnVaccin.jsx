@@ -74,7 +74,7 @@ const AddbtnVaccin = ({ firstname, lastname, addNewVaccin }) => {
         <div className="grid gap-4 py-4">
           <div className="flex-col space-y-3 flex justify-start items-start">
             <Label htmlFor="vaccin" className="">
-              Nom Du Vaccin
+              Type de vaccin
             </Label>
             <Input
               id="vaccin"
@@ -86,13 +86,13 @@ const AddbtnVaccin = ({ firstname, lastname, addNewVaccin }) => {
           </div>
           <div className="flex-col flex space-y-3  justify-start items-start">
             <Label htmlFor="description" className=" ">
-              Vaccin Description
+              Observation{' '}
             </Label>
             <Textarea
               id="description"
               value={vaccin.description}
               onChange={handleChange('description')}
-              placeholder="Saisi use Description sur le Vaccin"
+              placeholder="Observation"
               className="resize-none border-2 focus:border-0 border-blue-200  w-full placeholder:text-gray-500/50"
             />
           </div>

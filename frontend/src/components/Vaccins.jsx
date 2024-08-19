@@ -55,7 +55,7 @@ const Vaccins = () => {
       />
       <div className="w-full flex justify-between items-center rounded-md">
         <div className="text-3xl font-semibold px-2 py-2 rounded-md text-blue-900">
-          Les Vaccins :
+          Vaccination
           <HR.Trimmed className="bg-blue-200 md:w-[11rem] md:mx-0 md:mt-3 md:mb-0" />
         </div>
         <div className="bg-blue-100 rounded-md border-2 border-blue-200 py-0.5 px-1 flex space-x-2 justify-start items-center">
@@ -76,7 +76,7 @@ const Vaccins = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8">
         {vaccins.length === 0 ? (
           <div className="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center col-span-3">
-            Aucune vaccination pour le moment pour ce patient.
+            Aucune vaccination pour ce patient.
           </div>
         ) : (
           vaccins.map(vaccin => (

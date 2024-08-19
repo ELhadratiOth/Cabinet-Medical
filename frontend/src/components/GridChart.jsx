@@ -46,7 +46,7 @@ export default function Component({ data }) {
   return (
     <Card className="h-[420px] w-full">
       <CardHeader>
-        <CardTitle>Les Types des visites des Patients</CardTitle>
+        <CardTitle>Les Statistiques des visites </CardTitle>
       </CardHeader>
       <ChartContainer className="h-[350px] w-full p-2" config={chartConfig}>
         <BarChart data={chartData}>

@@ -202,7 +202,7 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                   />
                 </div>
                 <div className="grid gap-2 w-full">
-                  <Label htmlFor="gender">Gender</Label>
+                  <Label htmlFor="gender">Sexe</Label>
                   <Select
                     onValueChange={value =>
                       setPatient(prevPatient => ({
@@ -212,7 +212,7 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                     }
                   >
                     <SelectTrigger className="bg-[#e8e8e8] ring-1">
-                      <SelectValue placeholder="Gender Options" />
+                      <SelectValue placeholder="Sexe Options" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Male">Male</SelectItem>
@@ -221,12 +221,12 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                   </Select>
                 </div>
                 <div className="grid gap-2 w-full">
-                  <Label htmlFor="phonenumber">Numero Du Telephone</Label>
+                  <Label htmlFor="phonenumber">Numéro de Téléphone</Label>
                   <Input
                     className="w-full px-[10px] text-base bg-[#e8e8e8] border-0 ring-1 focus:ring-0 rounded-[5px] focus:outline-none placeholder:text-black/25"
                     id="phonenumber"
                     type="text"
-                    placeholder="Saisir le numero de téléphone"
+                    placeholder="Saisir le numéro de téléphone"
                     value={patient.phonenumber || ''}
                     onChange={handleChange('phonenumber')}
                   />
@@ -245,11 +245,11 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                 />
               </div>
               <div className="grid gap-2 w-full">
-                <Label htmlFor="observation">Observation</Label>
+                <Label htmlFor="observation">Obsérvation</Label>
                 <Textarea
                   className="px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 focus:outline-none placeholder:text-black/25"
                   id="observation"
-                  placeholder="Saisir les observations concernant le patient"
+                  placeholder="Saisir les obsérvations concernant le patient"
                   value={patient.description || ''}
                   onChange={handleChange('description')}
                 />

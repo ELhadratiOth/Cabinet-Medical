@@ -26,12 +26,19 @@ const aggregateData = data => {
       month: 'long',
     });
     if (!result[month]) {
-      result[month] = { month, cnss: 0, none: 0, assurance: 0 };
+      result[month] = { month, cnss: 0, non_assure: 0, assurance: 0 };
     }
-    console.log("helps")
-    console.log(item.insurance)
-    const insuranceType = item.insurance.toLowerCase() || 'none';
-    if (result[month][insuranceType] !== undefined) {
+    console.log('helps');
+    console.log(item.type_visit === 'Nouvelle Visite');
+
+    const insuranceType =
+      item.insurance.toLowerCase() === ''
+        ? 'non_assure'
+        : item.insurance.toLowerCase();
+    if (
+      result[month][insuranceType] !== undefined &&
+      item.type_visit === 'Nouvelle Visite'
+    ) {
       result[month][insuranceType] += 1;
     }
   });
@@ -43,11 +50,11 @@ const calculateTotals = chartData => {
   return chartData.reduce(
     (totals, current) => {
       totals.cnss += current.cnss || 0;
-      totals.none += current.none || 0;
+      totals.non_assure += current.non_assure || 0;
       totals.assurance += current.assurance || 0;
       return totals;
     },
-    { cnss: 0, none: 0, assurance: 0 },
+    { cnss: 0, non_assure: 0, assurance: 0 },
   );
 };
 
@@ -64,8 +71,8 @@ const chartConfig = {
     label: 'CNSS',
     color: 'blue',
   },
-  none: {
-    label: 'None',
+  non_assure: {
+    label: 'Non assuré',
     color: 'green',
   },
   assurance: {
@@ -75,7 +82,7 @@ const chartConfig = {
 };
 
 export default function Component({ data }) {
-    console.log("chart");
+  console.log('chart');
 
   console.log(data);
   const chartData = getLast12MonthsData(data);
@@ -115,9 +122,9 @@ export default function Component({ data }) {
               dot={true}
             />
             <Line
-              dataKey="none"
+              dataKey="non_assure"
               type="monotone"
-              stroke={chartConfig.none.color}
+              stroke={chartConfig.non_assure.color}
               strokeWidth={2}
               dot={true}
             />
@@ -148,7 +155,8 @@ export default function Component({ data }) {
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-green-500 rounded"></div>
                   <p className="text-green-500 text-xs">
-                    None : <span className="font-bold">{totals.none}</span>
+                    Non assuré :{' '}
+                    <span className="font-bold">{totals.non_assure}</span>
                   </p>
                 </div>
                 <div className="flex items-center gap-2">

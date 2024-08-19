@@ -53,7 +53,7 @@ const Home = () => {
       <div className="w-full flex justify-between items-center rounded-md">
         <div className="text-3xl font-semibold px-2 py-2 rounded-md">
           <div className="flex justify-start items-center">
-            Welcome Back Doctor,
+            Welcome Doctor,
             <MdWavingHand className="text-5xl text-yellow-300 ml-3 -rotate-12" />
           </div>
           <div className="text-sm text-gray-400 mt-1">

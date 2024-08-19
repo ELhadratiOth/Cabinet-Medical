@@ -52,16 +52,15 @@ const FastCertif = () => {
       />
       <div className="w-full flex justify-between items-center rounded-md">
         <div className="text-3xl font-semibold px-2 py-2 rounded-md text-blue-900">
-          Revenus et dépenses :
-          <HR.Trimmed className="bg-blue-200 md:w-[19.5rem] md:mx-0 md:mt-3 md:mb-0" />
+          Autre Revenu 
+          <HR.Trimmed className="bg-blue-200 md:w-[12rem] md:mx-0 md:mt-3 md:mb-0" />
         </div>
         <div className="mr-6">
           <AddbtnFastCertif addNewFastCertif={addNewFastCertif} />
         </div>
       </div>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-8">
 
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-8">
         {fastCertif.length === 0 ? (
           <div className="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center col-span-full">
             Aucune dépenses supplémentaires pour le moment pour cette mois.
@@ -86,7 +85,7 @@ const FastCertif = () => {
                     {fastCertif.label}
                   </div>
                   <div className="text-gray-300 uppercase tracking-widest text-sm">
-                    {fastCertif.value_money} MAD
+                    {fastCertif.money} MAD
                   </div>
                 </div>
               </div>

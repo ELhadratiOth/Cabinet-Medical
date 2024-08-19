@@ -57,8 +57,8 @@ const Examination = () => {
       />
       <div className="w-full flex justify-between items-center rounded-md">
         <div className="text-3xl font-semibold px-2 py-2 rounded-md text-blue-900">
-          Les Examinations :
-          <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[16rem] md:mx-0 md:mb-0" />
+          Examen
+          <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[7rem] md:mx-0 md:mb-0" />
         </div>
         <div className="bg-blue-100 rounded-md border-2 border-blue-200 py-0.5 px-1 flex space-x-2 justify-start items-center">
           <div className="bg-white p-1.5 px-2 rounded-md text-blue-500 font-semibold">
@@ -78,7 +78,7 @@ const Examination = () => {
       <div className="space-y-10 flex flex-col justify-center items-center">
         {examinations.length === 0 ? (
           <div className="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center">
-            Aucune examination pour le moment pour ce patient.
+            Aucun examen pour ce patient.
           </div>
         ) : (
           examinations.map((examination, index) => (

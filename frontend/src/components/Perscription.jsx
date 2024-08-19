@@ -43,8 +43,8 @@ const Perscription = () => {
       />
       <div className="w-full flex justify-between items-center ">
         <div className="text-3xl font-semibold text-blue-700">
-          Créer Une Ordonnance
-          <HR.Trimmed className="bg-blue-300 md:w-[20rem] md:mx-0 md:mt-3 md:mb-0" />
+          Créer Ordonnance
+          <HR.Trimmed className="bg-blue-300 md:w-[17rem] md:mx-0 md:mt-3 md:mb-0" />
         </div>
         <div className="bg-blue-200 rounded-md border-2 border-blue-300 py-1 px-3 flex space-x-2 items-center">
           <div className="bg-white p-2 px-4 rounded-md text-blue-600 font-semibold">

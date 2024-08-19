@@ -48,8 +48,8 @@ const PatientDetail = () => {
       />
       <div className="text-4xl font-semibold flex justify-between items-center  ">
         <div className="self-start text-blue-900">
-          Patient Infos:
-          <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[15rem] md:mx-0 md:mb-0" />
+          Données patient
+          <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[18.2rem] md:mx-0 md:mb-0" />
         </div>
         <div className=" border-blue-200 bg-blue-100 px-1 h-fit rounded-md border flex justify-center items-center space-x-1">
           <PatientMenu firstname={firstname} lastname={lastname} />
@@ -73,14 +73,14 @@ const PatientDetail = () => {
         ) : (
           <dl className="-my-3 divide-y divide-gray-100/70 text-base">
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900">Nom Complet</dt>
+              <dt className="font-medium text-gray-900">Nom et Prénom</dt>
               <dd className="text-gray-700 sm:col-span-2 capitalize">
                 {patient.firstname + ' ' + patient.lastname}
               </dd>
             </div>
 
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900">Carte National</dt>
+              <dt className="font-medium text-gray-900">CINE</dt>
               <dd className="text-gray-700 sm:col-span-2">{patient.cin}</dd>
             </div>
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
@@ -98,7 +98,7 @@ const PatientDetail = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900">Gender</dt>
+              <dt className="font-medium text-gray-900">Sexe</dt>
               <dd className="text-gray-700 sm:col-span-2">{patient.gender}</dd>
             </div>
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
@@ -113,8 +113,8 @@ const PatientDetail = () => {
               </dd>
             </div>
 
-            <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50 sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900">Numero de Telephone</dt>
+            <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50 sm:grid-cols-3 normal-case	 sm:gap-4">
+              <dt className="font-medium text-gray-900">Numéro de Téléphone</dt>
               <dd className="text-gray-700 sm:col-span-2">
                 {patient.phonenumber}
               </dd>

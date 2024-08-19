@@ -66,7 +66,7 @@ const AddbtnAutre = ({ firstname, lastname, addNewAutre }) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Ajouter Un Test Sanguin
+            Ajouter
             <HR.Trimmed className="bg-blue-200 md:w-[12.5rem] md:mx-0 md:mt-3 md:mb-0" />
           </DialogTitle>
           <DialogDescription />
@@ -74,25 +74,25 @@ const AddbtnAutre = ({ firstname, lastname, addNewAutre }) => {
         <div className="grid gap-4 py-4">
           <div className="flex-col space-y-3 flex justify-start items-start">
             <Label htmlFor="test-label" className="">
-              Nom d&apos;Autre
+              Autre
             </Label>
             <Input
               id="test-label"
               value={autre.label}
               onChange={handleChange('label')}
-              placeholder="Saisir le nom du Autre"
+              placeholder="Saisir Autre"
               className="border-2 focus:border-0 border-blue-200  placeholder:text-gray-500/50"
             />
           </div>
           <div className="flex-col flex space-y-3  justify-start items-start">
             <Label htmlFor="test-description" className=" ">
-              Description d&apos;Autre
+              Observation
             </Label>
             <Textarea
               id="test-description"
               value={autre.description}
               onChange={handleChange('description')}
-              placeholder="Saisir une description du Autre"
+              placeholder="Observation"
               className="resize-none border-2 focus:border-0 border-blue-200  w-full placeholder:text-gray-500/50"
             />
           </div>

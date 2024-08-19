@@ -66,7 +66,7 @@ const AddbtnTestsang = ({ firstname, lastname, addNewTestsang }) => {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="bg-transparent border-0 space-x-2 text-base text-blue-500 hover:text-blue-700 hover:bg-white"
+          className="bg-transparent border-0 space-x-2 text-base text-gray-500 hover:text-gray-800 "
         >
           <AiOutlineFileAdd className="text-xl" /> <div>Ajouter</div>
         </Button>
@@ -74,8 +74,8 @@ const AddbtnTestsang = ({ firstname, lastname, addNewTestsang }) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Ajouter Un Test Sanguin
-            <HR.Trimmed className="bg-blue-200 md:w-[12.5rem] md:mx-0 md:mt-3 md:mb-0" />
+            Ajouter une tension artérielle
+            <HR.Trimmed className="bg-blue-200 md:w-[14.5rem] md:mx-0 md:mt-3 md:mb-0" />
           </DialogTitle>
           <DialogDescription />
         </DialogHeader>
@@ -114,12 +114,12 @@ const AddbtnTestsang = ({ firstname, lastname, addNewTestsang }) => {
             />
           </div>
           <div className="flex-col space-y-3 flex justify-start items-start">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Observation</Label>
             <Textarea
               id="description"
               value={testSang.description}
               onChange={handleChange('description')}
-              placeholder="Entrez une description d'Analyse sanguin"
+              placeholder="Observation"
               className="resize-none border-2 focus:border-0 border-blue-200 w-full placeholder:text-gray-500/50"
             />
           </div>

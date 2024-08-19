@@ -25,7 +25,7 @@ const HeaderBlock = ({ examination, index }) => (
   <Block className="col-span-12 row-span-2 md:col-span-6">
     <LiaFileMedicalAltSolid className="text-6xl -ml-2 text-blue-900" />
     <h1 className="mb-2 text-2xl font-medium leading-tight">
-      Examination N : {index + 1}
+      Examen N°{index + 1}
     </h1>
     <p className="text-lg font-semibold">{examination.description}</p>
     <div className="mt-2  flex flex-wrap gap-1 ">

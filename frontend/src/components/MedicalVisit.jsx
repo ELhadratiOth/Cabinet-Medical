@@ -90,7 +90,7 @@ const MedicalVisit = () => {
           <div className="space-y-6">
             <div className="bg-gray-100 shadow-lg p-4 rounded-lg border-l-4 border-blue-500">
               <h1 className="text-lg font-semibold mb-2 text-gray-800">
-                Description Du Visite :
+                Description de visite
               </h1>
               <p className="text-base leading-relaxed text-gray-600">
                 {visit.description}
@@ -98,7 +98,7 @@ const MedicalVisit = () => {
             </div>
             <div className="bg-gray-100 p-4 shadow-lg rounded-lg border-l-4 border-blue-500">
               <h1 className="text-lg font-semibold mb-2 text-gray-800">
-                Assurance type :
+                Type d&apos;assurance
                 <span className="ml-2 text-blue-500">{visit.insurance}</span>
               </h1>
               <p className="text-base leading-relaxed text-gray-600">
@@ -117,13 +117,14 @@ const MedicalVisit = () => {
                 <span className="font-semibold">{visit.type_visit}</span>
               </span>
               <span className="whitespace-nowrap rounded-full bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-600">
-                Montant : <span className="font-semibold">{visit.money} DH</span>
+                Montant :{' '}
+                <span className="font-semibold">{visit.money} DH</span>
               </span>
             </div>
           </div>
         ) : (
           <p className="text-base leading-relaxed text-gray-500">
-            No visit data available.
+            aucune visite médical pour ce patient
           </p>
         )}
       </Modal.Body>
@@ -147,13 +148,13 @@ const MedicalVisit = () => {
       />
       <div className="w-full flex justify-between items-center rounded-md ">
         <div className="text-2xl font-semibold px-2 py-2 rounded-md text-blue-900">
-          Les Visites Medicales :
-          <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[16rem] md:mx-0 md:mb-0" />
+          Visites Médicales
+          <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[12.5rem] md:mx-0 md:mb-0" />
         </div>
         <div className="bg-blue-100 rounded-md border-2 border-blue-200 py-0.5 px-1 flex space-x-2 justify-start items-center">
-          <div className="bg-white p- px-2 rounded-md text-blue-500 font-semibold">
+          <div className="bg-white p-1.5 px-2 rounded-md text-blue-500 font-semibold">
             Patient concerné :{' '}
-            <span className="capitalize font-bold">
+            <span className="capitalize font-bold ">
               {firstname + ' ' + lastname}
             </span>
           </div>
