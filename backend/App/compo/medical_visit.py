@@ -71,25 +71,26 @@ async def add_medical_visit_2_patient(
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=f"Error creating new medical visit: {str(e)}")
 
-# @router.put("/update/{visit_id}", response_model=BaseModels.MedicalVisitModel)
-# async def update_medical_visit(
-#     visit_id: int,
-#     medicalVisitUpdate: BaseModels.MedicalVisitBase,  
-#     db: Session = Depends(get_db)
-# ):
-#     visit = db.query(models.MedicalVisit).filter(models.MedicalVisit.id == visit_id).first()
+@router.put("/update/{visit_id}", response_model=BaseModels.MedicalVisitModel)
+async def update_medical_visit(
+    visit_id: int,
+    medicalVisitUpdate: BaseModels.MedicalVisitUpdate,  
+    db: Session = Depends(get_db)
+):
+    visit = db.query(models.MedicalVisit).filter(models.MedicalVisit.id == visit_id).first()
 
-#     if not visit:
-#         raise HTTPException(status_code=404, detail="Medical visit not found")
+    if not visit:
+        raise HTTPException(status_code=404, detail="Medical visit not found")
 
-#     update_data = medicalVisitUpdate.model_dump()
-#     for key, value in update_data.items():
-#         setattr(visit, key, value)
+    update_data = medicalVisitUpdate.model_dump(exclude_unset=True)  
+    
+    for key, value in update_data.items():
+        setattr(visit, key, value)
 
-#     db.commit()
-#     db.refresh(visit)
+    db.commit()
+    db.refresh(visit)
 
-#     return visit
+    return visit
 
 @router.delete("/delete/{visit_id}")
 async def delete_medical_visit(visit_id: int, db: Session = Depends(get_db)):

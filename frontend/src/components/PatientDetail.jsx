@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useLocation } from 'react-router-dom';
+import { useLocation , useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import API from '../API';
 import Alert from './Alert';
@@ -8,6 +8,7 @@ import PatientMenu from './PatientMenu';
 import Img from '../assets/img6.png';
 import { HR } from 'flowbite-react';
 const PatientDetail = () => {
+  const navigate = useNavigate();
   const [patient, setPatient] = useState({});
   const [error, setError] = useState(false);
   const location = useLocation();
@@ -36,6 +37,23 @@ const PatientDetail = () => {
   };
 
   useEffect(() => {
+    const verifyToken = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await API.get(`user/verify-token/${token}`);
+        console.log('Response Data:', response.data);
+
+        if (response.status !== 200) {
+          throw new Error('Token verification failed');
+        }
+      } catch (error) {
+        console.log('Verification Error:', error);
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    };
+
+    verifyToken();
     fetchPatientData();
   }, [firstname, lastname]);
 
@@ -48,7 +66,7 @@ const PatientDetail = () => {
       />
       <div className="text-4xl font-semibold flex justify-between items-center  ">
         <div className="self-start text-blue-900">
-          Données patient
+          Données Patient
           <HR.Trimmed className="bg-blue-200  md:mt-2 md:w-[18.2rem] md:mx-0 md:mb-0" />
         </div>
         <div className=" border-blue-200 bg-blue-100 px-1 h-fit rounded-md border flex justify-center items-center space-x-1">
@@ -84,7 +102,7 @@ const PatientDetail = () => {
               <dd className="text-gray-700 sm:col-span-2">{patient.cin}</dd>
             </div>
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900">Premier Visite</dt>
+              <dt className="font-medium text-gray-900">Date de Création</dt>
               <dd className="text-gray-700 sm:col-span-2">
                 {patient.first_visit}
               </dd>
@@ -100,17 +118,6 @@ const PatientDetail = () => {
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
               <dt className="font-medium text-gray-900">Sexe</dt>
               <dd className="text-gray-700 sm:col-span-2">{patient.gender}</dd>
-            </div>
-            <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900">Maladie</dt>
-              <dd className="text-gray-700 sm:col-span-2">{patient.disease}</dd>
-            </div>
-
-            <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50/70 backdrop-blur-sm sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900">Description</dt>
-              <dd className="text-gray-700 sm:col-span-2">
-                {patient.description}
-              </dd>
             </div>
 
             <div className="grid grid-cols-1 gap-1 p-3 even:bg-blue-50 sm:grid-cols-3 normal-case	 sm:gap-4">

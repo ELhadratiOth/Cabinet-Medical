@@ -16,8 +16,6 @@ class Patient(Base):
     birthday = Column(String(15))  # Date of birth (format: yyyy-mm-dd)
     gender = Column(String(20))  # Gender (0: male, 1: female)
     phonenumber = Column(String(20))  # Phone number
-    disease = Column(String(20))
-    description = Column(Text)  # Additional information about the patient
     first_visit = Column(String(20)) # la premier visite du patient
 
     medical_visits = relationship(
@@ -76,18 +74,23 @@ class MedicalVisit(Base):
     __tablename__ = "medical_visits"
 
     id = Column(Integer, primary_key=True, index=True)
-    date_visit = Column(String(15), default="fastcertif")  # Date of visit (format: yyyy-mm-dd)
-    hour_visit = Column(String(15), default="fastcertif")  # 02:59 PM
-    label = Column(String(100), default="fastcertif")  # Default value for label
-    description = Column(Text, default="fastcertif")  # Description of the medical visit
-    patient_id = Column(Integer, ForeignKey('patients.id', ondelete="SET NULL"))  # Foreign key to the patient
-    type_visit = Column(String(20), default="fastcertif")  # Default value for type_visit
-    insurance = Column(String(20), default="fastcertif")  # Default value for insurance
-    insurance_description = Column(Text, default="fastcertif")  # Description of insurance
-    money = Column(String(10), default="fastcertif")  # Default value for money
+    date_visit = Column(String(15) , default="empty")  # Date of visit (format: yyyy-mm-dd)
+    hour_visit = Column(String(15) , default="empty")  # 02:59 PM
+    label = Column(String(100) , default="empty")  # Label for the visit
+    description = Column(Text  , default="empty")  # Description of the medical visit
+    patient_id = Column(Integer, ForeignKey('patients.id', ondelete="SET NULL"))  #
+    type_visit = Column(String(20)   , default="empty")  # Type of visit
+    insurance = Column(String(20) ,   default="empty")  # Insurance type
+    insurance_description = Column(Text ,   default="empty")  # Description of insurance
+    money = Column(String(10)) 
+    medics = Column(Text , default="empty")  
 
     patient = relationship("Patient", back_populates="medical_visits")
 
+
+
+    
+    
 class Examination(Base):
     __tablename__ = "examinations"
 
@@ -167,3 +170,11 @@ class Charges(Base):
     creation_date = Column(String(15))  # (format: yyyy-mm-dd)
     label = Column(String(100))
     value_money = Column(String(20))
+    
+    
+class Users(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username =  Column(String(15) , unique=True  ,index=True )
+    password = Column(String(256))

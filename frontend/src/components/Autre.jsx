@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PatientMenu from './PatientMenu';
 import { useEffect, useState } from 'react';
 import API from '../API';
@@ -9,6 +9,7 @@ import { HR } from 'flowbite-react';
 import { MdDelete } from 'react-icons/md';
 
 const Autre = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const firstname = query.get('firstname');
@@ -26,8 +27,24 @@ const Autre = () => {
   };
 
   useEffect(() => {
+    const verifyToken = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await API.get(`user/verify-token/${token}`);
+        console.log('Response Data:', response.data);
+
+        if (response.status !== 200) {
+          throw new Error('Token verification failed');
+        }
+      } catch (error) {
+        console.log('Verification Error:', error);
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    };
+
+    verifyToken();
     fetchAutre();
-    console.log(autre);
   }, [firstname, lastname]);
 
   const addNewAutre = newAutre => {

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PatientMenu from './PatientMenu';
 import { useEffect, useState } from 'react';
 import API from '../API';
@@ -10,6 +10,7 @@ import AddbtnExamination from './AddbtnExamination';
 import { HR } from 'flowbite-react';
 
 const Examination = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const firstname = query.get('firstname');
@@ -20,20 +21,35 @@ const Examination = () => {
     try {
       const response = await API.get(`/examinations/${firstname}/${lastname}`);
       setExaminations(response.data);
-      console.log(response.data);
     } catch (error) {
       console.warn('Error fetching examinations:', error);
     }
   };
 
   useEffect(() => {
+    const verifyToken = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await API.get(`user/verify-token/${token}`);
+        console.log('Response Data:', response.data);
+
+        if (response.status !== 200) {
+          throw new Error('Token verification failed');
+        }
+      } catch (error) {
+        console.log('Verification Error:', error);
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    };
+
+    verifyToken();
+
     fetchExaminations();
-    console.log(examinations);
   }, [firstname, lastname]);
 
   const deleteExamination = async (e, id) => {
     e.stopPropagation();
-    console.log('clicked');
     try {
       await API.delete(`/examinations/delete/${id}`);
       setExaminations(prevExaminations =>

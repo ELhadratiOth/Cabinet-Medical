@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Img from '../assets/img3.png';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import API from '../API';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -38,7 +37,25 @@ export default function AddNewPatient() {
     });
 
     const navigate = useNavigate();
+    useEffect(() => {
+      const verifyToken = async () => {
+        const token = localStorage.getItem('token');
+        try {
+          const response = await API.get(`user/verify-token/${token}`);
+          console.log('Response Data:', response.data);
 
+          if (response.status !== 200) {
+            throw new Error('Token verification failed');
+          }
+        } catch (error) {
+          console.log('Verification Error:', error);
+          localStorage.removeItem('token');
+          navigate('/');
+        }
+      };
+
+      verifyToken();
+    }, []);
     const handleChange = field => event => {
       const value = event.target.value;
       setPatient(prevPatient => ({ ...prevPatient, [field]: value }));
@@ -163,27 +180,6 @@ export default function AddNewPatient() {
             </div>
           </div>
 
-          <div className="grid gap-2">
-            <Label htmlFor="maladie">Maladie</Label>
-            <Input
-              id="maladie"
-              type="text"
-              placeholder="Saisi la Maladie du patient"
-              value={patient.disease}
-              onChange={handleChange('disease')}
-              className="px-[10px] py-[11px] text-base bg-[#e8e8e8] ring-1 focus:ring-0 border-0 rounded-[5px] w-full focus:outline-none placeholder:text-black/25"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              placeholder="Enter a description"
-              value={patient.description}
-              onChange={handleChange('description')}
-              className="bg-[#e8e8e8] border-0 ring-1 focus:ring-0"
-            />
-          </div>
           <div className="flex justify-center items-center space-x-3">
             <div className="grid gap-2 w-1/2">
               <Label htmlFor="numero">Numéro du téléphone</Label>

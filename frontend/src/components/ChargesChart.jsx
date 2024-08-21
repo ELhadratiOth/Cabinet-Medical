@@ -15,8 +15,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TrendingUp, TrendingDown, ArrowRight } from 'lucide-react';
-import RecurringExpenses from './RecurringExpenses.js';
-
+import API from '../API';
+import { useEffect , useState } from 'react';
 const monthNamesFrench = {
   January: 'Janvier',
   February: 'Février',
@@ -35,19 +35,28 @@ const monthNamesFrench = {
 const chartConfig = {
   Revenus: {
     label: 'Revenus',
-    color: 'green', // Changed from blue to green for Revenus
+    color: 'green', 
   },
   charges: {
     label: 'Dépenses',
-    color: 'red', // Red for Charges
+    color: 'red', 
   },
 };
 
+
 const ChargesChart = ({ data, chargeData }) => {
-  const totalRecurringExpenses = RecurringExpenses.reduce(
-    (total, expense) => total + expense.value_money,
-    0,
-  );
+const [totalRecurringExpenses , setTotalRecurringExpenses] = useState("")
+  const fetchChargesSum = async () => {
+    try {
+      const response = await API.get(`/charges/reccurent`);
+      setTotalRecurringExpenses(response.data.reccurent_money)
+    } catch (error) {
+      console.warn('Error fetching charges:', error);
+    }
+  };
+  useEffect(() => {
+    fetchChargesSum();
+  }, []);
 
   const aggregateByMonth = (dataArray, dateField, valueField) => {
     const aggregatedData = {};
@@ -82,7 +91,7 @@ const ChargesChart = ({ data, chargeData }) => {
     revenusValue: revenue.value,
     chargesValue:
       (chargesData.find(charge => charge.month === revenue.month)?.value || 0) +
-      totalRecurringExpenses,
+      parseFloat(totalRecurringExpenses),
   }));
 
   const chartData = mergedData.reverse().map(item => ({

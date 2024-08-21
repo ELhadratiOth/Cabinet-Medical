@@ -1,8 +1,30 @@
 import PatientsTable from './PatientsTable';
 import Img from '../assets/img2.png';
 import { HR } from 'flowbite-react';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import API from '../API';
 const AllPatients = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const verifyToken = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await API.get(`user/verify-token/${token}`);
+        console.log('Response Data:', response.data);
+
+        if (response.status !== 200) {
+          throw new Error('Token verification failed');
+        }
+      } catch (error) {
+        console.log('Verification Error:', error);
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    };
+
+    verifyToken();
+  }, []);
   return (
     <div className="ml-60 px-10 mt-28 flex flex-col space-y-10 ">
       <img

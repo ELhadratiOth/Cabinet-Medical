@@ -6,13 +6,13 @@ import { HR, Spinner } from 'flowbite-react';
 import { MdWavingHand } from 'react-icons/md';
 import AreaChartt from './AreaChartt';
 import ChargesChart from './ChargesChart';
-
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const [apiData, setApiData] = useState([]);
   const [charges, setCharges] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [loadingCharges, setLoadingCharges] = useState(true);
-
+  const navigate = useNavigate();
   const fetchCharges = async () => {
     try {
       const response = await API.get('/charges/six_months_charges');
@@ -38,15 +38,30 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const error = console.error;
-    console.error = (...args) => {
-      if (/defaultProps/.test(args[0])) return;
-      error(...args);
-    }; // to remove the warning of grid chart
+    const verifyToken = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await API.get(
+          `user/verify-token/${token}`,
+        );
+        console.log('Response Data:', response.data);
 
+      
+        if (response.status !== 200) {
+          throw new Error('Token verification failed');
+        }
+      } catch (error) {
+        console.log('Verification Error:', error);
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    };
+
+    verifyToken();
     fetchPieData();
     fetchCharges();
-  }, []);
+  }, [navigate]);
+
 
   return (
     <div className="ml-60 px-10 space-y-8 mt-36 flex flex-col mb-20">

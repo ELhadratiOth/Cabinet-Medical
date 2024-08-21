@@ -104,11 +104,11 @@ export default function AddbtnMedicalVisit({
         <div className="flex flex-col space-y-5">
           <div className="space-y-2 flex flex-col items-start">
             <Label htmlFor="label" className="text-right">
-              Titre
+              Diagnostic
             </Label>
             <Input
               id="label"
-              placeholder="Saisir le Titre"
+              placeholder="Saisir Diagnostic"
               value={medical.label}
               onChange={handleChange('label')}
               className="resize-none bg-[#e8e8e8] px-3 py-2 border-0 ring-1 focus:ring-0 rounded-[5px] placeholder:text-black/25"
@@ -116,11 +116,11 @@ export default function AddbtnMedicalVisit({
           </div>
           <div className="space-y-2 flex flex-col items-start">
             <Label htmlFor="description" className="text-right">
-              Description
+              Observation
             </Label>
             <Textarea
               id="description"
-              placeholder="Description de la Visite"
+              placeholder="Observation"
               value={medical.description}
               onChange={handleChange('description')}
               className="resize-none bg-[#e8e8e8] w-full px-3 py-2 border-0 ring-1 focus:ring-0 rounded-[5px] placeholder:text-black/25"

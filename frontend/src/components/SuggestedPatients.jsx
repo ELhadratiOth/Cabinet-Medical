@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Img from '../assets/img12.png';
 import API from '../API';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,8 @@ import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 import { HR } from 'flowbite-react';
 
 const SuggestedPatients = () => {
+    const navigate = useNavigate();
+
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const name = query.get('name');
@@ -17,6 +19,23 @@ const SuggestedPatients = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+     const verifyToken = async () => {
+       const token = localStorage.getItem('token');
+       try {
+         const response = await API.get(`user/verify-token/${token}`);
+         console.log('Response Data:', response.data);
+
+         if (response.status !== 200) {
+           throw new Error('Token verification failed');
+         }
+       } catch (error) {
+         console.log('Verification Error:', error);
+         localStorage.removeItem('token');
+         navigate('/');
+       }
+     };
+
+     verifyToken();
     const fetchPatiens = async () => {
       console.log('1111 : ' + name)
       try {

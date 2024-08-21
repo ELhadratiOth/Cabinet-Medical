@@ -17,13 +17,15 @@ import Perscription from './components/Perscription';
 import SuggestedPatients from './components/SuggestedPatients';
 import Charges from './components/Charges';
 import FastCertif from './components/FastCertif';
+import LogPage from './components/LogPage';
 function App() {
   return (
     <Router>
       <NavBar />
       <DrawerCompo />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LogPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/patient" element={<PatientDetail />} />
         <Route path="/medicalVisit" element={<MedicalVisit />}></Route>
         <Route path="/examinations" element={<Examination />}></Route> /

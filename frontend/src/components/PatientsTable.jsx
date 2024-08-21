@@ -33,14 +33,12 @@ const PatientsTable = () => {
               Nom
             </th>
             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-              Premiere Visite
+              Date de création
             </th>
             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-              Maladie
+              Age
             </th>
-            <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-              Description
-            </th>
+
             <th className="px-4 py-2"></th>
           </tr>
         </thead>
@@ -65,10 +63,7 @@ const PatientsTable = () => {
                 {patient.first_visit}
               </td>
               <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                {patient.disease}
-              </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-700 max-w-xs overflow-hidden overflow-ellipsis">
-                {patient.description}
+                {patient.age} ans
               </td>
               <td className="whitespace-nowrap px-4 py-2">
                 <Link

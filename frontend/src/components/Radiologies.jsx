@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PatientMenu from './PatientMenu';
 import { useEffect, useState } from 'react';
 import API from '../API';
@@ -9,7 +9,8 @@ import AddbtnRadiology from './AddbtnRadiology';
 import { GiMedicalDrip } from 'react-icons/gi';
 import { HR } from 'flowbite-react';
 
-const Radiologies= () => {
+const Radiologies = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const firstname = query.get('firstname');
@@ -18,9 +19,7 @@ const Radiologies= () => {
 
   const fetchRadiology = async () => {
     try {
-      const response = await API.get(
-        `/radiologies/${firstname}/${lastname}`,
-      );
+      const response = await API.get(`/radiologies/${firstname}/${lastname}`);
       setRadiology(response.data);
       console.log(response.data);
     } catch (error) {
@@ -29,6 +28,23 @@ const Radiologies= () => {
   };
 
   useEffect(() => {
+    const verifyToken = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await API.get(`user/verify-token/${token}`);
+        console.log('Response Data:', response.data);
+
+        if (response.status !== 200) {
+          throw new Error('Token verification failed');
+        }
+      } catch (error) {
+        console.log('Verification Error:', error);
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    };
+
+    verifyToken();
     fetchRadiology();
   }, [firstname, lastname]);
 

@@ -6,10 +6,12 @@ import { MdDelete } from 'react-icons/md';
 import { HR } from 'flowbite-react';
 import AddbtnFastCertif from './AddbtnFastCertif';
 import { TbFileCertificate } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 
 
 const FastCertif = () => {
   const [fastCertif, setFastCertif] = useState([]);
+  const navigate = useNavigate();
 
   const fetchFastCertif = async () => {
     try {
@@ -24,6 +26,23 @@ const FastCertif = () => {
   };
 
   useEffect(() => {
+     const verifyToken = async () => {
+       const token = localStorage.getItem('token');
+       try {
+         const response = await API.get(`user/verify-token/${token}`);
+         console.log('Response Data:', response.data);
+
+         if (response.status !== 200) {
+           throw new Error('Token verification failed');
+         }
+       } catch (error) {
+         console.log('Verification Error:', error);
+         localStorage.removeItem('token');
+         navigate('/');
+       }
+     };
+
+     verifyToken();
     fetchFastCertif();
     console.log(fastCertif);
   }, []);
@@ -63,7 +82,7 @@ const FastCertif = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-8">
         {fastCertif.length === 0 ? (
           <div className="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center col-span-full">
-            Aucune dépenses supplémentaires pour le moment pour cette mois.
+            Aucune Autre Revenu.
           </div>
         ) : (
           fastCertif.map(fastCertif => (

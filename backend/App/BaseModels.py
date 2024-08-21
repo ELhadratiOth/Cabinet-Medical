@@ -5,8 +5,6 @@ class PatientBase(BaseModel):
     firstname: str
     lastname: str
     cin: Optional[str] = "Non Saisi"
-    description: Optional[str] = "Non Saisi"
-    disease: Optional[str] = "Non Saisi"
     birthday: Optional[str] = "Non Saisi"
     age : Optional[str] = "Non Saisi"
     gender: Optional[str] = "Non Saisi"
@@ -45,17 +43,26 @@ class PatientSummary(BaseModel):
 class MedicalVisitBase(BaseModel):
     label: Optional[str] = "Non Saisi"
     description: Optional[str] = "Non Saisi"
-    type_visit:Optional[str] = "Non Saisi"
+    type_visit: Optional[str] = "Non Saisi"
     insurance: Optional[str] = "Non Saisi"
     insurance_description: Optional[str] = "Non Saisi"
-    money:Optional[str] = "0"
+    money: Optional[str] = "0"
 
+class MedicalVisitUpdate(BaseModel):
+    label: Optional[str] = None
+    description: Optional[str] = None
+    type_visit: Optional[str] = None
+    insurance: Optional[str] = None
+    insurance_description: Optional[str] = None
+    money: Optional[str] = None
+    medics: Optional[str] = None
 
 class MedicalVisitModel(MedicalVisitBase):
     id: int
     patient_id: int
-    date_visit: Optional[str] = None 
+    date_visit: Optional[str] = None
     hour_visit: Optional[str] = None
+    medics : Optional[str] = "empty"
 
     class Config:
         from_attributes = True
@@ -183,3 +190,7 @@ class ChargeModel(ChargeBase):
         from_attributes = True
    
 
+
+class UserBase(BaseModel):
+    username : str 
+    password : str

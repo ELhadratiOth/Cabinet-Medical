@@ -30,6 +30,8 @@ const aggregateData = data => {
     }
     console.log('helps');
     console.log(item.type_visit === 'Nouvelle Visite');
+    console.log(item.type_visit );
+    console.log(item.insurance);
 
     const insuranceType =
       item.insurance.toLowerCase() === ''

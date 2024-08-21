@@ -1,23 +1,82 @@
 import Img from '../assets/img13.png';
 import { HR } from 'flowbite-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PatientMenu from './PatientMenu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import PDFTemplate from './PDFTEmplate';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import { Link } from 'react-router-dom';
+import API from '../API';
 
 const Perscription = () => {
+  const navigate = useNavigate();
+
+const suppressWarning = () => { // hode warning
+  const originalConsoleError = console.error;
+  console.error = (...args) => {
+    if (/validateDOMNesting/.test(args[0])) {
+      return;
+    }
+    originalConsoleError(...args);
+  };
+};
+
+  suppressWarning();
+  useEffect(() => {
+    const verifyToken = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await API.get(`user/verify-token/${token}`);
+        console.log('Response Data:', response.data);
+
+        if (response.status !== 200) {
+          throw new Error('Token verification failed');
+        }
+      } catch (error) {
+        console.log('Verification Error:', error);
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    };
+
+    verifyToken();
+  } , [])
+
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const firstname = query.get('firstname');
   const lastname = query.get('lastname');
+  const id_visit = query.get('id_visit')
   const [medications, setMedications] = useState([
     { id: Date.now(), name: '', description: '' },
   ]);
+
+ const fetchMedicalVisits = async () => {
+   try {
+     const response = await API.get(`/medical_visits/${firstname}/${lastname}`);
+     console.log(response.data);
+   } catch (error) {
+     console.warn('Error fetching medical visits:', error);
+   }
+ };
+ const formatMedicationsData = () => {
+   return medications.map(med => `${med.name}&${med.description}`).join('^'); // Use ^ or any delimiter you prefer
+ };
+  const updateMedic = async (e) => {
+    e.preventDefault();
+    const formatted = formatMedicationsData();
+   try {
+     await API.put(`/medical_visits/update/${id_visit}`, { medics: formatted });
+     fetchMedicalVisits(); // Refresh the medical visits after update
+   } catch (error) {
+     console.warn('Error updating medics:', error);
+   }
+ };
+
 
   const addMedication = () => {
     setMedications([
@@ -109,13 +168,18 @@ const Perscription = () => {
             type="submit"
             variant="primary"
             className="px-4 py-2 ring-2 ring-blue-500 hover:bg-blue-400 hover:text-white bg-blue-300 text-blue-800"
+            onClick={updateMedic}
           >
-            <PDFDownloadLink
-              document={<PDFTemplate medications={medications} />}
-              fileName={`${firstname}_${lastname}.pdf`}
+            <Link
+              to={`/medicalVisit?firstname=${firstname}&lastname=${lastname}`}
             >
-              Confirmer l&apos;ordonnance
-            </PDFDownloadLink>
+              <PDFDownloadLink
+                document={<PDFTemplate medications={medications} />}
+                fileName={`${firstname}_${lastname}.pdf`}
+              >
+                Confirmer l&apos;ordonnance
+              </PDFDownloadLink>
+            </Link>
           </Button>
         </div>
       </form>
