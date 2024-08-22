@@ -49,9 +49,6 @@ const AddbtnFastCertif = ({ addNewFastCertif }) => {
       label: fastCertif.label || 'Non Saisi',
       money: fastCertif.money || 'Non Saisi',
     };
-
-    console.log('FastCertif Added:', dataToSend);
-
     try {
       const response = await API.post(
         `/medical_visits/quick/certificat/add`,
@@ -118,7 +115,7 @@ const AddbtnFastCertif = ({ addNewFastCertif }) => {
               placeholder="Saisir le montant"
               className={`border-2 ${
                 errors.money ? 'border-red-500' : 'border-blue-200'
-              } w-full placeholder:text-gray-500/50`}
+              } focus:border-0 placeholder:text-gray-500/50`}
             />
           </div>
         </div>

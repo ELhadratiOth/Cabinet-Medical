@@ -36,7 +36,6 @@ const AddbtnAllergie = ({ firstname, lastname, addNewAllergie }) => {
       description: allergie.description || 'Non Saisi',
     };
 
-    console.log('Allergie added:', dataToSend);
 
     try {
       const response = await API.post(

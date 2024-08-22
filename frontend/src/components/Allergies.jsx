@@ -22,7 +22,7 @@ const Allergies = () => {
       const response = await API.get(`/allergies/${firstname}/${lastname}`);
       setAllergies(response.data);
     } catch (error) {
-      console.warn('Error fetching allergies:', error);
+      console.error('Error fetching allergies:', error);
     }
   };
 
@@ -43,7 +43,6 @@ const Allergies = () => {
 
     verifyToken();
     fetchAllergies();
-    console.log(allergies);
   }, [firstname, lastname]);
 
   const deleteAllergie = async (e, id) => {

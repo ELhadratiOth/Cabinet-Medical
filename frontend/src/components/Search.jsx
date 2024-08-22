@@ -27,8 +27,6 @@ export default function SearchBox() {
   };
 
   const handleSubmit = event => {
-      console.log('222 : ' + patientName);
-
     event.preventDefault();
     if (patientName.trim()) {
       setOpen(false);

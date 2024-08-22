@@ -44,7 +44,6 @@ export default function AddbtnMedicalVisit({
       heart_rate: examinations.heart_rate || '0',
       description: examinations.description || 'Non Saisi',
     };
-    console.log('Medical visit added:', dataToSend);
     try {
       const response = await API.post(
         `/examinations/add/${firstname}/${lastname}`,

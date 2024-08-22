@@ -35,8 +35,6 @@ const AddbtnAutre = ({ firstname, lastname, addNewAutre }) => {
       description: autre.description || 'Non Saisi',
     };
 
-    console.log('Test Sanguin added:', dataToSend);
-
     try {
       const response = await API.post(
         `/autres/add/${firstname}/${lastname}`,

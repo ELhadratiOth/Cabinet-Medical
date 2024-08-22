@@ -37,7 +37,7 @@ const Charges = () => {
       setRecurringExpenses(firstFourCharges);
       setCharges(remainingCharges);
     } catch (error) {
-      console.warn('Error fetching charges:', error);
+      console.error('Error fetching charges:', error);
     }
   };
 
@@ -46,13 +46,11 @@ const Charges = () => {
       const token = localStorage.getItem('token');
       try {
         const response = await API.get(`user/verify-token/${token}`);
-        console.log('Response Data:', response.data);
-
         if (response.status !== 200) {
           throw new Error('Token verification failed');
         }
       } catch (error) {
-        console.log('Verification Error:', error);
+        console.error('Verification Error:', error);
         localStorage.removeItem('token');
         navigate('/');
       }
@@ -136,17 +134,19 @@ const Charges = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle className="font-bold text-lg">Modifier</DialogTitle>
+            <DialogTitle className="font-bold text-lg">Modifier le Montant</DialogTitle>
             <DialogDescription></DialogDescription>
-            <div className="mb-4">
-              <Label htmlFor="chargeValue">Montant</Label>
+            <div className="mb-4 space-y-2">
+              <Label htmlFor="chargeValue"
+              
+              >Montant</Label>
               <Input
                 id="chargeValue"
                 type="number"
                 value={currentCharge.value_money}
                 onChange={handleInputChange}
-                className={
-                  isInputEmpty ? 'border-red-500 border-2' : 'border-0'
+                className={ 
+                  isInputEmpty ? 'border-red-500 border-2' : 'border-1 border-blue-400 focus:border-0'
                 }
               />
             </div>

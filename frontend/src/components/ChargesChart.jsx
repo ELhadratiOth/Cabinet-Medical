@@ -51,7 +51,7 @@ const [totalRecurringExpenses , setTotalRecurringExpenses] = useState("")
       const response = await API.get(`/charges/reccurent`);
       setTotalRecurringExpenses(response.data.reccurent_money)
     } catch (error) {
-      console.warn('Error fetching charges:', error);
+      console.error('Error fetching charges:', error);
     }
   };
   useEffect(() => {

@@ -11,13 +11,11 @@ const AllPatients = () => {
       const token = localStorage.getItem('token');
       try {
         const response = await API.get(`user/verify-token/${token}`);
-        console.log('Response Data:', response.data);
-
         if (response.status !== 200) {
           throw new Error('Token verification failed');
         }
       } catch (error) {
-        console.log('Verification Error:', error);
+        console.error('Verification Error:', error);
         localStorage.removeItem('token');
         navigate('/');
       }
@@ -35,7 +33,7 @@ const AllPatients = () => {
 
       <div className="text-3xl font-semibold capitalize text-blue-900  ">
         Historique des patients examinés
-        <HR.Trimmed className="bg-blue-200  md:mt-3 md:w-[23rem] md:mx-0 md:mb-0" />
+        <HR.Trimmed className="bg-blue-200  md:mt-3 md:w-[29.3rem] md:mx-0 md:mb-0" />
       </div>
 
       <PatientsTable />

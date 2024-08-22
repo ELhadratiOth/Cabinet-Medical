@@ -17,7 +17,6 @@ const Home = () => {
     try {
       const response = await API.get('/charges/six_months_charges');
       setCharges(response.data);
-      console.log('Fetched data for 6 months:', response.data);
     } catch (error) {
       console.error('Error fetching data for 6 months:', error);
     } finally {
@@ -29,7 +28,6 @@ const Home = () => {
     try {
       const response = await API.get('/piechart/data');
       setApiData(response.data);
-      console.log('Fetched data:', response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -44,14 +42,11 @@ const Home = () => {
         const response = await API.get(
           `user/verify-token/${token}`,
         );
-        console.log('Response Data:', response.data);
-
-      
+     
         if (response.status !== 200) {
           throw new Error('Token verification failed');
         }
       } catch (error) {
-        console.log('Verification Error:', error);
         localStorage.removeItem('token');
         navigate('/');
       }

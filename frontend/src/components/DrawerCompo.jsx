@@ -8,6 +8,9 @@ import { RiUserSearchFill } from 'react-icons/ri';
 import { SiWebmoney } from 'react-icons/si';
 import { TbFileCertificate } from 'react-icons/tb';
 import { useEffect, useState } from 'react';
+import { FaPeopleGroup } from 'react-icons/fa6';
+import { RiUserAddFill } from 'react-icons/ri';
+import { FaUserDoctor } from 'react-icons/fa6';
 
 export default function DrawerCompo() {
   const location = useLocation();
@@ -28,6 +31,7 @@ export default function DrawerCompo() {
           <div>
             <div className="inline-flex pb-5 pt-[1.5rem] w-full items-center justify-center">
               <div className="py-3 flex justify-center items-center space-x-3 px-5 text-base font-bold place-content-center rounded-lg bg-gray-100 text-gray-600">
+                <FaUserDoctor className="text-2xl" />
                 <div>Ilham Ouzzahra</div>
               </div>
             </div>
@@ -50,6 +54,7 @@ export default function DrawerCompo() {
                       to="/allpatients"
                       className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                     >
+                      <FaPeopleGroup className="ml-5" />
                       <div>Nos Patients</div>
                     </Link>
                   </li>
@@ -67,6 +72,7 @@ export default function DrawerCompo() {
                       to="/newpatient"
                       className="group relative flex justify-start items-center space-x-3 rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                     >
+                      <RiUserAddFill className="font-bold ml-5" />
                       <div>Nouveau patient</div>
                     </Link>
                   </li>

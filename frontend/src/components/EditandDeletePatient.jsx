@@ -23,7 +23,6 @@ import {
   DialogTrigger,
   DialogClose,
 } from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Alert from './Alert';
@@ -164,6 +163,8 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                     }`}
                   />
                 </div>
+              </div>
+              <div className="flex space-x-4">
                 <div className="grid gap-2 w-full">
                   <Label htmlFor="cin">CIN</Label>
                   <Input
@@ -231,28 +232,6 @@ const PatientEditAndDelete = ({ patient_data, update_patient_data }) => {
                     onChange={handleChange('phonenumber')}
                   />
                 </div>
-              </div>
-
-              <div className="grid gap-2 w-full">
-                <Label htmlFor="maladie">Maladie</Label>
-                <Input
-                  className="input px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 focus:outline-none placeholder:text-black/25"
-                  id="maladie"
-                  type="text"
-                  placeholder="Saisir la maladie du patient"
-                  value={patient.disease || ''}
-                  onChange={handleChange('disease')}
-                />
-              </div>
-              <div className="grid gap-2 w-full">
-                <Label htmlFor="observation">Obsérvation</Label>
-                <Textarea
-                  className="px-[10px] py-[11px] text-base bg-[#e8e8e8] rounded-[5px] w-full border-0 ring-1 focus:ring-0 focus:outline-none placeholder:text-black/25"
-                  id="observation"
-                  placeholder="Saisir les obsérvations concernant le patient"
-                  value={patient.description || ''}
-                  onChange={handleChange('description')}
-                />
               </div>
 
               <div className="flex justify-end space-x-3">

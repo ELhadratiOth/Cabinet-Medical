@@ -50,8 +50,6 @@ const AddbtnCharge = ({ addNewCharge }) => {
       value_money: charge.value_money || 'Non Saisi',
     };
 
-    console.log('Charge Added:', dataToSend);
-
     try {
       const response = await API.post(
         `/charges/create?label=${dataToSend.label}&value_money=${dataToSend.value_money}`,

@@ -21,9 +21,8 @@ const Radiologies = () => {
     try {
       const response = await API.get(`/radiologies/${firstname}/${lastname}`);
       setRadiology(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.warn('Error fetching radiology :', error);
+      console.error('Error fetching radiology :', error);
     }
   };
 
@@ -32,13 +31,11 @@ const Radiologies = () => {
       const token = localStorage.getItem('token');
       try {
         const response = await API.get(`user/verify-token/${token}`);
-        console.log('Response Data:', response.data);
-
         if (response.status !== 200) {
           throw new Error('Token verification failed');
         }
       } catch (error) {
-        console.log('Verification Error:', error);
+        console.error('Verification Error:', error);
         localStorage.removeItem('token');
         navigate('/');
       }
@@ -50,7 +47,6 @@ const Radiologies = () => {
 
   const deleteRadiology = async (e, id) => {
     e.stopPropagation();
-    console.log('clicked');
     try {
       await API.delete(`/radiologies/delete/${id}`);
       setRadiology(prevState =>

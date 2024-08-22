@@ -60,9 +60,6 @@ export default function AddbtnMedicalVisit({
       insurance: medical.insurance || 'Non Saisi',
       money: medical.money || '0',
     };
-
-    console.log('Medical visit added:', dataToSend);
-
     try {
       const response = await API.post(
         `/medical_visits/add/${firstname}/${lastname}`,

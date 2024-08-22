@@ -42,13 +42,12 @@ export default function AddNewPatient() {
         const token = localStorage.getItem('token');
         try {
           const response = await API.get(`user/verify-token/${token}`);
-          console.log('Response Data:', response.data);
 
           if (response.status !== 200) {
             throw new Error('Token verification failed');
           }
         } catch (error) {
-          console.log('Verification Error:', error);
+          console.err('Verification Error:', error);
           localStorage.removeItem('token');
           navigate('/');
         }
@@ -98,13 +97,10 @@ export default function AddNewPatient() {
           updatedPatient[key] = 'Non Saisi';
         }
       }
-
-      console.log('Patient 2 sent :', updatedPatient);
-
       try {
         await API.post('/patients/add', updatedPatient);
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error adding new patient:', error);
       }
 
       navigate(

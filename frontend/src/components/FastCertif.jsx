@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import API from '../API';
-import Img from '../assets/img111.png';
+import Img from '../assets/img15.png';
 import { MdDelete } from 'react-icons/md';
 import { HR } from 'flowbite-react';
 import AddbtnFastCertif from './AddbtnFastCertif';
@@ -19,9 +19,8 @@ const FastCertif = () => {
         `/medical_visits/quick/certificat/current/month`,
       );
       setFastCertif(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.warn('Error fetching fastCertif:', error);
+      console.error('Error fetching fastCertif:', error);
     }
   };
 
@@ -30,13 +29,11 @@ const FastCertif = () => {
        const token = localStorage.getItem('token');
        try {
          const response = await API.get(`user/verify-token/${token}`);
-         console.log('Response Data:', response.data);
-
          if (response.status !== 200) {
            throw new Error('Token verification failed');
          }
        } catch (error) {
-         console.log('Verification Error:', error);
+         console.error('Verification Error:', error);
          localStorage.removeItem('token');
          navigate('/');
        }
@@ -44,14 +41,12 @@ const FastCertif = () => {
 
      verifyToken();
     fetchFastCertif();
-    console.log(fastCertif);
   }, []);
   const addNewFastCertif = newFastCertif => {
     setFastCertif(prevFastCertif => [newFastCertif, ...prevFastCertif]);
   };
   const deleteFastCertif = async (e, id) => {
     e.stopPropagation();
-    console.log('clicked');
     try {
       await API.delete(`/medical_visits/delete/${id}`);
       setFastCertif(prevFastCertif =>

@@ -34,9 +34,6 @@ const AddbtnVaccin = ({ firstname, lastname, addNewVaccin }) => {
       label: vaccin.label || 'Non Saisi',
       description: vaccin.description || 'Non Saisi',
     };
-
-    console.log('Vaccin added:', dataToSend);
-
     try {
       const response = await API.post(
         `/vaccins/add/${firstname}/${lastname}`,

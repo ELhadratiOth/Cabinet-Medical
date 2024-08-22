@@ -23,13 +23,11 @@ const SuggestedPatients = () => {
        const token = localStorage.getItem('token');
        try {
          const response = await API.get(`user/verify-token/${token}`);
-         console.log('Response Data:', response.data);
-
          if (response.status !== 200) {
            throw new Error('Token verification failed');
          }
        } catch (error) {
-         console.log('Verification Error:', error);
+         console.error('Verification Error:', error);
          localStorage.removeItem('token');
          navigate('/');
        }
@@ -37,7 +35,6 @@ const SuggestedPatients = () => {
 
      verifyToken();
     const fetchPatiens = async () => {
-      console.log('1111 : ' + name)
       try {
         setLoading(true);
         const response = await API.get(`patients/search_by_like/${name.toLocaleUpperCase()}`);

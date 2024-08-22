@@ -36,8 +36,6 @@ const monthNames = [
 ];
 
 const processData = data => {
-  console.log("my data");
-  console.log(data)
   const monthlyTotals = data.reduce((acc, entry) => {
     const [year, month] = entry.date_visit.split('-');
     const key = `${year}-${month}`;

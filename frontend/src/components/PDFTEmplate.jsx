@@ -34,9 +34,9 @@ const PDFTemplate = ({ medications }) => {
       <Page size={[420, 595]} style={styles.body}>
         <View style={styles.content}>
           {medications.map((med, index) => (
-            <Text key={med.id} style={styles.medication}>
+            <Text key={index} style={styles.medication}>
               <Text style={styles.medicationName}>
-                {index + 1}-{' '} {med.name}
+                {index + 1}- {med.name}
               </Text>
               {'\n'}
               {'\n'}
