@@ -23,7 +23,6 @@
     "date-fns": "^3.6.0",
     "flowbite-react": "^0.10.1",
     "framer-motion": "^11.3.21",
-    "input-otp": "^1.2.4",
     "lucide-react": "^0.424.0",
     "react": "^18.3.1",
     "react-datepicker": "^7.3.0",

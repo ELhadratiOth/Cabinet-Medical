@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Img from '../assets/img13.png';
 import { HR } from 'flowbite-react';
 import { useLocation, useNavigate } from 'react-router-dom';

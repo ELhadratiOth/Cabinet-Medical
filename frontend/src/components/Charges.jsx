@@ -220,9 +220,9 @@ const Charges = () => {
             >
               <div
                 onClick={e => deleteCharge(e, charge.id)}
-                className="absolute group hover:bg-red-600 -top-[0%] pl-1.5 py-3 -right-[0%] bg-red-500 text-center rounded-tl-xl shadow-xl z-10"
+                className="absolute group hover:bg-red-600 -top-[5%] p-4 pl-3 pb-3 -right-[5%] bg-red-500 text-center rounded-full shadow-xl z-10"
               >
-                <MdDelete className="text-2xl text-white mx-auto" />
+                <MdDelete className="text-3xl text-white mx-auto" />
               </div>
               <div className="flex flex-col justify-start space-x-8 items-start mt-5 mb-5">
                 <MdAccountBalanceWallet className="text-blue-700 text-6xl ml-6 mb-3" />

@@ -50,7 +50,7 @@ const PatientMenu = ({ firstname, lastname }) => {
             />
             <Option
               icon={MdOutlineBloodtype}
-              text="Analyses Du Sang"
+              text="Tension Artérielle"
               path={`/testSang?firstname=${firstname}&lastname=${lastname}`}
             />
             <Option

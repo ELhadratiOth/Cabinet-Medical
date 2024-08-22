@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Img from '../assets/login.jpg';
+import Img from '../assets/im3.png';
 import Img2 from '../assets/lg.png';
 import {
   RiDoubleQuotesL,
@@ -59,11 +59,11 @@ export default function LogPage() {
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
-        <section className="relative flex h-32 items-end justify-center bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+        <section className="relative  flex h-32 items-end justify-center bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt="Background"
             src={Img}
-            className="absolute inset-0 h-full w-full object-cover opacity-80"
+            className="absolute  inset-0 h-full w-full object-cover opacity-80"
           />
           <div className="lg:relative lg:block mb-6">
             <div className="bg-black/50 py-2 px-12 shadow-md rounded-lg backdrop-blur-sm">
@@ -84,8 +84,8 @@ export default function LogPage() {
           </div>
         </section>
 
-        <main className="flex items-center justify-center px-8 py-8 bg-[#eceded] sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-          <div className="backdrop-blur-lg bg-white/30 rounded-lg p-8 pt-4 shadow-lg w-full max-w-md">
+        <main className="flex items-center justify-center px-8 py-8 bg-[#edfaff] sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+          <div className=" bg-white/20 backdrop-blur-xl rounded-lg p-8 pt-4 shadow-lg w-full max-w-md">
             <div className="flex justify-center flex-col items-center mb-6">
               <img
                 src={Img2}

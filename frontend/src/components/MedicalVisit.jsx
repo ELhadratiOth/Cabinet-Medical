@@ -134,7 +134,7 @@ const MedicalVisit = () => {
                 >
                   <MdReviews className="text-xl p-0 " />
 
-                  <p>Detail d&apos;Ordonnace</p>
+                  <p>Detail Ordonnace</p>
                 </div>
               </div>
             )}
