@@ -29,18 +29,30 @@ export default function LogPage() {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
     if (validateForm()) {
       setLoading(true);
+
       const formDetails = new URLSearchParams();
+      formDetails.append('grant_type', 'password');
       formDetails.append('username', username);
       formDetails.append('password', password);
+      formDetails.append('scope', '');
+      formDetails.append('client_id', 'string');
+      formDetails.append('client_secret', 'string');
+
       try {
-        const response = await fetch('http://127.0.0.1:8000/user/token', {
+        const response = await fetch('http://localhost:8000/user/token', {
           method: 'POST',
           body: formDetails,
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+          },
         });
+
         setLoading(false);
+
         if (response.ok) {
           const data = await response.json();
           localStorage.setItem('token', data.access_token);
@@ -51,10 +63,12 @@ export default function LogPage() {
         }
       } catch (error) {
         setLoading(false);
+        console.error('An error occurred:', error);
         setError('An error occurred. Please try again later.');
       }
     }
   };
+
 
   return (
     <section className="bg-white">

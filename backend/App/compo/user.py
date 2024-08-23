@@ -8,7 +8,6 @@ from passlib.context import CryptContext # type: ignore
 from datetime import datetime, timedelta
 from pytz import timezone
 
-# Define  scheme
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
