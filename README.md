@@ -28,7 +28,7 @@
 ## Tech Stack
 
 - **Frontend**: React, Tailwind CSS, ShadCN
-- **Backend**: FastAPI, Python, SQLAlchemy
+- **Backend**: FastAPI, SQLAlchemy
 - **Database**: MySQL/SQLite
 - **Containerization**: Docker
 
