@@ -102,7 +102,7 @@ If you prefer to set up the project manually:
 
 After starting the application, the admin dashboard can be accessed at `http://localhost:5173`. The dashboard provides various features, including:
 
-- **Patient Management**: View, add, update, and delete patient records.
+- **Patient Management**: View, add, update, and delete patient records, and more services .
 - **Revenue Insights**: Track the revenue generated over time with detailed financial reports.
 - **Data Analysis**: Analyze key metrics through interactive charts and graphs to make informed decisions.
 
