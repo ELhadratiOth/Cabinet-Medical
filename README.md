@@ -77,7 +77,7 @@ If you prefer to set up the project manually:
      ```
    - Start the FastAPI server:
      ```bash
-     uvicorn App.main:app --reload
+     uvicorn App.api:app --reload
      ```
 
 3. **Frontend Setup**:
@@ -119,8 +119,7 @@ The version of the two images are : v1.0
 ```
 /
 ├── backend/
-│   ├── app/
-│   ├── main.py
+│   ├── App/
 │   └── requirements.txt
 ├── frontend/
 │   ├── src/
