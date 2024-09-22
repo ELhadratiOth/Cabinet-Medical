@@ -15,4 +15,4 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=sqlite:///./medicaloffice.db
+      - DATABASE_URL=sqlite:///./database/medicaloffice.db

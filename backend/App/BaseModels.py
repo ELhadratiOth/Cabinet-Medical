@@ -19,8 +19,6 @@ class PatientUpdate(BaseModel):
     birthday: Optional[str]
     gender: Optional[str]
     phonenumber: Optional[str]
-    disease: Optional[str]
-    description: Optional[str]
 
 
 class PatientModel(PatientBase):

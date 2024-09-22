@@ -5,7 +5,7 @@ from typing import List
 from datetime import datetime, timedelta
 
 from App import models, BaseModels
-from App.database import get_db # type: ignore
+from database.database import get_db # type: ignore
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 

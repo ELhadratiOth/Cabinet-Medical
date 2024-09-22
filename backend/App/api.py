@@ -4,7 +4,7 @@ from App.compo import (
     patient, medical_visit, examination, vaccin, allergie, radiology, piechart, testsang, autres, charges , user
 )
 from . import models
-from .database import engine, get_db
+from database.database import engine, get_db
 from sqlalchemy.orm import Session
 from contextlib import asynccontextmanager
 
