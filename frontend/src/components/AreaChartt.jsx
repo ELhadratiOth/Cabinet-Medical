@@ -25,18 +25,19 @@ const aggregateData = data => {
     const month = new Date(item.date_visit).toLocaleString('fr-FR', {
       month: 'long',
     });
+
     if (!result[month]) {
-      result[month] = { month, cnss: 0, non_assure: 0, assurance: 0 };
+      result[month] = { month, CNSS: 0, None: 0, Assurance: 0 };
     }
-    const insuranceType =
-      item.insurance.toLowerCase() === ''
-        ? 'non_assure'
-        : item.insurance.toLowerCase();
-    if (
-      result[month][insuranceType] !== undefined &&
-      item.type_visit === 'Nouvelle Visite'
-    ) {
-      result[month][insuranceType] += 1;
+
+    const insuranceType = item.insurance.trim().toLowerCase().replace(' ', '');
+
+    if (insuranceType === 'cnss') {
+      result[month].CNSS += item.type_visit === 'Nouvelle Visite' ? 1 : 0;
+    } else if (insuranceType === 'assurance') {
+      result[month].Assurance += item.type_visit === 'Nouvelle Visite' ? 1 : 0;
+    } else {
+      result[month].None += item.type_visit === 'Nouvelle Visite' ? 1 : 0;
     }
   });
 
@@ -46,12 +47,12 @@ const aggregateData = data => {
 const calculateTotals = chartData => {
   return chartData.reduce(
     (totals, current) => {
-      totals.cnss += current.cnss || 0;
-      totals.non_assure += current.non_assure || 0;
-      totals.assurance += current.assurance || 0;
+      totals.CNSS += current.CNSS || 0;
+      totals.None += current.None || 0;
+      totals.Assurance += current.Assurance || 0;
       return totals;
     },
-    { cnss: 0, non_assure: 0, assurance: 0 },
+    { CNSS: 0, None: 0, Assurance: 0 },
   );
 };
 
@@ -64,15 +65,15 @@ const getLast12MonthsData = data => {
 };
 
 const chartConfig = {
-  cnss: {
+  CNSS: {
     label: 'CNSS',
     color: 'blue',
   },
-  non_assure: {
+  None: {
     label: 'Non assuré',
     color: 'green',
   },
-  assurance: {
+  Assurance: {
     label: 'Assurance',
     color: 'red',
   },
@@ -109,23 +110,23 @@ export default function Component({ data }) {
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
-              dataKey="cnss"
+              dataKey="CNSS"
               type="monotone"
-              stroke={chartConfig.cnss.color}
+              stroke={chartConfig.CNSS.color}
               strokeWidth={2}
               dot={true}
             />
             <Line
-              dataKey="non_assure"
+              dataKey="None"
               type="monotone"
-              stroke={chartConfig.non_assure.color}
+              stroke={chartConfig.None.color}
               strokeWidth={2}
               dot={true}
             />
             <Line
-              dataKey="assurance"
+              dataKey="Assurance"
               type="monotone"
-              stroke={chartConfig.assurance.color}
+              stroke={chartConfig.Assurance.color}
               strokeWidth={2}
               dot={true}
             />
@@ -143,21 +144,21 @@ export default function Component({ data }) {
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-blue-500 rounded"></div>
                   <p className="text-blue-500 text-xs">
-                    CNSS : <span className="font-bold">{totals.cnss}</span>
+                    CNSS : <span className="font-bold">{totals.CNSS}</span>
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-green-500 rounded"></div>
                   <p className="text-green-500 text-xs">
                     Non assuré :{' '}
-                    <span className="font-bold">{totals.non_assure}</span>
+                    <span className="font-bold">{totals.None}</span>
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded"></div>
                   <p className="text-red-500 text-xs">
                     Assurance :{' '}
-                    <span className="font-bold">{totals.assurance}</span>
+                    <span className="font-bold">{totals.Assurance}</span>
                   </p>
                 </div>
               </div>

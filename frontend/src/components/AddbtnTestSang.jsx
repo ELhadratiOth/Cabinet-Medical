@@ -28,8 +28,13 @@ const AddbtnTestsang = ({ firstname, lastname, addNewTestsang }) => {
 
   const handleChange = field => event => {
     // Accept only valid decimal numbers
+    console.log(event);
     const value = event.target.value;
-    if (/^\d*\.?\d*$/.test(value)) {
+    const { id } = event.target;
+    if (/^\d*\.?\d*$/.test(value) && id !== 'description') {
+      setTestSang({ ...testSang, [field]: value });
+    }
+    else if (id === 'description') {
       setTestSang({ ...testSang, [field]: value });
     }
   };
