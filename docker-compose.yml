@@ -3,6 +3,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+
+    image: othmanelhadrati/frontendapp:v1.1
+
     ports:
       - "5173:5173"
     depends_on:
@@ -12,6 +15,9 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      
+    image: othmanelhadrati/backendapp:v1.1
+
     ports:
       - "8000:8000"
     environment:
