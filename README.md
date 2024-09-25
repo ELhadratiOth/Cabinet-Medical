@@ -112,7 +112,7 @@ The Docker images for both the backend and frontend are available on Docker Hub:
 
 - [Backend Image](https://hub.docker.com/r/othmanelhadrati/backendapp)
 - [Frontend Image](https://hub.docker.com/r/othmanelhadrati/frontendapp)
-The version of the two images are : v1.0
+The version of the two images are : v1.1
 
 ## Project Structure
 
