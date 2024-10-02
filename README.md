@@ -4,6 +4,8 @@
 
 **Medical Office Management** is a comprehensive system designed to optimize the administrative tasks of a medical office. This project is focused solely on the admin (doctor) side, providing a robust interface for doctors and administrative staff to manage patient records, appointments, and financial data efficiently. The project is built using FastAPI for the backend, React with Tailwind CSS and ShadCN for the frontend, MySQL as the database, and JWT authentication for more security, all containerized using Docker for easy deployment.
 
+## demonstration video : https://www.linkedin.com/posts/othman-el-hadrati-91aa98243_medicaltech-fastapi-react-activity-7245071935586410496-ssoR?utm_source=share&utm_medium=member_android 
+
 ## Table of Contents
 
 - [Features](#features)
